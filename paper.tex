@@ -1,0 +1,347 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,margin=22mm]{geometry}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+\definecolor{primary}{RGB}{24,74,132}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=primary,
+  citecolor=primary,
+  urlcolor=primary
+}
+
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\parindent}{0pt}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\mult}{mult}
+\DeclareMathOperator{\spec}{spec}
+\DeclareMathOperator{\Deg}{Deg}
+\DeclareMathOperator{\diam}{diam}
+
+\newcommand{\takeaway}[2]{%
+  \vspace{6pt}\noindent\colorbox{primary!8}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+      \vspace{3pt}\textbf{\color{primary}#1:}\hspace{0.5em}#2\vspace{3pt}%
+    }%
+  }\vspace{6pt}%
+}
+
+\title{\textbf{Disproof of the Dilworth Multiplicity Conjecture for the Distance Signless Laplacian of $\mathcal{C}$-Graphs and a Sharp Bound for Threshold Graphs}}
+\author{Research Note}
+\date{November 26, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Mandal and Manna (\href{https://arxiv.org/abs/2610.08599}{arXiv:2610.08599}, 2026), and subsequently Manna, Mandal, and Tura (\href{https://arxiv.org/abs/2611.06981}{arXiv:2611.06981}, 2026, Conjecture~10.10 and Open Problem~14.6), conjectured that for every connected $\mathcal{C}$-graph $G$, every non-local eigenvalue $\theta \notin \mathcal{T}^Q(G)$ of the distance signless Laplacian matrix $D^Q(G)$ satisfies $\mult_{D^Q(G)}(\theta) \le \nabla(G)$, where $\nabla(G)$ is the Dilworth number of $G$. We refute this conjecture by constructing an infinite family of counterexamples: for every integer $k \ge 1$, the connected $\mathcal{C}$-graph $G_k = C(k, 1, 1, \dots, 1)$ with $m = 2k+6$ blocks ($n = 3k+5$ vertices) has $\nabla(G_k) = 1$, yet $\theta_k = 4k+4 \notin \mathcal{T}^Q(G_k)$ is an eigenvalue of $D^Q(G_k)$ of multiplicity~$2$. The smallest counterexample ($k=1$) is the $8$-vertex antiregular graph $H_8 = C(1,1,1,1,1,1,1,1)$. Along the way, we establish the exact closed-form Dilworth number $\nabla(C(\alpha_1,\dots,\alpha_m)) = 1 + |\{j \in \{3,\dots,m\} : \alpha_j \ge 2\}|$ for all connected $\mathcal{C}$-graphs (characterizing which $\mathcal{C}$-graphs are threshold graphs). Finally, we prove that every non-local eigenvalue of the ordinary signless Laplacian $Q(G)$ of a connected threshold graph is simple; via the rank-one identity $D^Q(G) = (2n-4)I - Q(G) + 2J$, this yields the sharp repaired bound $\mult_{D^Q(G)}(\theta) \le 2 = \nabla(G) + 1$ for all connected threshold graphs (including all $\mathcal{C}$-graphs with $\nabla(G)=1$).
+\end{abstract}
+
+\textbf{Keywords:} Distance signless Laplacian, $\mathcal{C}$-graph, cograph, threshold graph, Dilworth number, eigenvalue multiplicity, signless Laplacian.
+
+\textbf{2020 Mathematics Subject Classification:} 05C50, 15A18.
+
+\section{Introduction}
+
+Let $G = (V, E)$ be a finite, simple, connected undirected graph on $n$ vertices with adjacency matrix $A(G)$, diagonal degree matrix $\Deg(G)$, distance matrix $D(G) = (d(u,v))_{u,v\in V}$, and diagonal transmission matrix $\Tr(G) = \mathrm{diag}(\Tr(v))_{v\in V}$, where $\Tr(v) = \sum_{u\in V} d(u,v)$. The \emph{signless Laplacian} and \emph{distance signless Laplacian} matrices of $G$ are defined respectively by
+\[
+  Q(G) = \Deg(G) + A(G), \qquad D^Q(G) = \Tr(G) + D(G).
+\]
+Introduced by Aouchiche and Hansen~\cite{AH2016}, the distance signless Laplacian has attracted substantial recent attention, particularly on cographs ($P_4$-free graphs) and their structured subclasses.
+
+Mandal and Mehatari~\cite{MM2025} introduced the subclass of \emph{$\mathcal{C}$-graphs}, generated from a finite creation sequence $(\alpha_1, \dots, \alpha_m)$ of positive integers summing to $n$ by the recurrence
+\[
+  C(\alpha_1) = \overline{K_{\alpha_1}}, \qquad
+  C(\alpha_1,\dots,\alpha_i) = \overline{\,C(\alpha_1,\dots,\alpha_{i-1}) \cup K_{\alpha_i}\,} \quad (i \ge 2),
+\]
+where $\cup$ denotes disjoint union and the overline denotes graph complementation. Every $\mathcal{C}$-graph with $m \ge 2$ even is connected (being the complement of a disconnected graph) and has diameter at most~$2$, with vertex partition into blocks $C_1,\dots,C_m$ of sizes $|C_i|=\alpha_i$. By~\cite[Proposition~4.2]{MM2026}, for $m$ even:
+\begin{itemize}
+  \item $C_i$ is a clique if $i$ is odd, and an independent set if $i$ is even;
+  \item for $1 \le i < j \le m$, every vertex of $C_i$ is adjacent to every vertex of $C_j$ if $j$ is even, and to none if $j$ is odd.
+\end{itemize}
+Each block $C_i$ is a set of twins sharing a common degree $d_i$ and transmission $\Tr_i = 2(n-1)-d_i$. For each block with $\alpha_i \ge 2$, twin-difference vectors $e_u - e_v$ ($u,v\in C_i$) yield the local $D^Q(G)$-eigenvalue $\Tr_i - 1$ (if $i$ is odd) or $\Tr_i - 2$ (if $i$ is even), with multiplicity at least $\alpha_i - 1$~\cite[Theorem~4.1]{MM2026}. The set of local block eigenvalues is
+\[
+  \mathcal{T}^Q(G) = \{\Tr_i - 1 : i\text{ odd},\, \alpha_i \ge 2\} \cup \{\Tr_i - 2 : i\text{ even},\, \alpha_i \ge 2\}.
+\]
+The remaining $m$ eigenvalues of $D^Q(G)$ are precisely the eigenvalues of the $m \times m$ equitable quotient matrix $Q_{D^Q}$~\cite[Theorem~4.3]{MM2026}, whose entries are
+\begin{equation}\label{eq:quotient}
+  Q_{D^Q}(i,i) = \Tr_i + (\alpha_i - 1) c_i, \qquad
+  Q_{D^Q}(i,j) = \alpha_j c_{ij} \quad (i \ne j),
+\end{equation}
+where $c_i = 1$ if $i$ is odd and $c_i = 2$ if $i$ is even, while $c_{ij} = 1$ if $\max(i,j)$ is even and $c_{ij} = 2$ if $\max(i,j)$ is odd.
+
+Recall the \emph{vicinal preorder} on $V(G)$: $u \preceq v$ if and only if $N(u) \subseteq N[v]$, where $N(u)$ and $N[v] = N(v) \cup \{v\}$ denote open and closed neighborhoods. The \emph{Dilworth number} $\nabla(G)$ is the minimum number of chains covering $V(G)$ (equivalently, the maximum size of an antichain). A graph satisfies $\nabla(G) = 1$ if and only if it is a \emph{threshold graph} ($\{P_4, C_4, 2K_2\}$-free). Ghorbani~\cite{Ghorbani2019} and Lou--Lin~\cite{LL2021} proved that for any connected cograph $G$, the multiplicity of every non-trivial adjacency eigenvalue ($\lambda \notin \{0,-1\}$) and every non-trivial distance eigenvalue ($\lambda \notin \{-2,-1\}$) is at most $\nabla(G)$. Motivated by this analogy, Mandal and Manna~\cite[Conjecture~5.5]{MM2026} (reiterated as Conjecture~10.10 and Open Problem~14.6 in~\cite{MMT2026}) proposed the following conjecture.
+
+\begin{conjecture}[Mandal--Manna~\cite{MM2026}, Conjecture~5.5]\label{conj:MM}
+  For every connected $\mathcal{C}$-graph $G$, every eigenvalue $\theta$ of $D^Q(G)$ not in $\mathcal{T}^Q(G)$ satisfies $\mult_{D^Q(G)}(\theta) \le \nabla(G)$.
+\end{conjecture}
+
+\takeaway{Main Results}{We (1) determine the exact Dilworth number of every connected $\mathcal{C}$-graph (Theorem~\ref{thm:dilworth}), (2) refute Conjecture~\ref{conj:MM} via an explicit infinite family $G_k$ ($k \ge 1$) with $\nabla(G_k)=1$ and $\mult_{D^Q(G_k)}(4k+4)=2$, starting at the $8$-vertex antiregular graph $H_8$ (Theorem~\ref{thm:disproof}), and (3) prove simplicity of all non-local $Q(G)$-eigenvalues of connected threshold graphs (Theorem~\ref{thm:Qsimple}), yielding the sharp repaired bound $\mult_{D^Q(G)}(\theta) \le \nabla(G)+1 = 2$ for all connected threshold graphs (Corollary~\ref{cor:repaired}).}
+
+\section{Exact Dilworth Number of $\mathcal{C}$-Graphs}
+
+Because twin vertices are mutually comparable in the vicinal preorder, $\nabla(G)$ is determined by the induced preorder on the blocks $C_1,\dots,C_m$.
+
+\begin{theorem}\label{thm:dilworth}
+  Let $G = C(\alpha_1,\dots,\alpha_m)$ be a connected $\mathcal{C}$-graph ($m \ge 2$ even). Then
+  \[
+    \nabla(G) = 1 + \bigl|\{j \in \{3, \dots, m\} : \alpha_j \ge 2\}\bigr|.
+  \]
+\end{theorem}
+
+\begin{proof}
+  Write $C_i \preceq C_j$ if $u \preceq v$ for all $u \in C_i$ and $v \in C_j$ (since each $C_r$ is a twin class, this is independent of the chosen representatives). Let $S = \{j \in \{3,\dots,m\} : \alpha_j \ge 2\}$.
+
+  First, consider $C_1$ and $C_2$. Since $C_1$ is a clique, $C_2$ is an independent set, $C_1 \sim C_2$, and $C_1, C_2$ share identical adjacencies to every block $C_r$ ($r \ge 3$), for any $u \in C_2$ and $v \in C_1$ we have
+  \[
+    N(u) = C_1 \cup \bigcup_{\substack{r \ge 4 \\ r\text{ even}}} C_r \;\subseteq\; C_1 \cup C_2 \cup \bigcup_{\substack{r \ge 4 \\ r\text{ even}}} C_r = N[v],
+  \]
+  so $C_2 \preceq C_1$ unconditionally.
+
+  Next, let $1 \le i < j \le m$ with $j \ge 3$, and pick $u \in C_i$, $v \in C_j$.
+  \begin{enumerate}
+    \item \emph{Case $j$ odd ($j \ge 3$).} Here $C_j$ is a clique non-adjacent to $C_1,\dots,C_{j-1}$ and adjacent to all even blocks $C_r$ with $r > j$.
+    \begin{itemize}
+      \item If $\alpha_j = 1$, then $N(v) = \bigcup_{r>j,\, r\text{ even}} C_r \subseteq N(u) \subseteq N[u]$, because every block $C_i$ ($i<j$) is also adjacent to all even blocks $C_r$ with $r > j$. Hence $C_j \preceq C_i$.
+      \item If $\alpha_j \ge 2$, then $v$ has a neighbor $v' \in C_j \setminus \{v\}$, whereas $u$ is non-adjacent to $v'$ (since $i < j$ and $j$ is odd); thus $C_j \not\preceq C_i$. Conversely, if $i = 1$ then $u$ is adjacent to $C_2$ while $v$ is not; if $i \ge 2$ is even then $u$ is adjacent to $C_1$ while $v$ is not; if $i \ge 3$ is odd then $u$ is adjacent to $C_{i+1}$ (even, $i+1 < j$) while $v$ is not. Thus $C_i \not\preceq C_j$ as well, so $C_i$ and $C_j$ are incomparable.
+    \end{itemize}
+    \item \emph{Case $j$ even ($j \ge 4$).} Here $C_j$ is an independent set adjacent to $C_1,\dots,C_{j-1}$ and to all even blocks $C_r$ with $r > j$.
+    \begin{itemize}
+      \item If $\alpha_j = 1$, then $N[v] = C_1 \cup \dots \cup C_{j-1} \cup \{v\} \cup \bigcup_{r>j,\, r\text{ even}} C_r$. Every neighbor of $u \in C_i$ lies in $C_1 \cup \dots \cup C_{j-1} \cup C_j \cup \bigcup_{r>j,\, r\text{ even}} C_r = N[v]$, so $C_i \preceq C_j$.
+      \item If $\alpha_j \ge 2$, then $u \in C_i$ is adjacent to every $v' \in C_j \setminus \{v\}$, whereas $v$ is non-adjacent to $v'$ (since $C_j$ is independent); thus $C_i \not\preceq C_j$. Conversely, if $i < j-1$, then $v$ is adjacent to the odd block $C_{j-1}$ while $u$ is not; if $i = j-1$ (odd, $\ge 3$), then $v$ is adjacent to $C_1$ while $u$ is not. Hence $C_j \not\preceq C_i$, so $C_i$ and $C_j$ are incomparable.
+    \end{itemize}
+  \end{enumerate}
+
+  \emph{Lower bound.} Pick one representative $v_1 \in C_1$ and one representative $v_j \in C_j$ for each $j \in S$. By the two cases above, every $j \in S$ is incomparable to every $i < j$, so $\{v_1\} \cup \{v_j : j \in S\}$ is an antichain of size $1 + |S|$. Therefore $\nabla(G) \ge 1 + |S|$.
+
+  \emph{Upper bound.} Each $C_j$ ($j \in S$) is a twin class, hence forms a chain. Let $O = \{j \ge 3 : j\text{ odd},\, \alpha_j = 1\}$ and $E = \{j \ge 4 : j\text{ even},\, \alpha_j = 1\}$. By the analysis above, the remaining vertices $V(G) \setminus \bigcup_{j\in S} C_j$ form a single chain:
+  \[
+    \bigl(\text{blocks in } O\text{ in decreasing index order}\bigr) \;\preceq\; C_2 \;\preceq\; C_1 \;\preceq\; \bigl(\text{blocks in } E\text{ in increasing index order}\bigr).
+  \]
+  Thus $V(G)$ is covered by $1 + |S|$ chains, giving $\nabla(G) \le 1 + |S|$.
+\end{proof}
+
+\begin{corollary}\label{cor:threshold}
+  A connected $\mathcal{C}$-graph $G = C(\alpha_1,\dots,\alpha_m)$ ($m \ge 2$ even) is a threshold graph if and only if $\alpha_3 = \alpha_4 = \dots = \alpha_m = 1$.
+\end{corollary}
+
+\begin{remark}
+  Corollary~\ref{cor:threshold} refines Remark~2.4 of~\cite{MMT2026}, which stated that threshold graphs and $\mathcal{C}$-graphs intersect only in the antiregular graphs $H_{2k}=C(1,\dots,1)$ and $H_{2k+1}=C(1,2,1,\dots,1)$; in fact, every $C(\alpha_1,\alpha_2,1,\dots,1)$ with $\alpha_1,\alpha_2 \ge 1$ is a threshold graph.
+\end{remark}
+
+\section{Disproof of Conjecture~\ref{conj:MM} via an Infinite Family}
+
+For each integer $k \ge 1$, set $t = k+3$ and $m = 2t = 2k+6$, and define the connected $\mathcal{C}$-graph
+\[
+  G_k = C(k, \underbrace{1, 1, \dots, 1}_{2k+5})
+\]
+of order $n = k + (2k+5) = 3k + 5$. Note that $G_1 = C(1,1,1,1,1,1,1,1)$ is the $8$-vertex antiregular graph $H_8$.
+
+\begin{theorem}\label{thm:disproof}
+  For every integer $k \ge 1$, the connected $\mathcal{C}$-graph $G_k$ on $n = 3k+5$ vertices satisfies:
+  \begin{enumerate}
+    \item $\nabla(G_k) = 1$;
+    \item $\theta_k := 4k + 4 \notin \mathcal{T}^Q(G_k)$ (and $\theta_k$ is not a local eigenvalue of any maximal twin class of $G_k$);
+    \item $\mult_{D^Q(G_k)}(4k + 4) \ge 2 > \nabla(G_k)$ (in fact, equality holds by Corollary~\ref{cor:repaired}).
+  \end{enumerate}
+  Consequently, Conjecture~\ref{conj:MM} is false for infinitely many connected $\mathcal{C}$-graphs, with smallest counterexample $G_1 = H_8$ on $8$ vertices.
+\end{theorem}
+
+\begin{proof}
+  \textbf{(1)} Since $\alpha_3 = \dots = \alpha_{2k+6} = 1$, Theorem~\ref{thm:dilworth} gives $\nabla(G_k) = 1$.
+
+  \textbf{(2)} Using the block adjacency rule of~\cite[Proposition~4.2]{MM2026} with $t = k+3$ and $n = 3k+5$, the block degrees $d_i$ and transmissions $\Tr_i = 2(n-1)-d_i = 6k+8-d_i$ are:
+  \begin{align*}
+    d_1 &= (k-1) + t = 2k+2, & \Tr_1 &= 4k+6, \\
+    d_2 &= k + (t-1) = 2k+2, & \Tr_2 &= 4k+6, \\
+    d_{2j-1} &= t - j + 1 = k + 4 - j, & \Tr_{2j-1} &= 5k + 4 + j && (2 \le j \le k+3), \\
+    d_{2j} &= (k + 2j - 2) + (t - j) = 2k + 1 + j, & \Tr_{2j} &= 4k + 7 - j && (2 \le j \le k+3).
+  \end{align*}
+  The only block with $\alpha_i \ge 2$ is $C_1$ when $k \ge 2$, so $\mathcal{T}^Q(G_1) = \emptyset$ and $\mathcal{T}^Q(G_k) = \{\Tr_1 - 1\} = \{4k+5\}$ for $k \ge 2$. Moreover, $C_1 \cup C_2$ is the unique maximal twin class of size $\ge 2$ (a clique of size $k+1$ with local $D^Q$-eigenvalue $\Tr_1 - 1 = 4k+5$ for all $k \ge 1$). In every case, $\theta_k = 4k+4 \notin \{4k+5\}$.
+
+  \textbf{(3)} By~\cite[Theorem~4.3]{MM2026}, every eigenvector of the $m \times m$ quotient matrix $Q_{D^Q}$ lifts (by repeating entry $i$ across block $C_i$) to an eigenvector of $D^Q(G_k)$ with the same eigenvalue, preserving linear independence. Define two vectors $\mathbf{x}^{(1)}, \mathbf{x}^{(2)} \in \mathbb{R}^{2k+6}$ by
+  \begin{align*}
+    \mathbf{x}^{(1)} &= (-1,\,-1,\,1,\,k,\,\underbrace{0,0,\dots,0}_{2k+2}), \\
+    \mathbf{x}^{(2)} &= \bigl(k+1,\,k+1,\,-(k+1),\,0,\,\underbrace{-k,\,k,\,-k,\,k,\,\dots,\,-k,\,k}_{k+1\text{ pairs}}\bigr).
+  \end{align*}
+  Clearly $\mathbf{x}^{(1)}$ and $\mathbf{x}^{(2)}$ are linearly independent (for instance, $x^{(1)}_4 = k \ne 0$ while $x^{(2)}_4 = 0$, and $x^{(2)}_5 = -k \ne 0$ while $x^{(1)}_5 = 0$). We verify $Q_{D^Q}\mathbf{x}^{(1)} = (4k+4)\mathbf{x}^{(1)}$ and $Q_{D^Q}\mathbf{x}^{(2)} = (4k+4)\mathbf{x}^{(2)}$ directly from~\eqref{eq:quotient}.
+
+  \emph{Verification for $\mathbf{x}^{(1)}$.} Note that the weighted sum over the first four blocks vanishes:
+  \[
+    k(-1) + 1(-1) + 1(1) + 1(k) = 0.
+  \]
+  Hence for every row $i \ge 5$, all four distances $c_{i,1}, c_{i,2}, c_{i,3}, c_{i,4}$ equal $c_i \in \{1,2\}$, so $(Q_{D^Q}\mathbf{x}^{(1)})_i = c_i \cdot 0 = 0 = (4k+4)x^{(1)}_i$. For rows $1,2,3,4$ (using $\Tr_3 = 5k+6$ and $\Tr_4 = 4k+5$):
+  \begin{align*}
+    (Q_{D^Q}\mathbf{x}^{(1)})_1 &= (\Tr_1 + k - 1)(-1) + 1(-1) + 2(1) + 1(k) = -(5k+5) - 1 + 2 + k = -4k-4 = (4k+4)(-1), \\
+    (Q_{D^Q}\mathbf{x}^{(1)})_2 &= k(-1) + \Tr_2(-1) + 2(1) + 1(k) = -k - (4k+6) + 2 + k = -4k-4 = (4k+4)(-1), \\
+    (Q_{D^Q}\mathbf{x}^{(1)})_3 &= 2k(-1) + 2(-1) + \Tr_3(1) + 1(k) = -2k - 2 + (5k+6) + k = 4k+4 = (4k+4)(1), \\
+    (Q_{D^Q}\mathbf{x}^{(1)})_4 &= k(-1) + 1(-1) + 1(1) + \Tr_4(k) = -k + (4k+5)k = (4k+4)k.
+  \end{align*}
+
+  \emph{Verification for $\mathbf{x}^{(2)}$.} Observe that the $k+1$ tail pairs $(2r-1, 2r)$ ($r = 3,\dots,k+3$) carry entries $(-k, +k)$. By~\eqref{eq:quotient}:
+  \begin{itemize}
+    \item for any row $i < 2r-1$, we have $c_{i,2r-1}=2$ and $c_{i,2r}=1$, so pair $r$ contributes $2(-k) + 1(k) = -k$;
+    \item for any row $i > 2r$, we have $c_{i,2r-1} = c_{i,2r} = c_i$, so pair $r$ contributes $c_i(-k+k) = 0$.
+  \end{itemize}
+  The weighted sum of $\mathbf{x}^{(2)}$ over blocks $1,\dots,4$ is $k(k+1) + (k+1) - (k+1) + 0 = k(k+1)$. Checking rows $1,2,3,4$ (each preceding all $k+1$ tail pairs, which contribute $(k+1)(-k) = -k(k+1)$):
+  \begin{align*}
+    (Q_{D^Q}\mathbf{x}^{(2)})_1 &= (5k+5)(k+1) + (k+1) - 2(k+1) - k(k+1) = (4k+4)(k+1), \\
+    (Q_{D^Q}\mathbf{x}^{(2)})_2 &= k(k+1) + (4k+6)(k+1) - 2(k+1) - k(k+1) = (4k+4)(k+1), \\
+    (Q_{D^Q}\mathbf{x}^{(2)})_3 &= 2k(k+1) + 2(k+1) - (5k+6)(k+1) - k(k+1) = -(4k+4)(k+1), \\
+    (Q_{D^Q}\mathbf{x}^{(2)})_4 &= k(k+1) + (k+1) - (k+1) + 0 - k(k+1) = 0.
+  \end{align*}
+  Finally, for any tail index $j \in \{3,\dots,k+3\}$, there are $k+3-j$ strictly later tail pairs (contributing $(k+3-j)(-k)$), while earlier tail pairs contribute $0$. For row $2j-1$ (distance $2$ to blocks $1,\dots,4$ and distance $1$ to block $2j$) and row $2j$ (distance $1$ to blocks $1,\dots,4$ and distance $1$ to block $2j-1$):
+  \begin{align*}
+    (Q_{D^Q}\mathbf{x}^{(2)})_{2j-1} &= 2k(k+1) + (5k+4+j)(-k) + k + (k+3-j)(-k) \\
+      &= k\bigl(2k+2 - 5k - 4 - j + 1 - k - 3 + j\bigr) = (4k+4)(-k), \\
+    (Q_{D^Q}\mathbf{x}^{(2)})_{2j} &= k(k+1) - k + (4k+7-j)k + (k+3-j)(-k) \\
+      &= k\bigl(k+1 - 1 + 4k + 7 - j - k - 3 + j\bigr) = (4k+4)k.
+  \end{align*}
+  Thus $Q_{D^Q}\mathbf{x}^{(1)} = (4k+4)\mathbf{x}^{(1)}$ and $Q_{D^Q}\mathbf{x}^{(2)} = (4k+4)\mathbf{x}^{(2)}$, proving $\mult_{D^Q(G_k)}(4k+4) \ge 2$.
+\end{proof}
+
+\begin{example}[Smallest Counterexample: $H_8 = C(1^8)$]\label{ex:H8}
+  For $k=1$, $G_1 = C(1,1,1,1,1,1,1,1) = H_8$ has $n=8$, degrees $(4,4,3,5,2,6,1,7)$, transmissions $(10,10,11,9,12,8,13,7)$, and $\mathcal{T}^Q(H_8)=\emptyset$. Its vertices form a single vicinal chain $v_7 \preceq v_5 \preceq v_3 \preceq v_1 \preceq v_2 \preceq v_4 \preceq v_6 \preceq v_8$, so $\nabla(H_8) = 1$. The exact characteristic polynomial of $D^Q(H_8)$ is
+  \[
+    \chi_{D^Q(H_8)}(x) = (x - 9)(x - 8)^2\bigl(x^5 - 55x^4 + 1139x^3 - 11261x^2 + 53580x - 98676\bigr),
+  \]
+  so $\theta = 8 \notin \mathcal{T}^Q(H_8)$ has $\mult_{D^Q(H_8)}(8) = 2 > 1 = \nabla(H_8)$, spanned by $\mathbf{x}^{(1)} = (-1,-1,1,1,0,0,0,0)^T$ and $\mathbf{x}^{(2)} = (2,2,-2,0,-1,1,-1,1)^T$.
+\end{example}
+
+\begin{table}[!htbp]
+  \centering
+  \caption{First four members of the counterexample family $G_k = C(k, 1, \dots, 1)$ ($m = 2k+6$, $n = 3k+5$).}
+  \label{tab:family}
+  \begin{tabular}{cccccc}
+    \toprule
+    $k$ & $m$ & $n$ & $\nabla(G_k)$ & $\mathcal{T}^Q(G_k)$ & $\theta_k = 4k+4$ (mult.) \\
+    \midrule
+    $1$ & $8$  & $8$  & $1$ & $\emptyset$ & $8$ (mult.~$2$) \\
+    $2$ & $10$ & $11$ & $1$ & $\{13\}$    & $12$ (mult.~$2$) \\
+    $3$ & $12$ & $14$ & $1$ & $\{17\}$    & $16$ (mult.~$2$) \\
+    $4$ & $14$ & $17$ & $1$ & $\{21\}$    & $20$ (mult.~$2$) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Signless Laplacian Simplicity and the Sharp Repaired Bound}
+
+Why did Conjecture~\ref{conj:MM} fail by~$1$? For any connected graph of diameter at most~$2$,
+\begin{equation}\label{eq:rank1}
+  D^Q(G) = (2n - 4)I - Q(G) + 2J.
+\end{equation}
+Notice that $\mathbf{1}^T\mathbf{x}^{(1)} = 0$ in Theorem~\ref{thm:disproof}, so $\mathbf{x}^{(1)}$ is an eigenvector of $Q(G_k)$ with eigenvalue $\mu_k = 2n-4-\theta_k = 2k+2$, whereas $\mathbf{1}^T\mathbf{x}^{(2)} = k(k+1) \ne 0$: the extra multiplicity is created precisely by the rank-one perturbation $+2J$. We now prove that for \emph{every} connected threshold graph $G$, no non-local $Q(G)$-eigenvalue can repeat, which immediately yields a sharp repaired upper bound for $D^Q(G)$.
+
+For a connected threshold graph $G$, let $\mathcal{T}_Q(G)$ denote its set of local twin eigenvalues of $Q(G)$, namely $\{d_T - 1 : T \text{ clique twin class},\, |T| \ge 2\} \cup \{d_T : T \text{ independent twin class},\, |T| \ge 2\}$. Under the bijection $\theta = 2n - 4 - \mu$, $\mathcal{T}_Q(G)$ corresponds exactly to the maximal-twin-class local set $\mathcal{T}^Q_{\max}(G)$ of $D^Q(G)$ (since $\Tr_T - 1 = 2n - 4 - (d_T - 1)$ and $\Tr_T - 2 = 2n - 4 - d_T$).
+
+\begin{theorem}\label{thm:Qsimple}
+  Let $G$ be a connected threshold graph on $n \ge 2$ vertices. Every eigenvalue $\mu \notin \mathcal{T}_Q(G)$ of the signless Laplacian $Q(G)$ is simple: $\mult_{Q(G)}(\mu) \le 1$.
+\end{theorem}
+
+\begin{proof}
+  If $G = K_n$, then $\spec(Q(K_n)) = \{2n-2, (n-2)^{(n-1)}\}$ with $\mathcal{T}_Q(K_n) = \{n-2\}$, so the claim is immediate. Assume $G$ is not complete. Decomposing $V(G)$ into its maximal twin classes yields alternating independent blocks $A_i$ ($|A_i|=a_i$) and clique blocks $B_i$ ($|B_i|=b_i$) for $i = 1,\dots,s$ ($s \ge 1$), where $A_i \sim B_j$ iff $i \le j$, all $B_i, B_j$ are mutually adjacent, and all $A_i, A_j$ are mutually non-adjacent; specifically, either:
+  \begin{itemize}
+    \item[(I)] $a_1 \ge 2$, and $a_i, b_i \ge 1$ for all other blocks ($2s$ maximal twin classes); or
+    \item[(II)] $a_1 = 0$ (i.e., $A_1$ is absent), $b_1 \ge 2$, $s \ge 2$, and $a_i, b_i \ge 1$ for $i \ge 2$ ($2s-1$ maximal twin classes).
+  \end{itemize}
+  Let $\mu \notin \mathcal{T}_Q(G)$ be an eigenvalue of $Q(G)$. Any $\mu$-eigenvector $\mathbf{x}$ is constant on each twin class (since $\mu \notin \mathcal{T}_Q(G)$ eliminates all twin-difference eigenvectors), with values $x_{A_i}$ on $A_i$ and $x_{B_i}$ on $B_i$. Define the partial sums
+  \[
+    P_k = \sum_{i=1}^{k} a_i x_{A_i} \quad (P_0 = 0), \qquad
+    S_k = \sum_{j=k}^{s} b_j x_{B_j} \quad (S_{s+1} = 0),
+  \]
+  where in case~(II) we set $a_1 = 0$, $x_{A_1} = 0$. The eigenvalue equations $Q(G)\mathbf{x} = \mu \mathbf{x}$ on the twin classes read
+  \begin{align}
+    (\mu - d_{A_k}) x_{A_k} &= S_k, \label{eq:Ak}\\
+    (\mu - d_{B_k} + 1) x_{B_k} &= P_k + S_1, \label{eq:Bk}
+  \end{align}
+  for all existing blocks, together with the identities $P_k = P_{k-1} + a_k x_{A_k}$ and $S_{k+1} = S_k - b_k x_{B_k}$ and the boundary condition $S_{s+1} = 0$.
+
+  Observe the strict ordering of the diagonal shifts. In case~(I), $d_{A_k} = \sum_{j=k}^s b_j$ is strictly decreasing in $k$, $d_{B_k}-1 = \sum_{i=1}^k a_i + \sum_{j=1}^s b_j - 2$ is strictly increasing in $k$, and $d_{B_1}-1 = d_{A_1} + a_1 - 2 \ge d_{A_1}$ (with equality only if $a_1=2$, in which case $d_{A_1} \in \mathcal{T}_Q(G)$). In case~(II), $d_{A_k}$ ($k \ge 2$) is strictly decreasing, $d_{B_k}-1$ ($k \ge 1$) is strictly increasing, and $d_{B_1}-1 = d_{A_2} + b_1 - 2 \ge d_{A_2}$ (with equality only if $b_1=2$, in which case $d_{B_1}-1 \in \mathcal{T}_Q(G)$). Thus, because $\mu \notin \mathcal{T}_Q(G)$, \emph{at most one} block has a vanishing coefficient in~\eqref{eq:Ak}--\eqref{eq:Bk}, and the ordered chain
+  \[
+    d_{A_s} < \dots < d_{A_{i_0}} \le d_{B_1}-1 < d_{B_2}-1 < \dots < d_{B_s}-1
+  \]
+  (with $i_0=1$ in case~(I) and $i_0=2$ in case~(II)) is strict at $\mu$. We consider three cases.
+
+  \emph{Case 1: $\mu \ne d_{A_k}$ and $\mu \ne d_{B_k}-1$ for all existing blocks.} Then~\eqref{eq:Ak}--\eqref{eq:Bk} determine $x_{A_1}, P_1, x_{B_1}, S_2, \dots, x_{A_s}, P_s, x_{B_s}$ uniquely as linear functions of the single scalar $S_1$. Hence $\mult_{Q(G)}(\mu) \le 1$.
+
+  \emph{Case 2: $\mu = d_{A_r}$ for a unique $r$ (necessarily $a_r = 1$, so $r \ge 2$).} Then~\eqref{eq:Ak} at $k=r$ forces $S_r = 0$, while all entries before $A_r$ are determined by $S_1$, and all entries after $A_r$ (together with $S_{s+1}$) are determined linearly by $(S_1, x_{A_r})$. Suppose for contradiction that $\mult_{Q(G)}(\mu) \ge 2$. Then there exists a $\mu$-eigenvector $\mathbf{x}$ with $S_1 = 0$ and $x_{A_r} = 1$. Since $S_1 = 0$, every entry before $A_r$ vanishes, so $P_{r-1} = 0$ and $S_r = 0$. Now for all $k \ge r$ we have $\mu = d_{A_r} < d_{B_k}-1$ (so $\mu - d_{B_k}+1 < 0$), and for all $k > r$ we have $d_{A_k} < d_{A_r} = \mu$ (so $\mu - d_{A_k} > 0$). Starting from $P_r = a_r x_{A_r} = 1 > 0$, we get $x_{B_r} = P_r/(\mu - d_{B_r}+1) < 0$ and $S_{r+1} = -b_r x_{B_r} > 0$. By induction for $k = r+1,\dots,s$:
+  \[
+    x_{A_k} = \frac{S_k}{\mu - d_{A_k}} > 0 \;\implies\; P_k = P_{k-1} + a_k x_{A_k} > 0 \;\implies\; x_{B_k} = \frac{P_k}{\mu - d_{B_k}+1} < 0 \;\implies\; S_{k+1} = S_k - b_k x_{B_k} > S_k > 0.
+  \]
+  Hence $S_{s+1} > 0$, contradicting $S_{s+1} = 0$.
+
+  \emph{Case 3: $\mu = d_{B_r}-1$ for a unique $r$ (necessarily $b_r = 1$).} Then~\eqref{eq:Bk} at $k=r$ forces $P_r + S_1 = 0$, and the entire vector is determined linearly by $(S_1, x_{B_r})$. If $\mult_{Q(G)}(\mu) \ge 2$, choose a $\mu$-eigenvector with $S_1 = 0$ and $x_{B_r} = -1$. Then all entries up to $A_r$ vanish, so $P_r = 0$, $S_r = 0$, and $S_{r+1} = S_r - b_r x_{B_r} = 1 > 0$. If $r = s$, this immediately contradicts $S_{s+1} = 0$. If $r < s$, then for every $k > r$ we have $d_{A_k} < \mu < d_{B_k}-1$, so the exact same sign induction gives $S_{s+1} > \dots > S_{r+1} = 1 > 0$, again contradicting $S_{s+1} = 0$.
+\end{proof}
+
+\begin{corollary}[Sharp Repaired Bound for Threshold Graphs and Threshold $\mathcal{C}$-Graphs]\label{cor:repaired}
+  Let $G$ be a connected threshold graph on $n \ge 2$ vertices (in particular, any connected $\mathcal{C}$-graph with $\nabla(G) = 1$). Then every eigenvalue $\theta$ of $D^Q(G)$ not in $\mathcal{T}^Q_{\max}(G)$ satisfies
+  \[
+    \mult_{D^Q(G)}(\theta) \le 2 = \nabla(G) + 1.
+  \]
+  Moreover, this bound is sharp for infinitely many orders $n = 3k+5$ ($k \ge 1$), attained by the family $G_k$ of Theorem~\ref{thm:disproof}.
+\end{corollary}
+
+\begin{proof}
+  Let $\mu = 2n - 4 - \theta$. Since $\theta \notin \mathcal{T}^Q_{\max}(G)$, we have $\mu \notin \mathcal{T}_Q(G)$, so $\mult_{Q(G)}(\mu) \le 1$ by Theorem~\ref{thm:Qsimple}. By~\eqref{eq:rank1}, $D^Q(G) - \theta I = (\mu I - Q(G)) + 2J$, where $\operatorname{rank}(2J) = 1$. By subadditivity of rank,
+  \[
+    \mult_{D^Q(G)}(\theta) = \operatorname{nullity}\bigl((\mu I - Q(G)) + 2J\bigr) \le \operatorname{nullity}(\mu I - Q(G)) + 1 = \mult_{Q(G)}(\mu) + 1 \le 2.
+  \]
+  Sharpness follows from Theorem~\ref{thm:disproof}.
+\end{proof}
+
+\begin{remark}[Repaired Conjecture for General $\mathcal{C}$-Graphs]
+  In view of~\eqref{eq:rank1}, Theorem~\ref{thm:disproof}, and Corollary~\ref{cor:repaired}, the $+1$ discrepancy from the rank-one matrix $2J$ appears to be the sole obstruction to the Dilworth bound. We accordingly propose the repaired conjecture: for every connected $\mathcal{C}$-graph $G$ (and more generally every connected cograph $G$), every non-local eigenvalue $\theta$ of $D^Q(G)$ satisfies $\mult_{D^Q(G)}(\theta) \le \nabla(G) + 1$.
+\end{remark}
+
+\begin{thebibliography}{9}
+
+\bibitem{AH2016}
+M.~Aouchiche and P.~Hansen,
+\emph{On the distance signless Laplacian of a graph},
+Linear Multilinear Algebra \textbf{64} (2016), 1113--1123.
+
+\bibitem{Ghorbani2019}
+E.~Ghorbani,
+\emph{Cographs: Eigenvalues and Dilworth number},
+Discrete Math. \textbf{342} (2019), 2797--2803.
+
+\bibitem{LL2021}
+Z.~Lou and H.~Lin,
+\emph{Distance eigenvalues of cographs and their multiplicities},
+Linear Algebra Appl. \textbf{608} (2021), 1--12.
+
+\bibitem{MM2025}
+S.~Mandal and R.~Mehatari,
+\emph{Spectral properties of $\mathcal{C}$-graphs},
+Comput. Appl. Math. \textbf{44} (2025), Article No.~136.
+
+\bibitem{MM2026}
+S.~Mandal and P.~Manna,
+\emph{The distance Laplacian and distance signless Laplacian spectra of $\mathcal{C}$-graphs},
+Preprint, \href{https://arxiv.org/abs/2610.08599}{arXiv:2610.08599} (October 6, 2026).
+
+\bibitem{MMT2026}
+P.~Manna, S.~Mandal, and F.~C.~Tura,
+\emph{The spectral theory of cographs: A survey, organized by graph matrix},
+Preprint, \href{https://arxiv.org/abs/2611.06981}{arXiv:2611.06981} (November 4, 2026).
+
+\end{thebibliography}
+
+\end{document}
