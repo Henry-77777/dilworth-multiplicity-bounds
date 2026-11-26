@@ -13,6 +13,7 @@ The note also gives a formula for the Dilworth number in terms of the graph’s 
 ```bibtex
 @misc{dilworth2026threshold,
   title = {Disproof of the Dilworth Multiplicity Conjecture for the Distance Signless Laplacian of {$\mathcal{C}$}-Graphs and a Sharp Bound for Threshold Graphs},
+  author = {Gao, Henry},
   year  = {2026},
   month = nov,
   note  = {Research note dated November 26, 2026},

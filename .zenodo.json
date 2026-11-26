@@ -1,0 +1,13 @@
+{
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "title": "Disproof of the Dilworth Multiplicity Conjecture for the Distance Signless Laplacian of C-Graphs and a Sharp Bound for Threshold Graphs",
+  "creators": [
+    {
+      "name": "Gao, Henry"
+    }
+  ],
+  "description": "An infinite family of counterexamples to the Mandal–Manna conjecture and a sharp multiplicity bound for connected threshold graphs. First manuscript version, including the PDF and LaTeX source.",
+  "license": "cc-by-4.0",
+  "version": "1.0.0"
+}
