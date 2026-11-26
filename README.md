@@ -1,27 +1,26 @@
-# The Mandal–Manna conjecture on eigenvalue multiplicity
+# Dilworth multiplicity bounds for C-graphs and threshold graphs
 
-[Read the paper (PDF)](paper.pdf) · [LaTeX source](paper.tex) · [Archived first version (Zenodo)](https://doi.org/10.5281/zenodo.24566434)
+**Henry Gao** · Second manuscript version · November 27, 2026
 
-Mandal and Manna conjectured that the Dilworth number of a connected $\mathcal{C}$-graph bounds the multiplicity of each non-local eigenvalue of its distance signless Laplacian. This research note constructs an infinite family of graphs with Dilworth number one and a non-local eigenvalue of multiplicity two. The first example is the eight-vertex antiregular graph, whose distance signless Laplacian has eigenvalue 8 with multiplicity two.
+[Read the paper (PDF)](paper.pdf) · [LaTeX source](paper.tex) · [First version on Zenodo](https://doi.org/10.5281/zenodo.24566434)
 
-The note also gives a formula for the Dilworth number in terms of the graph’s block sizes and proves that two is the sharp upper bound for non-local eigenvalue multiplicity on connected threshold graphs.
+How large can the multiplicity of a non-local eigenvalue be? For a connected $\mathcal C$-graph $G$ with Dilworth number $\nabla(G)$, Theorem 4.4 bounds this multiplicity by $\nabla(G)$ for the signless Laplacian $Q(G)$. A rank-one perturbation then gives the bound $\nabla(G)+1$ for the distance signless Laplacian $D^Q(G)$ (Theorem 4.5). An infinite family with Dilworth number one attains the latter bound.
 
-**Manuscript:** *Disproof of the Dilworth Multiplicity Conjecture for the Distance Signless Laplacian of $\mathcal{C}$-Graphs and a Sharp Bound for Threshold Graphs* (November 26, 2026).
+The first version gave the counterexample family and proved the repaired bound for connected threshold graphs. This version extends that bound to every connected $\mathcal C$-graph. Proposition 3.2 identifies the eight-vertex antiregular graph as the unique smallest counterexample within this class. For connected cographs in general, Conjecture 5.3 remains open. Table 1 reports that all 404 connected cographs on two through eight vertices satisfy the proposed bounds.
 
 ## Citation
 
 ```bibtex
-@misc{dilworth2026threshold,
-  title = {Disproof of the Dilworth Multiplicity Conjecture for the Distance Signless Laplacian of {$\mathcal{C}$}-Graphs and a Sharp Bound for Threshold Graphs},
-  author = {Gao, Henry},
-  doi   = {10.5281/zenodo.24566434},
-  year  = {2026},
-  month = nov,
-  note  = {Research note dated November 26, 2026},
-  url   = {https://github.com/Henry-77777/mandal-manna-conjecture-5-5}
+@misc{gao2026dilworth,
+  author  = {Gao, Henry},
+  title   = {Dilworth Multiplicity Bounds for the Signless Laplacian and Distance Signless Laplacian of {$\mathcal{C}$}-Graphs and Threshold Graphs},
+  year    = {2026},
+  month   = nov,
+  version = {2.0.0},
+  url     = {https://github.com/Henry-77777/mandal-manna-conjecture-5-5/releases/tag/v2.0.0}
 }
 ```
 
 ## License
 
-The manuscript and its LaTeX source are available under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+The manuscript, LaTeX source and README are available under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
