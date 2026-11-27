@@ -2,7 +2,7 @@
 
 **Henry Gao** · Final manuscript (v5.0.0) · November 27, 2026
 
-[Read the paper (PDF)](paper.pdf) · [LaTeX source](paper.tex) · [Fourth version on Zenodo](https://doi.org/10.5281/zenodo.24574829) · [Third version on Zenodo](https://doi.org/10.5281/zenodo.24574744) · [Second version on Zenodo](https://doi.org/10.5281/zenodo.24566746) · [First version on Zenodo](https://doi.org/10.5281/zenodo.24566434)
+[Read the paper (PDF)](paper.pdf) · [LaTeX source](paper.tex) · [Final version on Zenodo](https://doi.org/10.5281/zenodo.24585355) · [Fourth version on Zenodo](https://doi.org/10.5281/zenodo.24574829) · [Third version on Zenodo](https://doi.org/10.5281/zenodo.24574744) · [Second version on Zenodo](https://doi.org/10.5281/zenodo.24566746) · [First version on Zenodo](https://doi.org/10.5281/zenodo.24566434)
 
 Theorem 5.8 gives upper bounds of 5k - 4 and 5k - 3 for non-local eigenvalue multiplicities of the signless Laplacian and distance signless Laplacian of connected cographs of Dilworth number k. Theorem 5.9 gives a family with multiplicity at least 4k/3 - 1 for both matrices. This revision replaces the general-cograph upper bounds stated in v4.0.0 and supplies a shell–core induction.
 
@@ -26,6 +26,7 @@ The script checks five instances of Theorem 3.1, all 127 creation sequences in P
   year    = {2026},
   month   = nov,
   version = {5.0.0},
+  doi     = {10.5281/zenodo.24585355},
   url     = {https://github.com/Henry-77777/dilworth-multiplicity-bounds/releases/tag/v5.0.0}
 }
 ```
