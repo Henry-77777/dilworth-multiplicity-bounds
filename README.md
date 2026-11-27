@@ -2,7 +2,7 @@
 
 **Henry Gao** · Final manuscript version · November 27, 2026
 
-[Read the paper (PDF)](paper.pdf) · [LaTeX source](paper.tex) · [Third version on Zenodo](https://doi.org/10.5281/zenodo.24574744) · [Second version on Zenodo](https://doi.org/10.5281/zenodo.24566746) · [First version on Zenodo](https://doi.org/10.5281/zenodo.24566434)
+[Read the paper (PDF)](paper.pdf) · [LaTeX source](paper.tex) · [Final version on Zenodo](https://doi.org/10.5281/zenodo.24574829) · [Third version on Zenodo](https://doi.org/10.5281/zenodo.24574744) · [Second version on Zenodo](https://doi.org/10.5281/zenodo.24566746) · [First version on Zenodo](https://doi.org/10.5281/zenodo.24566434)
 
 The manuscript gives non-local eigenvalue multiplicity bounds for connected C-graphs and shows that the same bounds fail for general connected cographs. Theorem 5.3 gives linear upper bounds for cographs. Theorem 5.4 constructs a family in which the excess over the Dilworth number grows linearly. The first example has 60 vertices and Dilworth number three. Its signless Laplacian has a non-local eigenvalue of 40 with multiplicity four.
 
@@ -26,6 +26,7 @@ The script checks Theorem 3.1 for the first five parameter values, enumerates th
   year    = {2026},
   month   = nov,
   version = {4.0.0},
+  doi     = {10.5281/zenodo.24574829},
   url     = {https://github.com/Henry-77777/mandal-manna-conjecture-5-5/releases/tag/v4.0.0}
 }
 ```
