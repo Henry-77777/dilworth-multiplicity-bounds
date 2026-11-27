@@ -27,7 +27,7 @@ The script checks Theorem 3.1 for the first five parameter values, enumerates th
   month   = nov,
   version = {4.0.0},
   doi     = {10.5281/zenodo.24574829},
-  url     = {https://github.com/Henry-77777/mandal-manna-conjecture-5-5/releases/tag/v4.0.0}
+  url     = {https://github.com/Henry-77777/dilworth-multiplicity-bounds/releases/tag/v4.0.0}
 }
 ```
 
