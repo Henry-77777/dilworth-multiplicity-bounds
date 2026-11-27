@@ -7,7 +7,7 @@
       "name": "Gao, Henry"
     }
   ],
-  "description": "The manuscript gives non-local eigenvalue multiplicity bounds for connected C-graphs and shows that the same bounds fail for general connected cographs. Theorem 5.3 gives linear upper bounds for cographs. Theorem 5.4 constructs a family in which the excess over the Dilworth number grows linearly.",
+  "description": "Theorem 5.8 gives upper bounds of 5k - 4 and 5k - 3 for non-local eigenvalue multiplicities of the signless Laplacian and distance signless Laplacian of connected cographs of Dilworth number k. Theorem 5.9 gives a family with multiplicity at least 4k/3 - 1 for both matrices.",
   "license": "cc-by-4.0",
-  "version": "4.0.0"
+  "version": "5.0.0"
 }

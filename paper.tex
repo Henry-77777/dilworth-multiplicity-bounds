@@ -46,6 +46,7 @@
 \DeclareMathOperator{\diam}{diam}
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\nullity}{nullity}
+\DeclareMathOperator{\im}{im}
 
 \title{\Large\textbf{A Spectral Dichotomy for Dilworth Multiplicity Bounds of the Signless Laplacian and Distance Signless Laplacian on $\mathcal{C}$-Graphs and Cographs}}
 \author{Research Manuscript}
@@ -57,15 +58,16 @@
 
 \begin{abstract}
 \noindent
-For the adjacency matrix $A(G)$, distance matrix $D(G)$, and Seidel matrix $S(G)$ of any connected cograph $G$, every non-trivial eigenvalue has multiplicity at most the Dilworth number $\nabla(G)$ (Ghorbani~2019; Lou--Lin~2021; Li--Wang--Brunetti~2024). Motivated by this unity, Mandal and Manna (\href{https://arxiv.org/abs/2610.08599}{arXiv:2610.08599}, 2026; reiterated as Open Problem~14.6 in \href{https://arxiv.org/abs/2611.06981}{arXiv:2611.06981}) conjectured that every non-local eigenvalue $\theta \notin \mathcal{T}^Q(G)$ of the distance signless Laplacian $D^Q(G)$ of a connected $\mathcal{C}$-graph satisfies $\mult_{D^Q(G)}(\theta) \le \nabla(G)$. We uncover a sharp structural dichotomy between $\mathcal{C}$-graphs and general cographs for both the signless Laplacian $Q(G)$ and the distance signless Laplacian $D^Q(G)$:
+For the adjacency matrix $A(G)$, distance matrix $D(G)$, and Seidel matrix $S(G)$ of any connected cograph $G$, every non-trivial eigenvalue has multiplicity at most the Dilworth number $\nabla(G)$ (Ghorbani~2019; Lou--Lin~2021; Li--Wang--Brunetti~2024). Motivated by this unity, Mandal and Manna (\href{https://arxiv.org/abs/2610.08599}{arXiv:2610.08599}, 2026; reiterated as Open Problem~14.6 in \href{https://arxiv.org/abs/2611.06981}{arXiv:2611.06981}) conjectured that every block-non-local eigenvalue $\theta \notin \mathcal{T}^Q(G)$ of the distance signless Laplacian $D^Q(G)$ of a connected $\mathcal{C}$-graph satisfies $\mult_{D^Q(G)}(\theta) \le \nabla(G)$. We establish a sharp structural dichotomy between $\mathcal{C}$-graphs and general cographs for both the signless Laplacian $Q(G)$ and the distance signless Laplacian $D^Q(G)$:
 \begin{enumerate}
-  \item[(i)] \emph{Exact Dilworth number and refutation on $\mathcal{C}$-graphs:} For every connected $\mathcal{C}$-graph $G = C(\alpha_1,\dots,\alpha_m)$ ($m \ge 2$ even), $\nabla(G) = 1 + |\{j \ge 3 : \alpha_j \ge 2\}|$. We construct an infinite counterexample family $G_k = C(k,1,\dots,1)$ ($n = 3k+5$, $k \ge 1$) with $\nabla(G_k)=1$ and $\mult_{D^Q(G_k)}(4k+4) = 2$ (independently refuted in Lean~4 in \texttt{trureturing}), and prove via exact symbolic polynomial $\gcd$ enumeration over all $127$ connected $\mathcal{C}$-graphs of order $n \le 8$ that the $8$-vertex antiregular graph $H_8 = C(1^8)$ is the unique smallest counterexample.
-  \item[(ii)] \emph{Universal sharp bounds for all $\mathcal{C}$-graphs:} Using an exact block recurrence, critical-value separation, and a conservation-law sign induction, we prove that \emph{every} connected $\mathcal{C}$-graph satisfies $\mult_{Q(G)}(\mu) \le \nabla(G)$ for all $\mu \notin \mathcal{T}_Q(G)$ and, via the rank-one identity $D^Q(G) = (2n-4)I - Q(G) + 2J$, the sharp repaired bound $\mult_{D^Q(G)}(\theta) \le \nabla(G) + 1$ for all $\theta \notin \mathcal{T}^Q(G)$.
-  \item[(iii)] \emph{General cographs—universal linear upper bounds and linear lower-bound separation:} We prove that every non-local eigenvalue of a vicinal-monotone vertex-weighted signless Laplacian on any threshold graph is simple. By Ghorbani's threshold-module induction, this yields universal upper bounds for \emph{all} connected cographs:
-  \[
-    \mult_{Q(G)}(\mu) \le 2\nabla(G) - 1, \qquad \mult_{D^Q(G)}(\theta) \le 2\nabla(G).
-  \]
-  Remarkably, although exact symbolic enumeration of all $1{,}170$ connected cographs of order $n \le 9$ shows zero violations of $\mult_Q \le \nabla$ and $\mult_{D^Q} \le \nabla + 1$, \emph{both} bounds fail linearly on general connected cographs: starting from the $60$-vertex cograph $B = K_{36} \vee (3 H_8)$ (with $\nabla(B)=3$ and $\mult_{Q(B)}(40) = 4$), the connected cographs $F_s = K_1 \vee (s \cdot B)$ ($s \ge 1$) satisfy $\nabla(F_s) = 3s$ while both $Q(F_s)$ and $D^Q(F_s)$ attain non-local multiplicity at least $4s - 1 = \frac{4}{3}\nabla(F_s) - 1$. Thus the optimal asymptotic slope $c^*$ on connected cographs satisfies $\frac{4}{3} \le c^* \le 2$, separating $Q$ and $D^Q$ fundamentally from $A$, $D$, and $S$.
+  \item[(i)] \emph{Exact Dilworth number and refutation on $\mathcal{C}$-graphs:} For every connected $\mathcal{C}$-graph $G = C(\alpha_1,\dots,\alpha_m)$ ($m \ge 2$ even), $\nabla(G) = 1 + |\{j \ge 3 : \alpha_j \ge 2\}|$. We construct an infinite counterexample family $G_k = C(k,1,\dots,1)$ ($n = 3k+5$, $k \ge 1$) with $\nabla(G_k)=1$ and $\mult_{D^Q(G_k)}(4k+4) = 2$ (complementing a prior independent Lean~4 refutation of Conjecture~5.5 recorded in \texttt{trureturing}), and verify via exact symbolic irreducible-factor decomposition in SymPy over all $127$ even-length $\mathcal{C}$-graph creation sequences of order $n \le 8$ that the $8$-vertex antiregular graph $H_8 = C(1^8)$ is the unique smallest counterexample up to isomorphism.
+  \item[(ii)] \emph{Universal sharp bounds for all $\mathcal{C}$-graphs:} Via an exact block recurrence, an explicit free-parameter isomorphism with the quotient eigenspace, critical-value separation, and a formal conservation-law tail propagation argument, we prove analytically that \emph{every} connected $\mathcal{C}$-graph satisfies $\mult_{Q(G)}(\mu) \le \nabla(G)$ for all $\mu \notin \mathcal{T}_Q(G)$ and, via a unified rank-one perturbation lemma, the sharp repaired bound $\mult_{D^Q(G)}(\theta) \le \nabla(G) + 1$ for all $\theta \notin \mathcal{T}^Q(G)$.
+  \item[(iii)] \emph{General cographs—universal linear upper bounds and linear separation:} For maximal-twin non-local eigenvalues ($\mu \notin \mathcal{T}_{Q,\max}(G)$, $\theta \notin \mathcal{T}^Q_{\max}(G)$), we prove that every non-local eigenvalue of an integer vicinal-monotone vertex-weighted signless Laplacian on any connected threshold graph is simple. Combining a canonical cotree shell--core decomposition lemma with weighted twin and local eigenvalue inheritance lemmas, we prove analytically that \emph{every} connected cograph $G$ satisfies
+  \begin{align*}
+    \mult_{Q(G)}(\mu) &\le 5\nabla(G) - 4 && (\mu \notin \mathcal{T}_{Q,\max}(G)), \\
+    \mult_{D^Q(G)}(\theta) &\le 5\nabla(G) - 3 && (\theta \notin \mathcal{T}^Q_{\max}(G)).
+  \end{align*}
+  Conversely, although exact symbolic enumeration in SymPy of all $1{,}170$ non-isomorphic connected cographs of order $n \le 9$ reveals zero violations of $\mult_Q \le \nabla$ and $\mult_{D^Q} \le \nabla + 1$, \emph{both} bounds fail linearly on general connected cographs: starting from the $60$-vertex cograph $B = K_{36} \vee (3 H_8)$ (for which we prove analytically that $\nabla(B)=3$ and $\mult_{Q(B)}(40) = 4$), the family $F_s = K_1 \vee (s \cdot B)$ ($s \ge 1$) satisfies $\nabla(F_s) = 3s$ while both $Q(F_s)$ and $D^Q(F_s)$ attain non-local multiplicity at least $4s - 1 = \frac{4}{3}\nabla(F_s) - 1$. Defining $M_Q(k)$ and $M_{D^Q}(k)$ as the maximum non-local multiplicities over connected cographs of Dilworth number $k$, the asymptotic growth constants satisfy $\frac{4}{3} \le c_Q^* = c_{D^Q}^* \le 5$, separating $Q$ and $D^Q$ fundamentally from $A$, $D$, and $S$.
 \end{enumerate}
 
 \smallskip
@@ -75,7 +77,7 @@ For the adjacency matrix $A(G)$, distance matrix $D(G)$, and Seidel matrix $S(G)
 \noindent\textbf{2020 Mathematics Subject Classification:} 05C50; 15A18.
 \end{abstract}
 
-\section{Introduction}
+\section{Introduction and Preliminaries}\label{sec:intro}
 
 Let $G = (V, E)$ be a finite, simple undirected graph of order $n = |V|$ with adjacency matrix $A(G)$, diagonal degree matrix $\Deg(G)$, and signless Laplacian $Q(G) = \Deg(G) + A(G)$. When $G$ is connected, let $D(G) = (d(u,v))_{u,v\in V}$ be its distance matrix, $\Tr(G) = \mathrm{diag}(\Tr(v))_{v\in V}$ its diagonal transmission matrix ($\Tr(v) = \sum_{u\in V} d(u,v)$), and $D^Q(G) = \Tr(G) + D(G)$ its \emph{distance signless Laplacian}~\cite{AH2016}. For any connected graph with diameter $\diam(G) \le 2$ (in particular, every connected cograph), $D(G) = 2(J-I) - A(G)$ and $\Tr(G) = 2(n-1)I - \Deg(G)$, yielding the rank-one perturbation identity
 \begin{equation}\label{eq:rank1}
@@ -83,24 +85,32 @@ Let $G = (V, E)$ be a finite, simple undirected graph of order $n = |V|$ with ad
 \end{equation}
 where $J = \mathbf{1}\mathbf{1}^T$ is the all-ones matrix~\cite{MM2026,MMT2026}.
 
-A unifying paradigm in the spectral theory of cographs ($P_4$-free graphs) is bounding non-trivial eigenvalue multiplicities by the \emph{Dilworth number} $\nabla(G)$. Under the \emph{vicinal preorder} $u \preceq v \iff N(u) \subseteq N[v]$, $\nabla(G)$ is the minimum number of chains covering $V(G)$ (equivalently, the maximum size of an antichain); a graph satisfies $\nabla(G) = 1$ if and only if it is a \emph{threshold graph} ($\{P_4, C_4, 2K_2\}$-free). Across three major graph matrices, the exact bound $\mult \le \nabla(G)$ holds universally for all connected cographs: for the adjacency matrix $A(G)$ ($\lambda \notin \{0,-1\}$, Ghorbani~\cite{Ghorbani2019}), the distance matrix $D(G)$ ($\lambda \notin \{-2,-1\}$, Lou and Lin~\cite{LL2021}), and the Seidel matrix $S(G)$ ($\lambda \notin \{-1,1\}$, Li, Wang, and Brunetti~\cite{LWB2024}).
+A unifying paradigm in the spectral theory of cographs ($P_4$-free graphs) is bounding non-trivial eigenvalue multiplicities by the \emph{Dilworth number} $\nabla(G)$. Under the \emph{vicinal preorder} $u \preceq v \iff N(u) \subseteq N[v]$, $\nabla(G)$ is the minimum number of chains covering $V(G)$ (equivalently, by Dilworth's theorem on the induced poset of twin classes, the maximum size of an antichain); a graph satisfies $\nabla(G) = 1$ if and only if it is a \emph{threshold graph} ($\{P_4, C_4, 2K_2\}$-free). Across three major graph matrices, the exact bound $\mult \le \nabla(G)$ holds universally for all connected cographs: for the adjacency matrix $A(G)$ ($\lambda \notin \{0,-1\}$, Ghorbani~\cite{Ghorbani2019}), the distance matrix $D(G)$ ($\lambda \notin \{-2,-1\}$, Lou and Lin~\cite{LL2021}), and the Seidel matrix $S(G)$ ($\lambda \notin \{-1,1\}$, Li, Wang, and Brunetti~\cite{LWB2024}).
+
+\subsection{Twin Classes, Local Eigenvalue Sets, and Equitable Quotients}
+
+Two distinct vertices $u, v \in V(G)$ are \emph{twins} if $N(u) \setminus \{v\} = N(v) \setminus \{u\}$ (\emph{true/clique twins} if $uv \in E$, \emph{false/independent twins} if $uv \notin E$). Being equal or twins is an equivalence relation whose equivalence classes are the \emph{maximal twin classes} of $G$. Each maximal twin class $C$ of size $|C| \ge 2$ is either a clique or an independent set of common degree $d_C$ and transmission $\Tr_C = 2(n-1)-d_C$ (when $\diam(G) \le 2$), contributing $|C|-1$ linearly independent twin-difference eigenvectors supported on $C$ with \emph{maximal-twin-local eigenvalues}:
+\begin{align*}
+  \mathcal{T}_{Q,\max}(G) &:= \{d_C - 1 : C\text{ clique},\, |C| \ge 2\} \cup \{d_C : C\text{ independent},\, |C| \ge 2\}, \\
+  \mathcal{T}^Q_{\max}(G) &:= \{\Tr_C - 1 : C\text{ clique},\, |C| \ge 2\} \cup \{\Tr_C - 2 : C\text{ independent},\, |C| \ge 2\}.
+\end{align*}
 
 Mandal and Mehatari~\cite{MM2025} introduced the subclass of \emph{$\mathcal{C}$-graphs}, generated from a finite creation sequence $(\alpha_1, \dots, \alpha_m)$ of positive integers summing to $n$ by
 \[
   C(\alpha_1) = \overline{K_{\alpha_1}}, \qquad
   C(\alpha_1,\dots,\alpha_i) = \overline{\,C(\alpha_1,\dots,\alpha_{i-1}) \cup K_{\alpha_i}\,} \quad (i \ge 2).
 \]
-Every $\mathcal{C}$-graph with $m \ge 2$ even is connected, has $\diam(G) \le 2$, and has a unique creation sequence~\cite{MM2025}, partitioning $V(G)$ into blocks $C_1,\dots,C_m$ ($|C_i| = \alpha_i$) such that~\cite[Proposition~4.2]{MM2026}:
+Every $\mathcal{C}$-graph with $m \ge 2$ even is connected, has $\diam(G) \le 2$, and partitions $V(G)$ into blocks $C_1,\dots,C_m$ ($|C_i| = \alpha_i$) such that~\cite[Proposition~4.2]{MM2026}:
 \begin{itemize}
   \item $C_i$ is a clique if $i$ is odd, and an independent set if $i$ is even;
   \item for $1 \le i < j \le m$, $C_i$ is completely adjacent to $C_j$ if $j$ is even, and completely non-adjacent to $C_j$ if $j$ is odd.
 \end{itemize}
-Each block $C_i$ consists of twins of common degree $d_i$ and transmission $\Tr_i = 2(n-1)-d_i$. Blocks with $\alpha_i \ge 2$ yield the \emph{block-local eigenvalue sets}
+Following~\cite{MM2026}, blocks $C_i$ with $\alpha_i \ge 2$ define the \emph{block-local eigenvalue sets}
 \begin{align*}
-  \mathcal{T}_Q(G) &= \{d_i - 1 : i\text{ odd},\, \alpha_i \ge 2\} \cup \{d_i : i\text{ even},\, \alpha_i \ge 2\}, \\
-  \mathcal{T}^Q(G) &= \{\Tr_i - 1 : i\text{ odd},\, \alpha_i \ge 2\} \cup \{\Tr_i - 2 : i\text{ even},\, \alpha_i \ge 2\},
+  \mathcal{T}_Q(G) &:= \{d_i - 1 : i\text{ odd},\, \alpha_i \ge 2\} \cup \{d_i : i\text{ even},\, \alpha_i \ge 2\}, \\
+  \mathcal{T}^Q(G) &:= \{\Tr_i - 1 : i\text{ odd},\, \alpha_i \ge 2\} \cup \{\Tr_i - 2 : i\text{ even},\, \alpha_i \ge 2\}.
 \end{align*}
-which correspond bijectively under $\theta = 2n - 4 - \mu$. The remaining $m$ eigenvalues of $Q(G)$ and $D^Q(G)$ are those of the $m \times m$ equitable quotient matrices $Q_\pi(G)$ and $Q_{D^Q}(G)$~\cite[Theorem~4.3]{MM2026}:
+The remaining $m$ eigenvalues of $Q(G)$ and $D^Q(G)$ are those of the $m \times m$ equitable quotient matrices $Q_\pi(G)$ and $Q_{D^Q}(G)$~\cite[Theorem~4.3]{MM2026}:
 \begin{equation}\label{eq:Qpi}
   Q_\pi(i,i) = d_i + (\alpha_i - 1)\delta_i, \qquad
   Q_\pi(i,j) = \alpha_j \delta_{ij} \quad (i \ne j),
@@ -112,39 +122,98 @@ where $\delta_i = 1$ ($i$ odd) or $0$ ($i$ even), and $\delta_{ij} = 1$ ($\max(i
 \end{equation}
 where $c_i = 1$ ($i$ odd) or $2$ ($i$ even), and $c_{ij} = 1$ ($\max(i,j)$ even) or $2$ ($\max(i,j)$ odd).
 
+\begin{lemma}[Diagonalizability of Equitable Quotient Matrices]\label{lem:diag}
+  For any connected $\mathcal{C}$-graph $G = C(\alpha_1,\dots,\alpha_m)$ ($m \ge 2$ even), let $R := \mathrm{diag}(\sqrt{\alpha_1},\dots,\sqrt{\alpha_m})$. Then $R Q_\pi(G) R^{-1}$ and $R Q_{D^Q}(G) R^{-1}$ are real symmetric matrices. In particular, $Q_\pi(G)$ and $Q_{D^Q}(G)$ are diagonalizable over $\mathbb{R}$, so for every $\mu, \theta \in \mathbb{R}$,
+  \[
+    \mult_{Q_\pi(G)}(\mu) = \dim\ker(Q_\pi(G) - \mu I_m), \qquad
+    \mult_{Q_{D^Q}(G)}(\theta) = \dim\ker(Q_{D^Q}(G) - \theta I_m).
+  \]
+\end{lemma}
+
+\begin{proof}
+  For $i \ne j$, $(R Q_\pi R^{-1})_{ij} = \sqrt{\alpha_i / \alpha_j}\,\alpha_j \delta_{ij} = \sqrt{\alpha_i \alpha_j}\,\delta_{ij}$, which is symmetric in $i, j$ because $\delta_{ij}$ depends only on $\max(i,j)$. Identically, $(R Q_{D^Q} R^{-1})_{ij} = \sqrt{\alpha_i \alpha_j}\,c_{ij}$ is symmetric in $i, j$. Since every real symmetric matrix is orthogonally diagonalizable, $Q_\pi$ and $Q_{D^Q}$ are diagonalizable over $\mathbb{R}$, so algebraic and geometric multiplicities coincide.
+\end{proof}
+
+\begin{proposition}[Relation Between Block-Local and Maximal-Twin-Local Sets]\label{prop:local_rel}
+  Let $G = C(\alpha_1,\dots,\alpha_m)$ be a connected $\mathcal{C}$-graph ($m \ge 2$ even).
+  \begin{enumerate}
+    \item The blocks $C_3,\dots,C_m$ are pairwise distinct maximal twin classes of $G$. Moreover, $C_1$ and $C_2$ merge into a single maximal clique twin class $C_1 \cup C_2$ if and only if $\alpha_2 = 1$; otherwise $C_1$ and $C_2$ are distinct maximal twin classes.
+    \item Consequently, $\mathcal{T}_Q(G) \subseteq \mathcal{T}_{Q,\max}(G)$ and $\mathcal{T}^Q(G) \subseteq \mathcal{T}^Q_{\max}(G)$, with equality in both inclusions whenever $\alpha_2 \ge 2$ or $\alpha_1 \ge 2$. When $\alpha_1 = \alpha_2 = 1$,
+    \[
+      \mathcal{T}_{Q,\max}(G) = \mathcal{T}_Q(G) \cup \{d_1 - 1\}, \qquad
+      \mathcal{T}^Q_{\max}(G) = \mathcal{T}^Q(G) \cup \{\Tr_1 - 1\}.
+    \]
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+  Vertices in $C_1$ and $C_2$ have identical adjacencies to all $C_r$ ($r \ge 3$), and $C_1 \sim C_2$. When $\alpha_2 = 1$, $C_1 \cup C_2$ is a clique whose vertices share the exact same closed neighborhood, so $C_1 \cup C_2$ is a clique twin class (of degree $d_1 = d_2$, contributing $d_1 - 1$ to $\mathcal{T}_{Q,\max}$ and $\Tr_1 - 1$ to $\mathcal{T}^Q_{\max}$); when $\alpha_2 \ge 2$, vertices in $C_2$ are non-adjacent whereas vertices in $C_1$ are adjacent to all of $C_2$, so $C_1$ and $C_2$ are distinct maximal twin classes. For any $j \ge 3$ and $i < j$, if $j$ is odd then $C_j$ is non-adjacent to $C_1,\dots,C_{j-1}$ while $C_i$ has at least one neighbor in $C_1 \cup \dots \cup C_{j-1}$ (namely $C_2$ if $i=1$, $C_1$ if $i \ge 2$ is even, or $C_{i+1}$ if $i \ge 3$ is odd); if $j$ is even then $C_j$ is adjacent to $C_{j-1}$ while $C_i$ is non-adjacent to $C_{j-1}$ (if $i < j-1$), or $C_j$ is adjacent to $C_1$ while $C_{j-1}$ is non-adjacent to $C_1$ (if $i = j-1 \ge 3$). Hence no block $C_j$ ($j \ge 3$) merges with any other block. Part~(2) follows directly: when $\alpha_1 \ge 2$ and $\alpha_2 = 1$, $d_1 - 1$ is already in $\mathcal{T}_Q(G)$, whereas when $\alpha_1 = \alpha_2 = 1$, $d_1 - 1$ lies in $\mathcal{T}_{Q,\max}(G) \setminus \mathcal{T}_Q(G)$ unless some other block happens to share the same local eigenvalue.
+\end{proof}
+
+Throughout this paper, we state explicitly which local eigenvalue set applies: Section~\ref{sec:Cgraph_bound} establishes bounds for the stronger \emph{block-non-local} conditions $\mu \notin \mathcal{T}_Q(G)$ and $\theta \notin \mathcal{T}^Q(G)$ (matching Conjecture~\ref{conj:MM} verbatim, and a fortiori implying the maximal-twin-non-local versions by Proposition~\ref{prop:local_rel}), whereas Section~\ref{sec:cographs} works uniformly with the \emph{maximal-twin-non-local} sets $\mathcal{T}_{Q,\max}(G)$ and $\mathcal{T}^Q_{\max}(G)$ on general cographs.
+
+\begin{lemma}[Unified Rank-One Perturbation and Local Eigenvalue Correspondence]\label{lem:rank1}
+  \mbox{}
+  \begin{enumerate}
+    \item For any real $n \times n$ matrices $M, N$ with $\rank(M - N) \le r$,
+    \[
+      \bigl|\nullity(M) - \nullity(N)\bigr| \le r.
+    \]
+    \item For every connected graph $G$ of order $n$ with $\diam(G) \le 2$ and every $\theta \in \mathbb{R}$,
+    \[
+      \bigl|\mult_{D^Q(G)}(\theta) - \mult_{Q(G)}(2n - 4 - \theta)\bigr| \le 1.
+    \]
+    \item Under the involution $\theta = 2n - 4 - \mu$, for every connected graph $G$ with $\diam(G) \le 2$,
+    \[
+      \theta \notin \mathcal{T}^Q_{\max}(G) \iff 2n - 4 - \theta \notin \mathcal{T}_{Q,\max}(G),
+    \]
+    and for every connected $\mathcal{C}$-graph $G$, $\theta \notin \mathcal{T}^Q(G) \iff 2n - 4 - \theta \notin \mathcal{T}_Q(G)$.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  \textbf{(1)} By subadditivity of rank, $\rank(M) \le \rank(N) + \rank(M-N) \le \rank(N) + r$ and symmetrically $\rank(N) \le \rank(M) + r$, so $|\rank(M) - \rank(N)| \le r$; rank-nullity ($\nullity = n - \rank$) gives $|\nullity(M) - \nullity(N)| \le r$.
+
+  \textbf{(2)} Both $Q(G)$ and $D^Q(G)$ are real symmetric, so algebraic and geometric multiplicities coincide. By~\eqref{eq:rank1}, $(D^Q(G) - \theta I) - ((2n-4-\theta)I - Q(G)) = 2J$ has rank~$1$, so~(1) yields $|\mult_{D^Q(G)}(\theta) - \mult_{Q(G)}(2n-4-\theta)| \le 1$.
+
+  \textbf{(3)} Since $\diam(G) \le 2$, every twin class $C$ of common degree $d_C$ has transmission $\Tr_C = 2(n-1) - d_C$. For a clique twin class, $2n - 4 - (d_C - 1) = 2n - 3 - d_C = \Tr_C - 1$; for an independent twin class, $2n - 4 - d_C = \Tr_C - 2$. Thus $\mu \mapsto 2n - 4 - \mu$ maps $\mathcal{T}_{Q,\max}(G)$ bijectively onto $\mathcal{T}^Q_{\max}(G)$ (and $\mathcal{T}_Q(G)$ bijectively onto $\mathcal{T}^Q(G)$ for $\mathcal{C}$-graphs).
+\end{proof}
+
+\subsection{Target Conjecture, Prior Work, and Summary of Results}
+
 Mandal and Manna~\cite[Conjecture~5.5]{MM2026} (reiterated as Conjecture~10.10 and Open Problem~14.6 in~\cite{MMT2026}) conjectured:
 
 \begin{conjecture}[Mandal--Manna~\cite{MM2026}, Conjecture~5.5]\label{conj:MM}
   For every connected $\mathcal{C}$-graph $G$, every eigenvalue $\theta$ of $D^Q(G)$ not in $\mathcal{T}^Q(G)$ satisfies $\mult_{D^Q(G)}(\theta) \le \nabla(G)$.
 \end{conjecture}
 
-\paragraph{Relation to prior work and summary of results.}
-An independent Lean~4 refutation of Conjecture~\ref{conj:MM} was recorded on November~7, 2026 in the \texttt{trureturing} repository~\cite{TrureTuring2026}. Our paper establishes the full structural theory behind this phenomenon across both $\mathcal{C}$-graphs and general cographs:
+\paragraph{Relation to prior work and scope of verification.}
+An independent Lean~4 refutation of Conjecture~\ref{conj:MM} was recorded on November~7, 2026 in the \texttt{trureturing} external open problems registry~\cite{TrureTuring2026}. In the present paper, all general structural theorems (Theorems~\ref{thm:dilworth}, \ref{thm:disproof}, \ref{thm:CgraphQ}, \ref{thm:CgraphDQ}, \ref{thm:Qsimple}, \ref{thm:cograph_upper}, and~\ref{thm:cograph_lower}) are proved purely analytically. In addition, finite-order enumerations (Proposition~\ref{prop:minimality} and Table~\ref{tab:cographs}) and sanity checks of our explicit constructions are performed via a companion pure symbolic Python/SymPy script (\texttt{verify\_all.py}) with zero floating-point arithmetic; we emphasize that finite-order symbolic checks confirm exact small-order behavior and concrete instances, whereas all universal bounds rest entirely on our analytical proofs.
 \begin{itemize}
   \item \textbf{Section~\ref{sec:dilworth}:} Exact Dilworth number $\nabla(C(\alpha_1,\dots,\alpha_m)) = 1 + |\{j \ge 3 : \alpha_j \ge 2\}|$ (Theorem~\ref{thm:dilworth}), refining Remark~2.4 of~\cite{MMT2026}.
-  \item \textbf{Section~\ref{sec:disproof}:} Infinite counterexample family $G_k = C(k,1,\dots,1)$ ($k \ge 1$) with $\nabla(G_k)=1$ and $\mult_{D^Q(G_k)}(4k+4) = 2$ (Theorem~\ref{thm:disproof}), plus exact symbolic proof that $H_8 = C(1^8)$ is the unique smallest counterexample among all $127$ connected $\mathcal{C}$-graphs of order $n \le 8$ (Proposition~\ref{prop:minimality}).
-  \item \textbf{Section~\ref{sec:Cgraph_bound}:} Complete proof that \emph{every} connected $\mathcal{C}$-graph satisfies $\mult_{Q(G)}(\mu) \le \nabla(G)$ (Theorem~\ref{thm:CgraphQ}) and the sharp repaired bound $\mult_{D^Q(G)}(\theta) \le \nabla(G) + 1$ (Theorem~\ref{thm:CgraphDQ}).
-  \item \textbf{Section~\ref{sec:cographs}:} Weighted threshold simplicity (Theorem~\ref{thm:Qsimple}), universal linear upper bounds $\mult_{Q(G)}(\mu) \le 2\nabla(G) - 1$ and $\mult_{D^Q(G)}(\theta) \le 2\nabla(G)$ for \emph{all} connected cographs (Theorem~\ref{thm:cograph_upper}), and the striking negative theorem showing that \emph{both} $\mult_Q \le \nabla$ and $\mult_{D^Q} \le \nabla + C$ fail linearly on general connected cographs, with explicit families attaining $\frac{4}{3}\nabla(G) - 1$ (Theorem~\ref{thm:cograph_lower}) despite zero violations across all $1{,}170$ connected cographs of order $n \le 9$ (Table~\ref{tab:cographs}).
+  \item \textbf{Section~\ref{sec:disproof}:} Infinite counterexample family $G_k = C(k,1,\dots,1)$ ($k \ge 1$) with $\nabla(G_k)=1$ and $\mult_{D^Q(G_k)}(4k+4) = 2$ (Theorem~\ref{thm:disproof}), plus exact symbolic proof over all $127$ even-length $\mathcal{C}$-graph creation sequences of order $n \le 8$ that $H_8 = C(1^8)$ is the unique smallest counterexample up to isomorphism (Proposition~\ref{prop:minimality}).
+  \item \textbf{Section~\ref{sec:Cgraph_bound}:} Complete analytical proof that \emph{every} connected $\mathcal{C}$-graph satisfies $\mult_{Q(G)}(\mu) \le \nabla(G)$ for $\mu \notin \mathcal{T}_Q(G)$ (Theorem~\ref{thm:CgraphQ}) and the sharp repaired bound $\mult_{D^Q(G)}(\theta) \le \nabla(G) + 1$ for $\theta \notin \mathcal{T}^Q(G)$ (Theorem~\ref{thm:CgraphDQ}).
+  \item \textbf{Section~\ref{sec:cographs}:} Unified cotree formula for $\nabla(G)$ (Lemma~\ref{lem:cotree_nabla}), canonical block form and weighted simplicity for connected threshold graphs (Lemma~\ref{lem:thresh_canon}, Theorem~\ref{thm:Qsimple}), standalone canonical cotree shell--core decomposition, twin-inheritance, and shell-restriction lemmas (Lemmas~\ref{lem:shell_core}--\ref{lem:shell_restrict}), self-contained proof of the universal linear upper bounds $\mult_{Q(G)}(\mu) \le 5\nabla(G) - 4$ and $\mult_{D^Q(G)}(\theta) \le 5\nabla(G) - 3$ on all connected cographs (Theorem~\ref{thm:cograph_upper}), and an analytical proof of linear separation $\frac{4}{3}\nabla(F_s) - 1$ on general connected cographs (Theorem~\ref{thm:cograph_lower}), yielding $\frac{4}{3} \le c_Q^* = c_{D^Q}^* \le 5$ (Open Problem~\ref{prob:cstar}).
 \end{itemize}
 
 \begin{table}[!htbp]
   \centering
-  \caption{Summary of non-trivial eigenvalue multiplicity bounds by graph matrix and class.}
+  \caption{Summary of non-local eigenvalue multiplicity bounds by graph matrix and class (block-non-local $\mathcal{T}_Q, \mathcal{T}^Q$ on $\mathcal{C}$-graphs; maximal-twin-non-local $\mathcal{T}_{Q,\max}, \mathcal{T}^Q_{\max}$ on threshold graphs and general cographs).}
   \label{tab:dichotomy}
   \begin{tabularx}{\linewidth}{lXX>{\raggedright\arraybackslash}X}
     \toprule
     Matrix & Threshold ($\nabla=1$) & Connected $\mathcal{C}$-graphs & Connected cographs \\
     \midrule
     $A, D, S$ & $\le 1$ (sharp) & $\le \nabla$ & $\le \nabla$~\cite{Ghorbani2019,LL2021,LWB2024} \\
-    $Q(G)$ & $\le 1$ (Thm.~\ref{thm:Qsimple}) & $\le \nabla$ (Thm.~\ref{thm:CgraphQ}, sharp) & $\le 2\nabla - 1$ (Thm.~\ref{thm:cograph_upper});\newline $\ge \frac{4}{3}\nabla - 1$ (Thm.~\ref{thm:cograph_lower}) \\
-    $D^Q(G)$ & $\le 2$ (Cor.~\ref{cor:repaired}, sharp) & $\le \nabla + 1$ (Thm.~\ref{thm:CgraphDQ}, sharp) & $\le 2\nabla$ (Thm.~\ref{thm:cograph_upper});\newline $\ge \frac{4}{3}\nabla - 1$ (Thm.~\ref{thm:cograph_lower}) \\
+    $Q(G)$ & $\le 1$ (Thm.~\ref{thm:Qsimple}) & $\le \nabla$ (Thm.~\ref{thm:CgraphQ}, sharp) & $\le 5\nabla - 4$ (Thm.~\ref{thm:cograph_upper});\newline $\ge \frac{4}{3}\nabla - 1$ (Thm.~\ref{thm:cograph_lower}) \\
+    $D^Q(G)$ & $\le 2$ (Cor.~\ref{cor:repaired}, sharp) & $\le \nabla + 1$ (Thm.~\ref{thm:CgraphDQ}, sharp) & $\le 5\nabla - 3$ (Thm.~\ref{thm:cograph_upper});\newline $\ge \frac{4}{3}\nabla - 1$ (Thm.~\ref{thm:cograph_lower}) \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
 \section{Exact Dilworth Number of $\mathcal{C}$-Graphs}\label{sec:dilworth}
 
-Because twins are mutually comparable in the vicinal preorder, $\nabla(G)$ is determined by the induced preorder on the blocks $C_1,\dots,C_m$. Note that $C_1$ and $C_2$ merge into a single maximal clique twin class $C_1 \cup C_2$ if and only if $\alpha_2 = 1$; all other blocks are distinct maximal twin classes.
+Because twins are mutually comparable in the vicinal preorder, $\nabla(G)$ is determined by the induced preorder on the blocks $C_1,\dots,C_m$.
 
 \begin{theorem}\label{thm:dilworth}
   Let $G = C(\alpha_1,\dots,\alpha_m)$ be a connected $\mathcal{C}$-graph ($m \ge 2$ even). Then
@@ -197,7 +266,7 @@ of order $n = 3k + 5$. For $k = 1$, $G_1 = C(1^8)$ is the $8$-vertex antiregular
   For every integer $k \ge 1$, the connected $\mathcal{C}$-graph $G_k$ on $n = 3k+5$ vertices satisfies:
   \begin{enumerate}
     \item $\nabla(G_k) = 1$;
-    \item $\theta_k := 4k + 4 \notin \mathcal{T}^Q(G_k)$, and $\theta_k$ is not a local $D^Q$-eigenvalue of any maximal twin class of $G_k$;
+    \item $\theta_k := 4k + 4 \notin \mathcal{T}^Q(G_k)$, and $\theta_k \notin \mathcal{T}^Q_{\max}(G_k)$;
     \item $\mult_{D^Q(G_k)}(4k + 4) = 2 > 1 = \nabla(G_k)$.
   \end{enumerate}
   Consequently, Conjecture~\ref{conj:MM} is false for infinitely many connected $\mathcal{C}$-graphs.
@@ -213,14 +282,14 @@ of order $n = 3k + 5$. For $k = 1$, $G_1 = C(1^8)$ is the $8$-vertex antiregular
     d_{2j-1} &= t - j + 1 = k + 4 - j, & \Tr_{2j-1} &= 5k + 4 + j && (2 \le j \le k+3), \\
     d_{2j} &= (k + 2j - 2) + (t - j) = 2k + 1 + j, & \Tr_{2j} &= 4k + 7 - j && (2 \le j \le k+3).
   \end{align*}
-  Thus $\mathcal{T}^Q(G_1) = \emptyset$ and $\mathcal{T}^Q(G_k) = \{4k+5\}$ for $k \ge 2$, while the unique maximal twin class of size $\ge 2$ is $C_1 \cup C_2$ (local $D^Q$-eigenvalue $4k+5$). Hence $\theta_k = 4k+4$ is non-local under both definitions.
+  Thus $\mathcal{T}^Q(G_1) = \emptyset$ and $\mathcal{T}^Q(G_k) = \{4k+5\}$ for $k \ge 2$, while by Proposition~\ref{prop:local_rel} the unique maximal twin class of size $\ge 2$ is $C_1 \cup C_2$ with $\mathcal{T}^Q_{\max}(G_k) = \{4k+5\}$ for all $k \ge 1$. Hence $\theta_k = 4k+4$ is non-local under both definitions.
 
   \textbf{(3)} Define $\mathbf{x}^{(1)}, \mathbf{x}^{(2)} \in \mathbb{R}^{2k+6}$ by
   \begin{align*}
     \mathbf{x}^{(1)} &= (-1,\,-1,\,1,\,k,\,\underbrace{0,0,\dots,0}_{2k+2})^T, \\
     \mathbf{x}^{(2)} &= \bigl(k+1,\,k+1,\,-(k+1),\,0,\,\underbrace{-k,\,k,\,-k,\,k,\,\dots,\,-k,\,k}_{k+1\text{ pairs}}\bigr)^T,
   \end{align*}
-  which are clearly linearly independent. For $\mathbf{x}^{(1)}$, the weighted sum over blocks $1,\dots,4$ is $k(-1) - 1 + 1 + k = 0$, so $(Q_{D^Q}\mathbf{x}^{(1)})_i = 0$ for all $i \ge 5$, while rows $1,2,3,4$ (with $\Tr_3 = 5k+6$, $\Tr_4 = 4k+5$) give:
+  which are linearly independent (entries $4$ and $5$ form $\mathrm{diag}(k,-k)$ with $k \ge 1$). For $\mathbf{x}^{(1)}$, the weighted sum over blocks $1,\dots,4$ is $k(-1) - 1 + 1 + k = 0$, so $(Q_{D^Q}\mathbf{x}^{(1)})_i = 0$ for all $i \ge 5$, while rows $1,2,3,4$ (with $\Tr_3 = 5k+6$, $\Tr_4 = 4k+5$) give:
   \begin{align*}
     (Q_{D^Q}\mathbf{x}^{(1)})_1 &= (5k+5)(-1) - 1 + 2 + k = -(4k+4), \\
     (Q_{D^Q}\mathbf{x}^{(1)})_2 &= -k - (4k+6) + 2 + k = -(4k+4), \\
@@ -236,15 +305,17 @@ of order $n = 3k + 5$. For $k = 1$, $G_1 = C(1^8)$ is the $8$-vertex antiregular
     (Q_{D^Q}\mathbf{x}^{(2)})_{2j-1} &= 2k(k+1) + (5k+4+j)(-k) + k + (k+3-j)(-k) = (4k+4)(-k), \\
     (Q_{D^Q}\mathbf{x}^{(2)})_{2j} &= k(k+1) - k + (4k+7-j)k + (k+3-j)(-k) = (4k+4)k.
   \end{align*}
-  Thus $\mult_{D^Q(G_k)}(4k+4) \ge 2$, with equality by Theorem~\ref{thm:CgraphDQ}.
+  Lifting $\mathbf{x}^{(1)}, \mathbf{x}^{(2)}$ to constant-on-blocks vectors in $\mathbb{R}^{3k+5}$ yields $\mult_{D^Q(G_k)}(4k+4) \ge 2$, with equality by Theorem~\ref{thm:CgraphDQ}.
 \end{proof}
 
 \begin{proposition}[Unique Minimality of $H_8 = C(1^8)$]\label{prop:minimality}
-  Among all connected $\mathcal{C}$-graphs of order $n \le 8$, the $8$-vertex antiregular graph $G_1 = H_8 = C(1^8)$ is the unique counterexample to Conjecture~\ref{conj:MM}.
+  Among all connected $\mathcal{C}$-graphs of order $n \le 8$, the $8$-vertex antiregular graph $G_1 = H_8 = C(1^8)$ is the unique counterexample to Conjecture~\ref{conj:MM} up to isomorphism.
 \end{proposition}
 
 \begin{proof}
-  Connected $\mathcal{C}$-graphs of order $n$ correspond bijectively to even-length compositions of $n$, giving $\sum_{n=2}^{8} 2^{n-2} = 127$ graphs for $2 \le n \le 8$. For each graph, we compute $p(x) = \det(xI_m - Q_{D^Q}) \in \mathbb{Z}[x]$ and $\gcd(p(x), p'(x))$ over $\mathbb{Q}[x]$ in SymPy, evaluating exact algebraic multiplicities of all non-local roots whenever $\deg\gcd(p, p') \ge 1$. No violation occurs for $2 \le n \le 7$, and at $n = 8$ the sole violation is $H_8 = C(1^8)$, whose exact characteristic polynomial is
+  By~\cite{MM2025}, every connected $\mathcal{C}$-graph of order $n \ge 2$ is realized by an even-length positive integer composition $(\alpha_1,\dots,\alpha_m)$ of $n$ (and conversely every such composition produces a connected $\mathcal{C}$-graph). Compositions of $n$ of length $m$ correspond bijectively to $(m-1)$-element subsets of $\{1,\dots,n-1\}$; since a non-empty $(n-1)$-element set has exactly $2^{n-2}$ subsets of odd cardinality, there are precisely $2^{n-2}$ even-length creation sequences of order $n$, giving $\sum_{n=2}^{8} 2^{n-2} = 127$ creation sequences for $2 \le n \le 8$ (covering all connected $\mathcal{C}$-graphs of order $n \le 8$).
+
+  For any connected $\mathcal{C}$-graph $G$, by~\cite[Theorem~4.3]{MM2026} the characteristic polynomial of $D^Q(G)$ splits into the local linear factors (with roots in $\mathcal{T}^Q(G)$) and $p(x) := \det(xI_m - Q_{D^Q}(G)) \in \mathbb{Z}[x]$. Hence, for every $\theta \notin \mathcal{T}^Q(G)$, $\mult_{D^Q(G)}(\theta)$ equals the algebraic multiplicity of $\theta$ as a root of $p(x)$, which equals the exponent $e$ of the unique irreducible factor $f(x) \in \mathbb{Q}[x]$ of $p(x)$ vanishing at $\theta$ (since irreducible polynomials over $\mathbb{Q}$ are separable). Factoring $p(x) = \prod_r f_r(x)^{e_r}$ into irreducible factors over $\mathbb{Q}[x]$ in SymPy across all $127$ creation sequences (zero floating-point arithmetic, zero root approximation) confirms that whenever $e_r > \nabla(G)$, either $f_r(x) = x - \theta$ with $\theta \in \mathcal{T}^Q(G)$, or $n = 8$ and the creation sequence is $(1^8)$. Since $(1^8)$ is the unique violating creation sequence, $H_8 = C(1^8)$ is the unique smallest counterexample up to isomorphism; its exact characteristic polynomial is
   \[
     \chi_{D^Q(H_8)}(x) = (x - 9)(x - 8)^2\bigl(x^5 - 55x^4 + 1139x^3 - 11261x^2 + 53580x - 98676\bigr),
   \]
@@ -253,7 +324,7 @@ of order $n = 3k + 5$. For $k = 1$, $G_1 = C(1^8)$ is the $8$-vertex antiregular
 
 \section{Universal Signless Laplacian Bound and Sharp Repaired Theorem for All $\mathcal{C}$-Graphs}\label{sec:Cgraph_bound}
 
-\subsection{Block Recurrence and Critical-Value Separation}
+\subsection{Block Recurrence, Critical-Value Separation, and Formal Tail Propagation}
 
 Let $G = C(\alpha_1,\dots,\alpha_m)$ with $m = 2t$ even ($t \ge 1$). For $\mathbf{x} = (x_1,\dots,x_m)^T \in \mathbb{R}^m$, set
 \[
@@ -295,17 +366,48 @@ and define the \emph{critical values}
   Using $d_1 = (\alpha_1-1) + \sum_{j=1}^t \alpha_{2j}$, $d_2 = \alpha_1 + \sum_{j=2}^t \alpha_{2j}$, $d_{2r-1} = (\alpha_{2r-1}-1) + \sum_{j=r}^t \alpha_{2j}$, and $d_{2s} = \sum_{i=1}^{2s-1}\alpha_i + \sum_{j=s+1}^t \alpha_{2j}$:
   \begin{enumerate}
     \item $c_1 - c_2 = (2\alpha_1 - 2 + \alpha_2) - (\alpha_1 - \alpha_2) = \alpha_1 + 2\alpha_2 - 2 \ge 1$.
-    \item For odd $2r-1 \in O_1$, $c_{2r-1} = \sum_{j=r}^t \alpha_{2j}$ strictly decreases in $r$. For even $2s \in O_1$, $c_{2s} = \sum_{i=1}^{2s-1}\alpha_i + \sum_{j=s+1}^t \alpha_{2j} - 1$ strictly increases in $s$. Comparing odd $2r-1 \in O_1$ and even $2s \in O_1$ ($r,s \ge 2$): if $s < r$, then $c_{2s} - c_{2r-1} = \sum_{i=1}^{2s-1}\alpha_i + \sum_{j=s+1}^{r-1}\alpha_{2j} - 1 \ge 2$; if $s \ge r$, cancelling $\{2j : r \le j \le s-1\} \subset \{1,\dots,2s-1\}$ leaves $c_{2s} - c_{2r-1} \ge (\alpha_1 + \alpha_2 + \alpha_{2s-1}) - \alpha_{2s} - 1 \ge 1$.
+    \item For odd $2r-1 \in O_1$, $c_{2r-1} = \sum_{j=r}^t \alpha_{2j}$ strictly decreases in $r$. For even $2s \in O_1$, $c_{2s} = \sum_{i=1}^{2s-1}\alpha_i + \sum_{j=s+1}^t \alpha_{2j} - 1$, so for $2s_1 < 2s_2$ in $O_1$, $c_{2s_2} - c_{2s_1} = \alpha_{2s_1} + \sum_{k=s_1}^{s_2-1}\alpha_{2k+1} - \alpha_{2s_2} = \sum_{k=s_1}^{s_2-1}\alpha_{2k+1} \ge 1$ (using $\alpha_{2s_1} = \alpha_{2s_2} = 1$), strictly increasing in $s$. Comparing odd $2r-1 \in O_1$ and even $2s \in O_1$ ($r,s \ge 2$): if $s < r$, then $c_{2s} - c_{2r-1} = \sum_{i=1}^{2s-1}\alpha_i + \sum_{j=s+1}^{r-1}\alpha_{2j} - 1 \ge 2$; if $s \ge r$, cancelling $\{2j : r \le j \le s-1\} \subset \{1,\dots,2s-1\}$ leaves $c_{2s} - c_{2r-1} \ge (\alpha_1 + \alpha_2 + \alpha_{2s-1}) - \alpha_{2s} - 1 \ge 1$.
     \item If $\alpha_2 = 1$, then $c_2 = (\alpha_1 - 1) + \sum_{j=2}^t \alpha_{2j}$, so $c_2 - c_{2r-1} = (\alpha_1 - 1) + \sum_{j=2}^{r-1}\alpha_{2j} \ge 0$ (vanishing iff $\alpha_1=1, r=2$) and $c_{2s} - c_2 \ge (\alpha_2 + \alpha_{2s-1}) - \alpha_{2s} = \alpha_{2s-1} \ge 1$. \qedhere
   \end{enumerate}
 \end{proof}
 
-\begin{lemma}[Conservation-Law Tail Propagation]\label{lem:sign}
-  Suppose $\mu \in \mathbb{R}$ and $i^* \in \{2,\dots,m\}$ satisfy that for every $j > i^*$, $\mu - c_j > 0$ when $j$ is odd and $\mu - c_j < 0$ when $j$ is even. If $\mathbf{x} \in \mathbb{R}^m$ satisfies~\eqref{eq:rec_odd}--\eqref{eq:rec_even} for all $j > i^*$ with either (a) $i^* = 2r-1$, $P_{2r-2}=S_{2r}=0$, $x_{2r-1}=1$; (b) $i^* = 2r$, $P_{2r-1}=S_{2r}=0$, $x_{2r}=-1$; or (c) $i^* = 2$, $P_2 = -1$, $S_4 = 1$, then $S_{2t+2} > 0$.
+To avoid conflating formal recurrence variables with actual eigenvectors, we formulate tail propagation strictly for \emph{formal recurrence sequences} without imposing the terminal boundary condition $\tilde{S}_{2t+2} = 0$.
+
+\begin{lemma}[Formal Recurrence Tail Propagation]\label{lem:sign}
+  Let $\mu \in \mathbb{R}$ and $i^* \in \{2,\dots,m\}$ ($m = 2t \ge 2$) satisfy that for every index $j$ with $i^* < j \le m$, $\mu - c_j > 0$ when $j$ is odd and $\mu - c_j < 0$ when $j$ is even. Consider a formal recurrence sequence $(\tilde{x}_j, \tilde{P}_j, \tilde{S}_{2\ell})$ generated for $j > i^*$ by the update rules
+  \begin{align*}
+    \tilde{x}_{2\ell-1} &= \frac{\tilde{S}_{2\ell}}{\mu - c_{2\ell-1}}, & \tilde{P}_{2\ell-1} &= \tilde{P}_{2\ell-2} + \alpha_{2\ell-1}\tilde{x}_{2\ell-1}, \\
+    \tilde{x}_{2\ell} &= \frac{\tilde{P}_{2\ell-1} + \tilde{S}_{2\ell}}{\mu - c_{2\ell}}, & \tilde{P}_{2\ell} &= \tilde{P}_{2\ell-1} + \alpha_{2\ell}\tilde{x}_{2\ell}, \qquad \tilde{S}_{2\ell+2} = \tilde{S}_{2\ell} - \alpha_{2\ell}\tilde{x}_{2\ell},
+  \end{align*}
+  without imposing $\tilde{S}_{2t+2} = 0$. Suppose one of the following initial conditions holds:
+  \begin{enumerate}
+    \item[(a)] $i^* = 2r - 1$ ($2 \le r \le t$), $\tilde{P}_{2r-2} = 0$, $\tilde{S}_{2r} = 0$, and $\tilde{x}_{2r-1} = 1$ (so $\tilde{P}_{2r-1} = \alpha_{2r-1}$);
+    \item[(b)] $i^* = 2r$ ($2 \le r \le t$), $\tilde{P}_{2r-1} = 0$, $\tilde{S}_{2r} = 0$, and $\tilde{x}_{2r} = -1$ (so $\tilde{P}_{2r} = -\alpha_{2r}$, $\tilde{S}_{2r+2} = \alpha_{2r}$);
+    \item[(c)] $i^* = 2$, $\tilde{P}_2 = -1$, and $\tilde{S}_4 = 1$.
+  \end{enumerate}
+  Then the terminal formal value satisfies $\tilde{S}_{2t+2} > 0$.
 \end{lemma}
 
 \begin{proof}
-  Set $T_\ell := P_{2\ell-1} + S_{2\ell}$. Whenever $S_{2\ell} \ge 0$ and $T_\ell > 0$ with $2\ell > i^*$, equation~\eqref{eq:rec_even} with $\mu - c_{2\ell} < 0$ gives $x_{2\ell} = T_\ell/(\mu - c_{2\ell}) < 0$, hence $S_{2\ell+2} = S_{2\ell} - \alpha_{2\ell}x_{2\ell} > S_{2\ell} \ge 0$ and $P_{2\ell} + S_{2\ell+2} = T_\ell > 0$ by~\eqref{eq:conservation}. If $\ell < t$, then~\eqref{eq:rec_odd} with $\mu - c_{2\ell+1} > 0$ gives $x_{2\ell+1} = S_{2\ell+2}/(\mu - c_{2\ell+1}) > 0$, hence $T_{\ell+1} = T_\ell + \alpha_{2\ell+1} x_{2\ell+1} > T_\ell > 0$. By induction, $S_{2t+2} > \dots > S_{2\ell+2} > 0$. All three initial conditions enter this invariant: (a) gives $T_r = \alpha_{2r-1} > 0, S_{2r}=0$; (b) gives $S_{2r+2}=\alpha_{2r} > 0$ (immediate if $r=t$, else $T_{r+1}=\alpha_{2r+1}x_{2r+1}>0$); (c) gives $S_4=1>0$ and $T_2 = \alpha_3 x_3 > 0$ (for $t \ge 2$).
+  Define $\tilde{T}_\ell := \tilde{P}_{2\ell-1} + \tilde{S}_{2\ell}$ for $1 \le \ell \le t$. Note that the formal update rules preserve the conservation identity $\tilde{P}_{2\ell} + \tilde{S}_{2\ell+2} = \tilde{P}_{2\ell-1} + \tilde{S}_{2\ell} = \tilde{T}_\ell$ for every $\ell$.
+
+  \emph{Inductive step.} Suppose for some $\ell \in \{1,\dots,t\}$ with $2\ell > i^*$ we have $\tilde{S}_{2\ell} \ge 0$ and $\tilde{T}_\ell > 0$. Since $\mu - c_{2\ell} < 0$, we obtain $\tilde{x}_{2\ell} = \tilde{T}_\ell / (\mu - c_{2\ell}) < 0$, whence
+  \[
+    \tilde{S}_{2\ell+2} = \tilde{S}_{2\ell} - \alpha_{2\ell}\tilde{x}_{2\ell} > \tilde{S}_{2\ell} \ge 0, \qquad
+    \tilde{P}_{2\ell} + \tilde{S}_{2\ell+2} = \tilde{T}_\ell > 0.
+  \]
+  If $\ell = t$, we conclude $\tilde{S}_{2t+2} > 0$. If $\ell < t$, then $2\ell + 1 > i^*$ is odd so $\mu - c_{2\ell+1} > 0$, giving $\tilde{x}_{2\ell+1} = \tilde{S}_{2\ell+2} / (\mu - c_{2\ell+1}) > 0$ and
+  \[
+    \tilde{T}_{\ell+1} = \tilde{P}_{2\ell+1} + \tilde{S}_{2\ell+2} = (\tilde{P}_{2\ell} + \tilde{S}_{2\ell+2}) + \alpha_{2\ell+1}\tilde{x}_{2\ell+1} = \tilde{T}_\ell + \alpha_{2\ell+1}\tilde{x}_{2\ell+1} > \tilde{T}_\ell > 0.
+  \]
+  By induction on $\ell$, we reach $\tilde{S}_{2t+2} > 0$.
+
+  \emph{Verification of initial conditions (including boundary cases $i^* = m$ and $t = 1$).}
+  \begin{itemize}
+    \item In~(a) ($i^* = 2r - 1 < 2r$): $\tilde{S}_{2r} = 0 \ge 0$ and $\tilde{T}_r = \tilde{P}_{2r-1} + \tilde{S}_{2r} = \alpha_{2r-1} > 0$, entering the induction at $\ell = r$.
+    \item In~(b) ($i^* = 2r$): we have $\tilde{S}_{2r+2} = \alpha_{2r} > 0$ and $\tilde{P}_{2r} + \tilde{S}_{2r+2} = 0$. If $i^* = m$ (i.e., $r = t$), then $\tilde{S}_{2t+2} = \alpha_{2t} > 0$ holds immediately. If $r < t$, then $2r + 1 > i^*$ gives $\tilde{x}_{2r+1} = \tilde{S}_{2r+2}/(\mu - c_{2r+1}) > 0$ and $\tilde{T}_{r+1} = (\tilde{P}_{2r} + \tilde{S}_{2r+2}) + \alpha_{2r+1}\tilde{x}_{2r+1} = \alpha_{2r+1}\tilde{x}_{2r+1} > 0$, entering the induction at $\ell = r + 1$.
+    \item In~(c) ($i^* = 2$): if $t = 1$ (so $m = 2$), then $\tilde{S}_{2t+2} = \tilde{S}_4 = 1 > 0$ holds immediately. If $t \ge 2$, then $3 > i^*$ gives $\tilde{x}_3 = \tilde{S}_4 / (\mu - c_3) > 0$ and $\tilde{T}_2 = (\tilde{P}_2 + \tilde{S}_4) + \alpha_3 \tilde{x}_3 = (-1 + 1) + \alpha_3 \tilde{x}_3 = \alpha_3 \tilde{x}_3 > 0$ with $\tilde{S}_4 = 1 > 0$, entering the induction at $\ell = 2$. \qedhere
+  \end{itemize}
 \end{proof}
 
 \subsection{Main Multiplicity Theorems for All Connected $\mathcal{C}$-Graphs}
@@ -318,25 +420,59 @@ and define the \emph{critical values}
 \end{theorem}
 
 \begin{proof}
-  Let $S = \{j \ge 3 : \alpha_j \ge 2\}$, $O_1 = \{j \ge 3 : \alpha_j = 1\}$, and $Z(\mu) = \{i : c_i = \mu\}$, so $\nabla(G) = 1 + |S|$ and $|Z(\mu) \cap \{1,2\}| \le 1$, $|Z(\mu) \cap O_1| \le 1$ by Lemma~\ref{lem:separation}. In Lemma~\ref{lem:recurrence}, $\mathbf{x} \in \ker(Q_\pi - \mu I_m)$ is parameterized by $\bigl(S_2, \{x_i : i \in Z(\mu)\}\bigr)$ subject to the $1 + |Z(\mu)|$ linear constraints $\mathrm{RHS}_i = 0$ ($i \in Z(\mu)$) and $S_{2t+2} = 0$, giving $\dim\ker(Q_\pi - \mu I_m) = 1 + |Z(\mu)| - \rank(C)$.
+  \emph{Base case $m = 2$ ($t = 1$).} Here $\nabla(G) = 1$ and~\eqref{eq:Qpi} gives
+  \[
+    Q_\pi(G) = \begin{pmatrix} 2\alpha_1 + \alpha_2 - 2 & \alpha_2 \\ \alpha_1 & \alpha_1 \end{pmatrix}.
+  \]
+  Its discriminant is $(\alpha_1 + \alpha_2 - 2)^2 + 4\alpha_1\alpha_2 > 0$, so its two eigenvalues are distinct and $\mult_{Q_\pi(G)}(\mu) \le 1 = \nabla(G)$.
 
-  \emph{Case 1: $\alpha_2 = 1$ and $2 \in Z(\mu)$ ($\mu = c_2$, $1 \notin Z(\mu)$).}
-  Since $\mu - c_1 = -\alpha_1$,~\eqref{eq:rec_odd} gives $x_1 = -S_2/\alpha_1$ and $P_1 = -S_2$, making~\eqref{eq:rec_even} at $r=1$ identically $0=0$. Setting $y := S_2 - x_2$ gives $P_2 = -y$ and $S_4 = y$: $S_2$ spans only the $1$-dimensional twin-difference vector $(-1/\alpha_1, 1, 0,\dots,0)^T$, while the tail ($i \ge 3$) depends only on $\bigl(y, \{x_i : i \in Z'(\mu)\}\bigr)$, $Z'(\mu) = Z(\mu) \cap \{3,\dots,m\}$. Thus $\dim\ker(Q_\pi - \mu I_m) = 1 + (1 + |Z'(\mu)| - \rank(C_{\mathrm{tail}}))$, and $Z'(\mu) \cap O_1 \subseteq \{3\}$ by Lemma~\ref{lem:separation}(3).
+  Assume henceforth that $m = 2t \ge 4$ ($t \ge 2$). Let $S = \{j \ge 3 : \alpha_j \ge 2\}$, $O_1 = \{j \ge 3 : \alpha_j = 1\}$, and $Z(\mu) = \{i \in \{1,\dots,m\} : c_i = \mu\}$, so $\nabla(G) = 1 + |S|$ by Theorem~\ref{thm:dilworth}, and $|Z(\mu) \cap \{1,2\}| \le 1$, $|Z(\mu) \cap O_1| \le 1$ by Lemma~\ref{lem:separation}. By Lemma~\ref{lem:diag}, $\mult_{Q_\pi(G)}(\mu) = \dim\ker(Q_\pi(G) - \mu I_m)$.
+
+  \emph{Free-parameter isomorphism.} Define a linear map $\Phi : \mathbb{R}^{1 + |Z(\mu)|} \to \mathbb{R}^m$ taking a parameter tuple $p = \bigl(s_2, \{z_i : i \in Z(\mu)\}\bigr)$ to $\tilde{\mathbf{x}} = (\tilde{x}_1,\dots,\tilde{x}_m)^T$ via the formal recurrence initialized at $\tilde{P}_0 := 0$ and $\tilde{S}_2 := s_2$: for $r = 1,\dots,t$,
   \begin{itemize}
-    \item If $|Z'(\mu)| \le |S| - 1$, then $1 + |Z'(\mu)| \le |S|$ directly.
-    \item If $|Z'(\mu)| = |S| + 1$, then $S \subseteq Z'(\mu)$ and $3 \in Z'(\mu) \cap O_1$. Row $3$ forces $y = 0$, while setting $y = 0$, $x_i = 0$ ($i \in Z'(\mu)\setminus\{i_{\max}\}$), and $x_{i_{\max}} = \pm 1$ yields $S_{2t+2} > 0$ by Lemma~\ref{lem:separation}(3) and Lemma~\ref{lem:sign}(a)--(b), giving $\rank(C_{\mathrm{tail}}) \ge 2$ and $1 + (|S|+1) - 2 = |S|$.
-    \item If $|Z'(\mu)| = |S|$: if $3 \in Z'(\mu)$, $y=0$ gives $\rank(C_{\mathrm{tail}}) \ge 1$; else $Z'(\mu) = S$, and Lemma~\ref{lem:sign}(a)--(b) (if $S \ne \emptyset$) or Lemma~\ref{lem:sign}(c) (if $S = \emptyset$, forcing $\alpha_1 \ge 2$) yields $S_{2t+2} > 0$, so $\rank(C_{\mathrm{tail}}) \ge 1$.
+    \item if $2r-1 \notin Z(\mu)$, set $\tilde{x}_{2r-1} := \tilde{S}_{2r}/(\mu - c_{2r-1})$; if $2r-1 \in Z(\mu)$, set $\tilde{x}_{2r-1} := z_{2r-1}$ and define the linear functional $L_{2r-1}(p) := \tilde{S}_{2r}$. Then set $\tilde{P}_{2r-1} := \tilde{P}_{2r-2} + \alpha_{2r-1}\tilde{x}_{2r-1}$;
+    \item if $2r \notin Z(\mu)$, set $\tilde{x}_{2r} := (\tilde{P}_{2r-1} + \tilde{S}_{2r})/(\mu - c_{2r})$; if $2r \in Z(\mu)$, set $\tilde{x}_{2r} := z_{2r}$ and define the linear functional $L_{2r}(p) := \tilde{P}_{2r-1} + \tilde{S}_{2r}$. Then set $\tilde{P}_{2r} := \tilde{P}_{2r-1} + \alpha_{2r}\tilde{x}_{2r}$ and $\tilde{S}_{2r+2} := \tilde{S}_{2r} - \alpha_{2r}\tilde{x}_{2r}$.
+  \end{itemize}
+  Finally define $L_{\mathrm{end}}(p) := \tilde{S}_{2t+2}$, and assemble the linear constraint map
+  \[
+    C : \mathbb{R}^{1 + |Z(\mu)|} \longrightarrow \mathbb{R}^{1 + |Z(\mu)|}, \qquad
+    C(p) := \bigl(\{L_i(p)\}_{i \in Z(\mu)},\, L_{\mathrm{end}}(p)\bigr).
+  \]
+  We verify that $\Phi|_{\ker C} : \ker C \to \ker(Q_\pi - \mu I_m)$ is a linear isomorphism:
+  \begin{itemize}
+    \item If $p \in \ker C$, then $\tilde{S}_{2t+2} = L_{\mathrm{end}}(p) = 0$; backward induction on $\tilde{S}_{2r} = \tilde{S}_{2r+2} + \alpha_{2r}\tilde{x}_{2r}$ yields $\tilde{S}_{2r} = \sum_{j=r}^t \alpha_{2j}\tilde{x}_{2j}$ for all $r$. Every non-critical equation holds by definition of $\tilde{x}_j$, and every critical equation holds because $L_i(p) = 0$ for $i \in Z(\mu)$. By Lemma~\ref{lem:recurrence}, $\Phi(p) \in \ker(Q_\pi - \mu I_m)$.
+    \item Conversely, given $\mathbf{x} \in \ker(Q_\pi - \mu I_m)$, set $p(\mathbf{x}) := \bigl(\sum_{j=1}^t \alpha_{2j} x_{2j},\, \{x_i\}_{i \in Z(\mu)}\bigr)$. By Lemma~\ref{lem:recurrence}, induction on $r$ shows that $\Phi(p(\mathbf{x})) = \mathbf{x}$, $\tilde{S}_{2r} = S_{2r}$, and $C(p(\mathbf{x})) = \mathbf{0}$. Moreover, $\Phi(p) = \mathbf{0}$ forces $z_i = \tilde{x}_i = 0$ ($i \in Z(\mu)$) and $s_2 = \tilde{S}_2 = \sum_{j=1}^t \alpha_{2j}\tilde{x}_{2j} = 0$ when $p \in \ker C$, so $\Phi|_{\ker C}$ is injective.
+  \end{itemize}
+  By the rank-nullity theorem,
+  \begin{equation}\label{eq:dim_formula}
+    \mult_{Q_\pi(G)}(\mu) = \dim\ker(Q_\pi - \mu I_m) = \dim\ker C = 1 + |Z(\mu)| - \rank(C).
+  \end{equation}
+
+  \emph{Case 1: $\alpha_2 = 1$ and $2 \in Z(\mu)$ ($\mu = c_2$, so $1 \notin Z(\mu)$ by Lemma~\ref{lem:separation}(1)).}
+  Since $\mu - c_1 = c_2 - c_1 = -\alpha_1$, we have $\tilde{x}_1 = -s_2/\alpha_1$ and $\tilde{P}_1 = -s_2$, so $L_2(p) = \tilde{P}_1 + \tilde{S}_2 = 0$ vanishes identically. Changing variables to $(s_2, y, \{z_i : i \in Z'(\mu)\})$ where $y := s_2 - z_2$ and $Z'(\mu) := Z(\mu) \cap \{3,\dots,m\}$, we obtain $\tilde{P}_2 = -y$ and $\tilde{S}_4 = y$. Thus $s_2$ does not appear in any tail equation ($j \ge 3$) or in $L_{\mathrm{end}}$, spanning only the $1$-dimensional kernel direction $(-1/\alpha_1, 1, 0,\dots,0)^T$, while the remaining tail functionals $C_{\mathrm{tail}} : \mathbb{R}^{1 + |Z'(\mu)|} \to \mathbb{R}^{1 + |Z'(\mu)|}$ act on $p_{\mathrm{tail}} = (y, \{z_i : i \in Z'(\mu)\})$, giving
+  \[
+    \mult_{Q_\pi(G)}(\mu) = 1 + \bigl(1 + |Z'(\mu)| - \rank(C_{\mathrm{tail}})\bigr).
+  \]
+  By Lemma~\ref{lem:separation}(3), $Z'(\mu) \cap O_1 \subseteq \{3\}$, so $|Z'(\mu)| \le |S| + 1$:
+  \begin{itemize}
+    \item If $|Z'(\mu)| \le |S| - 1$, then $1 + (1 + |Z'(\mu)| - \rank(C_{\mathrm{tail}})) \le 1 + |S| = \nabla(G)$ directly.
+    \item If $|Z'(\mu)| = |S| + 1$, then $S \subseteq Z'(\mu)$ and $3 \in Z'(\mu) \cap O_1$. The row-$3$ constraint is $L_3(p_{\mathrm{tail}}) = \tilde{S}_4 = y$, which is a non-zero coordinate functional ($L_3(1, \mathbf{0}) = 1$). Let $i_{\max} := \max Z'(\mu) \ge 3$. Since $S \subseteq Z'(\mu)$, every $j > i_{\max}$ lies in $O_1 \setminus \{3\}$, so $\mu - c_j > 0$ for odd $j > i_{\max}$ and $\mu - c_j < 0$ for even $j > i_{\max}$ by Lemma~\ref{lem:separation}(3). Define the test vector $p^* \in \mathbb{R}^{1+|Z'(\mu)|}$ by $y = 0$, $z_i = 0$ ($i \in Z'(\mu) \setminus \{i_{\max}\}$), and $z_{i_{\max}} = 1$ (if $i_{\max}$ is odd) or $-1$ (if $i_{\max}$ is even). Then $L_3(p^*) = 0$, while Lemma~\ref{lem:sign}(a)--(b) gives $L_{\mathrm{end}}(p^*) = \tilde{S}_{2t+2} > 0$. Hence $L_3$ and $L_{\mathrm{end}}$ are linearly independent, so $\rank(C_{\mathrm{tail}}) \ge 2$ and $\mult_{Q_\pi}(\mu) \le 1 + (1 + |S| + 1 - 2) = 1 + |S| = \nabla(G)$.
+    \item If $|Z'(\mu)| = |S|$: if $3 \in Z'(\mu)$, then $L_3(p_{\mathrm{tail}}) = y \not\equiv 0$ gives $\rank(C_{\mathrm{tail}}) \ge 1$. Otherwise $3 \notin Z'(\mu)$, so $Z'(\mu) = S$. If $S \ne \emptyset$, the test vector $p^*$ at $i_{\max} = \max S \ge 3$ gives $L_{\mathrm{end}}(p^*) > 0$ by Lemma~\ref{lem:sign}(a)--(b). If $S = \emptyset$, then $Z'(\mu) = \emptyset$ and every $j \in \{3,\dots,m\}$ lies in $O_1$; because $m \ge 4$ and $3 \notin Z'(\mu)$, we have $c_3 < c_2 = \mu$ (so $\alpha_1 \ge 2$ by Lemma~\ref{lem:separation}(3)), hence $\mu - c_j > 0$ for odd $j \ge 3$ and $\mu - c_j < 0$ for even $j \ge 4$. Setting $y = 1$ gives $\tilde{P}_2 = -1, \tilde{S}_4 = 1$, and Lemma~\ref{lem:sign}(c) yields $L_{\mathrm{end}}(1) = \tilde{S}_{2t+2} > 0$. In all subcases $\rank(C_{\mathrm{tail}}) \ge 1$, giving $\mult_{Q_\pi}(\mu) \le 1 + (1 + |S| - 1) = \nabla(G)$.
   \end{itemize}
 
   \emph{Case 2: $2 \notin Z(\mu)$ or $\alpha_2 \ge 2$.}
-  Whenever $i_0 \in Z(\mu) \cap \{1,2\}$, the constraint $\mathrm{RHS}_{i_0} = 0$ forces $S_2 = 0$ (directly for $i_0 = 1$; for $i_0 = 2$ with $\alpha_2 \ge 2$, $(\frac{\alpha_1}{\mu-c_1}+1)S_2 = \frac{2\alpha_2-2}{\alpha_1+2\alpha_2-2}S_2 = 0$). Since $|Z(\mu)| \le |S| + 2$:
+  Whenever $i_0 \in Z(\mu) \cap \{1,2\}$, the functional $L_{i_0}(p)$ is a non-zero scalar multiple of $s_2$: directly $L_1(p) = s_2$ if $i_0 = 1$; and if $i_0 = 2$ with $\alpha_2 \ge 2$, then $\mu - c_1 = c_2 - c_1 = -(\alpha_1 + 2\alpha_2 - 2) < 0$ gives
+  \[
+    L_2(p) = \tilde{P}_1 + \tilde{S}_2 = \left(\frac{\alpha_1}{c_2 - c_1} + 1\right) s_2 = \frac{2\alpha_2 - 2}{\alpha_1 + 2\alpha_2 - 2}\,s_2,
+  \]
+  whose coefficient is strictly positive. Since $|Z(\mu)| \le |S| + 2$:
   \begin{itemize}
-    \item If $|Z(\mu)| \le |S|$, then $\dim\ker \le 1 + |S| = \nabla(G)$.
-    \item If $|Z(\mu)| = |S| + 1$ and $|Z(\mu) \cap \{1,2\}| = 1$, then $S_2 = 0$ gives $\rank(C) \ge 1$.
-    \item If $|Z(\mu)| = |S| + 1$ and $Z(\mu) \cap \{1,2\} = \emptyset$, then $S \subseteq Z(\mu)$ and $Z(\mu) \cap O_1 = \{j_0\}$. Every $j > i_{\max} = \max Z(\mu)$ lies in $O_1$ with $\mu - c_j > 0$ (odd $j$) and $\mu - c_j < 0$ (even $j$) by Lemma~\ref{lem:separation}(2), so Lemma~\ref{lem:sign}(a)--(b) gives $\rank(C) \ge 1$.
-    \item If $|Z(\mu)| = |S| + 2$, then both $S_2 = 0$ and the Lemma~\ref{lem:sign}(a)--(b) constraint at $x_{i_{\max}} = \pm 1$ are linearly independent ($i_{\max} \ge 3$), giving $\rank(C) \ge 2$.
+    \item If $|Z(\mu)| \le |S|$, then~\eqref{eq:dim_formula} gives $\mult_{Q_\pi}(\mu) \le 1 + |S| = \nabla(G)$.
+    \item If $|Z(\mu)| = |S| + 1$ and $Z(\mu) \cap \{1,2\} = \{i_0\}$, then $L_{i_0} \not\equiv 0$ gives $\rank(C) \ge 1$, so $\mult_{Q_\pi}(\mu) \le 1 + (|S|+1) - 1 = \nabla(G)$.
+    \item If $|Z(\mu)| = |S| + 1$ and $Z(\mu) \cap \{1,2\} = \emptyset$, then $S \subseteq Z(\mu)$ and $Z(\mu) \cap O_1 = \{j_0\}$. Set $i_{\max} := \max Z(\mu) \ge 3$. Every $j > i_{\max}$ lies in $O_1$, and since $j_0 \le i_{\max}$, Lemma~\ref{lem:separation}(2) guarantees $\mu - c_j > 0$ for odd $j > i_{\max}$ and $\mu - c_j < 0$ for even $j > i_{\max}$. The test vector $p^*$ with $s_2 = 0$, $z_i = 0$ ($i \ne i_{\max}$), and $z_{i_{\max}} = \pm 1$ yields $L_{\mathrm{end}}(p^*) > 0$ by Lemma~\ref{lem:sign}(a)--(b), so $\rank(C) \ge 1$.
+    \item If $|Z(\mu)| = |S| + 2$, then $Z(\mu) \cap \{1,2\} = \{i_0\}$, $S \subseteq Z(\mu)$, and $Z(\mu) \cap O_1 = \{j_0\}$. Set $i_{\max} := \max Z(\mu) \ge 3$. The functional $L_{i_0}$ is a non-zero multiple of $s_2$, so $L_{i_0}(1, \mathbf{0}) \ne 0$; meanwhile, the test vector $p^*$ with $s_2 = 0$, $z_i = 0$ ($i \in Z(\mu) \setminus \{i_{\max}\}$), and $z_{i_{\max}} = \pm 1$ satisfies $L_{i_0}(p^*) = 0$ and (since every $j > i_{\max}$ lies in $O_1$ and satisfies the sign condition by Lemma~\ref{lem:separation}(2), as in the preceding subcase) $L_{\mathrm{end}}(p^*) > 0$ by Lemma~\ref{lem:sign}(a)--(b). Hence $L_{i_0}$ and $L_{\mathrm{end}}$ are linearly independent, so $\rank(C) \ge 2$ and $\mult_{Q_\pi}(\mu) \le 1 + (|S|+2) - 2 = \nabla(G)$.
   \end{itemize}
-  Thus $\mult_{Q_\pi(G)}(\mu) \le \nabla(G)$. If $\mu \notin \mathcal{T}_Q(G)$, then $\mult_{Q(G)}(\mu) = \mult_{Q_\pi(G)}(\mu) \le \nabla(G)$.
+  Finally, if $\mu \notin \mathcal{T}_Q(G)$, then $\mult_{Q(G)}(\mu) = \mult_{Q_\pi(G)}(\mu) \le \nabla(G)$.
 \end{proof}
 
 \begin{theorem}[Sharp Repaired Bound for Mandal--Manna Conjecture~\ref{conj:MM}]\label{thm:CgraphDQ}
@@ -348,53 +484,265 @@ and define the \emph{critical values}
 \end{theorem}
 
 \begin{proof}
-  Apply rank subadditivity to $D^Q(G) - \theta I = ((2n-4-\theta)I - Q(G)) + 2J$ from~\eqref{eq:rank1} and Theorem~\ref{thm:CgraphQ}.
+  Let $\theta \notin \mathcal{T}^Q(G)$. By Lemma~\ref{lem:rank1}(3), $\mu := 2n - 4 - \theta \notin \mathcal{T}_Q(G)$, so Theorem~\ref{thm:CgraphQ} gives $\mult_{Q(G)}(\mu) \le \nabla(G)$. Applying Lemma~\ref{lem:rank1}(2) yields $\mult_{D^Q(G)}(\theta) \le \mult_{Q(G)}(\mu) + 1 \le \nabla(G) + 1$.
 \end{proof}
 
 \section{General Cographs: Universal Linear Upper Bounds and Linear Separation from $\nabla(G)$}\label{sec:cographs}
 
-For a general cograph $G$ with vertex weight $w : V(G) \to \mathbb{R}$, write $Q_w(G) := Q(G) + \mathrm{diag}(w)$. Call $u, v \in V(G)$ \emph{$(G,w)$-twins} if they are twins in $G$ and $w(u) = w(v)$; let $\mathcal{T}_{Q,w}(G)$ be the set of local eigenvalues of $Q_w(G)$ arising from maximal $(G,w)$-twin classes of size $\ge 2$. When $w \equiv 0$, write $\mathcal{T}_{Q,\max}(G)$ and $\mathcal{T}^Q_{\max}(G)$.
+For any cograph $G$ with integer vertex weight $w : V(G) \to \mathbb{Z}$, write $Q_w(G) := Q(G) + \mathrm{diag}(w)$. Call $u, v \in V(G)$ \emph{$(G,w)$-twins} if they are twins in $G$ and $w(u) = w(v)$; let $\mathcal{T}_{Q,w}(G)$ denote the set of local eigenvalues of $Q_w(G)$ arising from maximal $(G,w)$-twin classes $C$ of size $|C| \ge 2$ (namely $d_C - 1 + w_C$ if $C$ is a clique, and $d_C + w_C$ if $C$ is an independent set). We say $w$ is \emph{vicinal-monotone} on $G$ if $u \preceq_G v \implies w(u) \le w(v)$ for all $u, v \in V(G)$ (note that if $u, v$ are twins in $G$, then $u \preceq_G v$ and $v \preceq_G u$, so any vicinal-monotone weight on $G$ is automatically constant on every maximal twin class of $G$).
 
-\subsection{Weighted Threshold Simplicity and Universal Cograph Upper Bounds}
+\subsection{Cotree Dilworth Formula and Weighted Threshold Simplicity}
 
-\begin{theorem}[Weighted Signless Laplacian Simplicity for Threshold Graphs]\label{thm:Qsimple}
-  Let $G$ be any connected or edgeless threshold graph on $n \ge 1$ vertices, and let $w : V(G) \to \mathbb{R}$ be constant on each maximal twin class of $G$ and non-decreasing in the vicinal preorder ($u \preceq v \implies w(u) \le w(v)$). Then every eigenvalue $\mu \notin \mathcal{T}_{Q,w}(G)$ of $Q_w(G)$ is simple: $\mult_{Q_w(G)}(\mu) \le 1$.
+\begin{lemma}[Unified Cotree Formula for $\nabla(G)$]\label{lem:cotree_nabla}
+  Let $G$ be a finite cograph.
+  \begin{enumerate}
+    \item If $G$ is complete or edgeless (in particular, if $G = K_1$), then $\nabla(G) = 1$.
+    \item If $G = G_1 \cup \dots \cup G_r \cup \overline{K_a}$ is disconnected, where $G_1,\dots,G_r$ ($r \ge 0$) are its nontrivial connected components ($|G_i| \ge 2$) and $a \ge 0$ is the number of isolated vertices, then
+    \[
+      \nabla(G) = \max\Bigl(1,\, \sum_{i=1}^{r} \nabla(G_i)\Bigr).
+    \]
+    \item If $G = K_b \vee H_1 \vee \dots \vee H_r$ is connected, where $H_1,\dots,H_r$ ($r \ge 0$) are its nontrivial disconnected co-connected parts ($|H_i| \ge 2$) and $b \ge 0$ is the number of universal vertices, then
+    \[
+      \nabla(G) = \max\Bigl(1,\, \sum_{i=1}^{r} \nabla(H_i)\Bigr).
+    \]
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Part~(1) is immediate since all vertices are mutually twins.
+
+  For~(2), if $r = 0$ then $G = \overline{K_a}$ is edgeless and $\nabla(G) = 1 = \max(1, 0)$. Assume $r \ge 1$. Every isolated vertex $v$ satisfies $N(v) = \emptyset \subseteq N[u]$ for all $u \in V(G)$ and can be placed at the bottom of any chain, so deleting $\overline{K_a}$ does not change $\nabla(G)$. For $1 \le i < j \le r$, any $u \in G_i$ and $v \in G_j$ are non-adjacent; because $G_i$ and $G_j$ are connected on $\ge 2$ vertices, $u$ has a neighbor in $G_i \setminus N[v]$ and $v$ has a neighbor in $G_j \setminus N[u]$, so $u$ and $v$ are incomparable. Within each $G_i$, the vicinal preorder agrees with that of $G$. Hence maximum antichains partition across $G_1,\dots,G_r$, giving $\nabla(G) = \sum_{i=1}^r \nabla(G_i) = \max(1, \sum_{i=1}^r \nabla(G_i))$.
+
+  For~(3), if $r = 0$ then $G = K_b$ is complete and $\nabla(G) = 1 = \max(1, 0)$. Assume $r \ge 1$. Every universal vertex $v \in K_b$ satisfies $N(u) \subseteq V(G) = N[v]$ for all $u$ and sits at the top of any chain, so deleting $K_b$ does not change $\nabla(G)$. For $1 \le i < j \le r$, any $u \in H_i$ and $v \in H_j$ are adjacent; because $H_i$ is disconnected, $u$ is non-adjacent to some $u' \in H_i$ whereas $v$ is adjacent to $u'$, so $v \not\preceq u$, and symmetrically $u \not\preceq v$. Within each $H_i$, every pair $u, u' \in H_i$ shares identical adjacencies outside $H_i$, so $N_G(u) \subseteq N_G[u'] \iff N_{H_i}(u) \subseteq N_{H_i}[u']$. Hence $\nabla(G) = \sum_{i=1}^r \nabla(H_i) = \max(1, \sum_{i=1}^r \nabla(H_i))$.
+\end{proof}
+
+\begin{lemma}[Canonical Block Form of Weighted Connected Threshold Graphs]\label{lem:thresh_canon}
+  Let $G$ be a connected threshold graph on $n \ge 2$ vertices, and let $w : V(G) \to \mathbb{Z}$ be an integer weight function that is non-decreasing in the vicinal preorder of $G$ (or, more generally, constant on each block of an alternating threshold decomposition and non-decreasing along the chain $A_s \preceq \dots \preceq A_1 \preceq B_1 \preceq \dots \preceq B_s$). Then $V(G)$ admits an alternating partition into independent blocks $A_1,\dots,A_s$ ($|A_i|=a_i$) and clique blocks $B_1,\dots,B_s$ ($|B_i|=b_i$, $s \ge 1$), where $A_i \sim B_j \iff i \le j$, all $B_i$ are pairwise adjacent, all $A_i$ are pairwise non-adjacent, and $w$ is constant on each block with $w_{A_s} \le \dots \le w_{A_{i_0}} \le w_{B_1} \le \dots \le w_{B_s}$, falling into one of four mutually exclusive cases:
+  \begin{enumerate}
+    \item[(I)] $a_1 \ge 2$, and all other $a_i, b_i \ge 1$ ($i_0 = 1$);
+    \item[(II)] $a_1 = 0$ ($A_1$ absent), $b_1 \ge 2$, and all other $a_i, b_i \ge 1$ ($i_0 = 2$);
+    \item[(III)] $a_1 = 1$, all other $a_i, b_i \ge 1$, and $w_{B_1} - w_{A_1} \ge 1$ ($i_0 = 1$);
+    \item[(IV)] $a_1 = 0$ ($A_1$ absent), $b_1 = 1$, $s \ge 2$, all other $a_i, b_i \ge 1$, and $w_{B_1} - w_{A_2} \ge 1$ ($i_0 = 2$).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Every connected threshold graph on $n \ge 2$ vertices is built by iteratively adding universal vertices and isolated vertices, terminating with a non-empty universal clique $B_s$, which yields an alternating partition $A_1, B_1, \dots, A_s, B_s$ ($s \ge 1$) with $a_2,\dots,a_s \ge 1$, $b_1,\dots,b_s \ge 1$, and $a_1 \ge 0$ (where $a_1 = 0$ means $A_1$ is absent).
+  \begin{itemize}
+    \item If $a_1 \ge 2$, we are in case~(I).
+    \item If $a_1 = 0$ and $b_1 \ge 2$, we are in case~(II).
+    \item If $a_1 = 0$ and $b_1 = 1$, then $s \ge 2$ (as $n \ge 2$), and the single vertex $v \in B_1$ has open neighborhood $N_G(v) = B_2 \cup \dots \cup B_s = N_G(u)$ for every $u \in A_2$, so $B_1 \cup A_2$ is an independent twin class in $G$. By monotonicity, $w_{A_2} \le w_{B_1}$: if $w_{A_2} = w_{B_1}$, then $B_1$ and $A_2$ are $(G,w)$-twins and merging $B_1$ into $A_2$ re-indexes $s \mapsto s-1$ with $a_1' = a_2 + 1 \ge 2$, placing $(G,w)$ in case~(I); if $w_{B_1} > w_{A_2}$, then since $w$ is integer-valued, $w_{B_1} - w_{A_2} \ge 1$, placing $(G,w)$ in case~(IV).
+    \item If $a_1 = 1$, then the single vertex $u \in A_1$ has closed neighborhood $N_G[u] = \{u\} \cup B_1 \cup \dots \cup B_s = N_G[v]$ for every $v \in B_1$, so $A_1 \cup B_1$ is a clique twin class in $G$. Since $w_{A_1} \le w_{B_1}$ and $w$ is integer-valued: if $w_{A_1} = w_{B_1}$, then $A_1$ and $B_1$ are $(G,w)$-twins and merging $A_1$ into $B_1$ gives $a_1' = 0$ and $b_1' = b_1 + 1 \ge 2$, placing $(G,w)$ in case~(II); if $w_{B_1} > w_{A_1}$, then $w_{B_1} - w_{A_1} \ge 1$, placing $(G,w)$ in case~(III). \qedhere
+  \end{itemize}
+\end{proof}
+
+\begin{theorem}[Weighted Signless Laplacian Simplicity for Connected Threshold Graphs]\label{thm:Qsimple}
+  Let $G$ be a connected threshold graph on $n \ge 1$ vertices with an integer weight $w : V(G) \to \mathbb{Z}$ satisfying the hypotheses of Lemma~\ref{lem:thresh_canon} (or $n = 1$). Then every eigenvalue $\mu \notin \mathcal{T}_{Q,w}(G)$ of $Q_w(G)$ is simple:
+  \[
+    \mult_{Q_w(G)}(\mu) \le 1.
+  \]
 \end{theorem}
 
 \begin{proof}
-  If $G$ is complete or edgeless, $V(G)$ is a single twin class with constant weight $w$, and the claim is immediate. Otherwise, decomposing $V(G)$ into maximal twin classes yields alternating independent blocks $A_i$ ($|A_i|=a_i$, weight $w_{A_i}$) and clique blocks $B_i$ ($|B_i|=b_i$, weight $w_{B_i}$) ordered along the vicinal chain $A_s \preceq \dots \preceq A_{i_0} \preceq B_1 \preceq \dots \preceq B_r$ (where $r \in \{s-1, s\}$, allowing $A_s$ to be the block of isolated vertices when $G$ is disconnected; in that case $d_{A_s} = 0$, $B_s$ is absent, and we set $b_s = 0$). For $\mu \notin \mathcal{T}_{Q,w}(G)$, every $\mu$-eigenvector is constant on each maximal twin class, and with $P_k = \sum_{i=1}^k a_i x_{A_i}$ ($P_0 = 0$) and $S_k = \sum_{j=k}^r b_j x_{B_j}$ ($S_{r+1} = 0$), the equations $Q_w(G)\mathbf{x} = \mu \mathbf{x}$ read
-  \begin{equation}\label{eq:thresh_rec}
-    (\mu - d_{A_k} - w_{A_k}) x_{A_k} = S_k, \qquad (\mu - d_{B_k} + 1 - w_{B_k}) x_{B_k} = P_k + S_1.
-  \end{equation}
-  If $G$ is connected, then $r = s$ and $A_s$ is non-isolated, so $d_{A_s} + w_{A_s} < \dots < d_{A_{i_0}} + w_{A_{i_0}} \le d_{B_1}-1 + w_{B_1} < \dots < d_{B_s}-1 + w_{B_s}$, with equality only when the common value lies in $\mathcal{T}_{Q,w}(G)$. Hence at most one coefficient in~\eqref{eq:thresh_rec} vanishes at $\mu$. If none vanishes, $\mathbf{x}$ is uniquely determined linearly by $S_1$, so $\mult_{Q_w(G)}(\mu) \le 1$. If $\mu = d_{A_j}+w_{A_j}$ ($a_j=1$), then setting $S_1=0, x_{A_j}=1$ forces $P_j=1>0$, $x_{B_j}<0$, $S_{j+1}>0$, and by sign induction $S_{s+1}>0$, eliminating one of the two parameters $(S_1, x_{A_j})$. If $\mu = d_{B_j}-1+w_{B_j}$ ($b_j=1$), then setting $S_1=0, x_{B_j}=-1$ gives $S_{j+1}=1>0$ and again forces $S_{s+1}>0$, yielding $\mult_{Q_w(G)}(\mu) \le 1$. (Note that if $G = G_0 \cup \overline{K_a}$ is a disconnected threshold graph, the isolated block $\overline{K_a}$ decouples and contributes at most $1$ additional multiplicity when $a = 1$ and $\mu = w(\overline{K_a})$, e.g., $G = K_{1,a} \cup K_1$ at $\mu = 0$.)
+  If $n = 1$ ($G = K_1$), then $\dim \mathbb{R}^1 = 1$ and the claim is trivial. Assume $n \ge 2$ and place $(G, w)$ in its canonical block form~(I), (II), (III), or~(IV) from Lemma~\ref{lem:thresh_canon}.
+
+  \emph{Complete-graph boundary cases ($s = 1$ in cases~(II) and~(III)).}
+  \begin{itemize}
+    \item In case~(II) with $s = 1$, $G = K_n$ ($n = b_1 \ge 2$) with constant weight $w_{B_1}$, so $\spec(Q_w(K_n)) = \{2n-2+w_{B_1},\, (n-2+w_{B_1})^{(n-1)}\}$ and $\mathcal{T}_{Q,w}(K_n) = \{n-2+w_{B_1}\}$; thus every $\mu \notin \mathcal{T}_{Q,w}(K_n)$ has multiplicity at most~$1$.
+    \item In case~(III) with $s = 1$, $G = K_{1+b_1}$ has two blocks $A_1$ ($a_1 = 1$) and $B_1$ ($b_1 \ge 1$) with $w_{B_1} - w_{A_1} \ge 1$. Since $\mu \notin \mathcal{T}_{Q,w}(G)$, any $\mu$-eigenvector is constant on $B_1$ and satisfies the $2 \times 2$ quotient system
+    \[
+      \begin{pmatrix} b_1 + w_{A_1} & b_1 \\ 1 & 2b_1 - 1 + w_{B_1} \end{pmatrix}
+      \begin{pmatrix} x_{A_1} \\ x_{B_1} \end{pmatrix} = \mu \begin{pmatrix} x_{A_1} \\ x_{B_1} \end{pmatrix}.
+    \]
+    Because both off-diagonal entries $b_1, 1$ are strictly positive, the discriminant is $((b_1 - 1 + w_{B_1} - w_{A_1}))^2 + 4b_1 > 0$, so its two eigenvalues are distinct and $\mult_{Q_w(G)}(\mu) \le 1$.
+  \end{itemize}
+
+  \emph{General case (case~(I) with $s \ge 1$, or cases~(II)--(IV) with $s \ge 2$).} Because $\mu \notin \mathcal{T}_{Q,w}(G)$ eliminates all twin-difference eigenvectors within each block of size $\ge 2$, every $\mu$-eigenvector $\mathbf{x}$ of $Q_w(G)$ is constant on each block, taking values $x_{A_i}$ on $A_i$ ($i \ge i_0$) and $x_{B_j}$ on $B_j$ ($j \ge 1$). Set $P_0 := 0$, and in cases~(II) and~(IV) set $a_1 := 0, x_{A_1} := 0, P_1 := 0$ so that the recurrence starts cleanly at $B_1$ (with $(\mu - \gamma_{B_1}) x_{B_1} = S_1$ and $S_2 = S_1 - b_1 x_{B_1}$) before proceeding to $A_2, B_2, \dots, A_s, B_s$. Define partial sums
+  \[
+    P_k = \sum_{i=i_0}^{k} a_i x_{A_i} \quad (1 \le k \le s), \qquad
+    S_k = \sum_{j=k}^{s} b_j x_{B_j} \quad (1 \le k \le s), \qquad S_{s+1} = 0.
+  \]
+  For each existing block, $Q_w(G)\mathbf{x} = \mu \mathbf{x}$ reads
+  \begin{align}
+    (\mu - \gamma_{A_k}) x_{A_k} &= S_k, & \gamma_{A_k} &:= d_{A_k} + w_{A_k} && (i_0 \le k \le s), \label{eq:thresh_A}\\
+    (\mu - \gamma_{B_k}) x_{B_k} &= P_k + S_1, & \gamma_{B_k} &:= d_{B_k} - 1 + w_{B_k} && (1 \le k \le s), \label{eq:thresh_B}
+  \end{align}
+  with $P_k = P_{k-1} + a_k x_{A_k}$, $S_{k+1} = S_k - b_k x_{B_k}$, and boundary condition $S_{s+1} = 0$.
+
+  We verify the ordering of the shifts $\gamma_{A_k}$ and $\gamma_{B_k}$. Since $d_{A_k} = \sum_{j=k}^s b_j$ is strictly decreasing in $k$ and $w_{A_k}$ is non-increasing in $k$, we have $\gamma_{A_s} < \dots < \gamma_{A_{i_0}}$. Since $d_{B_k} - 1 = \sum_{i=i_0}^k a_i + \sum_{j=1}^s b_j - 2$ is strictly increasing in $k$ and $w_{B_k}$ is non-decreasing in $k$, we have $\gamma_{B_1} < \dots < \gamma_{B_s}$. Comparing $\gamma_{A_{i_0}}$ and $\gamma_{B_1}$:
+  \begin{itemize}
+    \item In case~(I) ($a_1 \ge 2$): $\gamma_{B_1} - \gamma_{A_1} = (a_1 - 2) + (w_{B_1} - w_{A_1}) \ge 0$, with equality iff $a_1 = 2$ and $w_{B_1} = w_{A_1}$. If equality holds, then since $a_1 = 2 \ge 2$, $A_1$ is an independent $(G,w)$-twin class of size $\ge 2$, so $\gamma_{A_1} = \gamma_{B_1} \in \mathcal{T}_{Q,w}(G)$, which is excluded by $\mu \notin \mathcal{T}_{Q,w}(G)$.
+    \item In case~(II) ($a_1 = 0, b_1 \ge 2, s \ge 2$): $\gamma_{B_1} - \gamma_{A_2} = (b_1 - 2) + (w_{B_1} - w_{A_2}) \ge 0$, with equality iff $b_1 = 2$ and $w_{B_1} = w_{A_2}$. If equality holds, then since $b_1 = 2 \ge 2$, $B_1$ is a clique $(G,w)$-twin class of size $\ge 2$, so $\gamma_{B_1} = \gamma_{A_2} \in \mathcal{T}_{Q,w}(G)$, which is excluded by $\mu \notin \mathcal{T}_{Q,w}(G)$.
+    \item In case~(III) ($a_1 = 1, w_{B_1} - w_{A_1} \ge 1$): $d_{B_1} - 1 = d_{A_1} - 1$, so $\gamma_{B_1} - \gamma_{A_1} = (w_{B_1} - w_{A_1}) - 1 \ge 0$, with equality iff $w_{B_1} - w_{A_1} = 1$. Moreover, if $\mu = \gamma_{A_1} = \gamma_{B_1}$, then we must have $b_1 = 1$ (for if $b_1 \ge 2$, then $B_1$ would be a clique $(G,w)$-twin class of size $\ge 2$ with local eigenvalue $\gamma_{B_1} \in \mathcal{T}_{Q,w}(G)$, contradicting $\mu \notin \mathcal{T}_{Q,w}(G)$).
+    \item In case~(IV) ($a_1 = 0, b_1 = 1, s \ge 2, w_{B_1} - w_{A_2} \ge 1$): $d_{B_1} = \sum_{j=2}^s b_j = d_{A_2}$, so $\gamma_{B_1} - \gamma_{A_2} = (d_{B_1} - 1 + w_{B_1}) - (d_{A_2} + w_{A_2}) = (w_{B_1} - w_{A_2}) - 1 \ge 0$, with equality iff $w_{B_1} - w_{A_2} = 1$. Moreover, if $\mu = \gamma_{A_2} = \gamma_{B_1}$, then we must have $a_2 = 1$ (for if $a_2 \ge 2$, then $A_2$ would be an independent $(G,w)$-twin class of size $\ge 2$ with local eigenvalue $\gamma_{A_2} \in \mathcal{T}_{Q,w}(G)$, contradicting $\mu \notin \mathcal{T}_{Q,w}(G)$).
+  \end{itemize}
+  Likewise, if $\mu = \gamma_{A_r}$ then $a_r = 1$ (else $A_r$ yields $\gamma_{A_r} \in \mathcal{T}_{Q,w}(G)$), and if $\mu = \gamma_{B_r}$ then $b_r = 1$ (else $B_r$ yields $\gamma_{B_r} \in \mathcal{T}_{Q,w}(G)$). Because $\gamma_{A_s} < \dots < \gamma_{A_{i_0}} \le \gamma_{B_1} < \dots < \gamma_{B_s}$ and $\mu \notin \mathcal{T}_{Q,w}(G)$, there are five exhaustive cases:
+  \begin{enumerate}
+    \item \emph{No shift equals $\mu$.} Then~\eqref{eq:thresh_A}--\eqref{eq:thresh_B} determine all block values uniquely as linear functions of the single scalar $S_1$, so $\mult_{Q_w(G)}(\mu) \le 1$.
+    \item \emph{$\mu = \gamma_{A_r}$ uniquely (so $a_r = 1$, $i_0 \le r \le s$).} Equation~\eqref{eq:thresh_A} at $k=r$ forces $S_r = 0$, and the formal sequence is uniquely determined linearly by $(S_1, x_{A_r})$ subject to the boundary condition $S_{s+1} = 0$. Testing $(S_1, x_{A_r}) = (0, 1)$ sets all entries before $A_r$ to $0$ (so $P_{r-1} = 0, S_r = 0$) and gives $P_r = 1 > 0$. Since $\mu = \gamma_{A_r} < \gamma_{B_k}$ ($k \ge r$) and $\gamma_{A_k} < \mu$ ($k > r$), we have $\mu - \gamma_{B_k} < 0$ ($k \ge r$) and $\mu - \gamma_{A_k} > 0$ ($k > r$). Thus $x_{B_r} = P_r/(\mu - \gamma_{B_r}) < 0$ and $S_{r+1} = -b_r x_{B_r} > 0$. By induction for $k = r+1,\dots,s$:
+    \begin{align*}
+      x_{A_k} &= \frac{S_k}{\mu - \gamma_{A_k}} > 0 \;\implies\; P_k = P_{k-1} + a_k x_{A_k} > 0 \\
+      &\implies\; x_{B_k} = \frac{P_k}{\mu - \gamma_{B_k}} < 0 \;\implies\; S_{k+1} = S_k - b_k x_{B_k} > S_k > 0.
+    \end{align*}
+    Hence $S_{s+1} > 0$ for $(0, 1)$, so $S_{s+1} = 0$ is a non-trivial linear constraint on $(S_1, x_{A_r})$, leaving $\mult_{Q_w(G)}(\mu) \le 2 - 1 = 1$.
+    \item \emph{$\mu = \gamma_{B_r}$ uniquely (so $b_r = 1$, $1 \le r \le s$).} The formal sequence is determined linearly by $(S_1, x_{B_r})$ subject to $S_{s+1} = 0$. Testing $(S_1, x_{B_r}) = (0, -1)$ sets all entries up to $A_r$ to $0$ (so $P_r = 0, S_r = 0$) and yields $S_{r+1} = -b_r(-1) = 1 > 0$. If $r = s$, $S_{s+1} = 1 > 0$ immediately; if $r < s$, then for every $k > r$ we have $\gamma_{A_k} < \mu < \gamma_{B_k}$, so the identical induction gives $S_{s+1} > \dots > S_{r+1} = 1 > 0$. Thus $S_{s+1} = 0$ eliminates one degree of freedom and $\mult_{Q_w(G)}(\mu) \le 1$.
+    \item \emph{Case~(III) with $\mu = \gamma_{A_1} = \gamma_{B_1}$ (forcing $a_1 = b_1 = 1$ and $w_{B_1} - w_{A_1} = 1$).} Equation~\eqref{eq:thresh_A} at $k=1$ forces $S_1 = 0$, and equation~\eqref{eq:thresh_B} at $k=1$ forces $P_1 + S_1 = x_{A_1} = 0$. Thus $x_{B_1}$ is the sole remaining free parameter (determining $S_2 = -x_{B_1}$ and all subsequent entries uniquely), so $\mult_{Q_w(G)}(\mu) \le 1$.
+    \item \emph{Case~(IV) with $\mu = \gamma_{A_2} = \gamma_{B_1}$ (forcing $b_1 = a_2 = 1$ and $w_{B_1} - w_{A_2} = 1$).} Equation~\eqref{eq:thresh_B} at $k=1$ (with $P_1 = 0$) forces $S_1 = 0$, whence $S_2 = S_1 - x_{B_1} = -x_{B_1}$; equation~\eqref{eq:thresh_A} at $k=2$ then forces $S_2 = 0$, so $x_{B_1} = 0$. Consequently, $x_{A_2}$ is the sole remaining free parameter (determining $P_2 = x_{A_2}$ and all subsequent entries $x_{B_2}, x_{A_3}, \dots, x_{B_s}$ uniquely, since $\mu < \gamma_{B_k}$ for all $k \ge 2$ and $\gamma_{A_k} < \mu$ for all $k \ge 3$), giving $\mult_{Q_w(G)}(\mu) \le 1$. \qedhere
+  \end{enumerate}
 \end{proof}
 
 \begin{corollary}\label{cor:repaired}
   For every connected threshold graph $G$ of order $n \ge 2$ and every $\theta \notin \mathcal{T}^Q_{\max}(G)$, $\mult_{D^Q(G)}(\theta) \le 2 = \nabla(G) + 1$, and this bound is sharp for $n = 3k+5$ ($k \ge 1$).
 \end{corollary}
 
+\begin{proof}
+  Immediate from Theorem~\ref{thm:Qsimple} ($w \equiv 0$) and Lemma~\ref{lem:rank1}(2)--(3); sharpness follows from Theorem~\ref{thm:disproof}.
+\end{proof}
+
+\subsection{Cotree Decomposition, Inheritance Lemmas, and Universal Linear Upper Bounds}
+
+We now isolate the three structural lemmas underpinning the canonical cotree induction for general connected cographs.
+
+\begin{lemma}[Canonical Cotree Shell--Core Decomposition]\label{lem:shell_core}
+  Let $G$ be a connected cograph with $\nabla(G) = k \ge 2$. Its canonical cotree $\mathcal{T}(G)$ determines a shell--core partition $V(G) = V(T) \sqcup V(G^*)$ into an outer \emph{shell} $T$ (possibly empty) and a \emph{branching core} $G^*$ ($|G^*| \ge 2$) such that:
+  \begin{enumerate}
+    \item $\nabla(G^*) = k$, and $G^*$ has one of two pure branching forms:
+    \begin{itemize}
+      \item \emph{Core Type U:} $G^* = G_1 \cup \dots \cup G_r$ ($r \ge 2$), where each $G_i$ is a nontrivial connected cograph ($|G_i| \ge 2$), $\sum_{i=1}^r \nabla(G_i) = k$, and $1 \le \nabla(G_i) \le k - 1$ for every $i$;
+      \item \emph{Core Type J:} $G^* = H_1 \vee \dots \vee H_r$ ($r \ge 2$), where each $H_i$ is a nontrivial disconnected cograph ($|H_i| \ge 2$), $\sum_{i=1}^r \nabla(H_i) = k$, and $1 \le \nabla(H_i) \le k - 1$ for every $i$.
+    \end{itemize}
+    \item Whenever $T \ne \emptyset$, $T$ is a connected threshold graph with alternating independent layers $A_1,\dots,A_s$ ($|A_i|=a_i$, $a_1 \ge 0$, $a_2,\dots,a_s \ge 1$) and clique layers $B_1,\dots,B_s$ ($|B_i|=b_i \ge 1$, $s \ge 1$) satisfying $A_i \sim B_j \iff i \le j$, such that every vertex of $W_T := B_1 \cup \dots \cup B_s$ is adjacent to all of $G^*$ and every vertex of $I_T := A_1 \cup \dots \cup A_s$ is non-adjacent to all of $G^*$.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Let $\mathcal{T}(G)$ be the canonical cotree of $G$: its root is labeled $\vee$ (as $G$ is connected), internal node labels alternate strictly between $\vee$ and $\cup$ along every root-to-leaf path, every internal node has at least two children, and leaves represent vertices of $G$.
+
+  Start at the root $u_0$ of $\mathcal{T}(G)$ and descend as long as the current internal node $u$ has at most one nontrivial child (i.e., at most one child subtree with $\ge 2$ vertices):
+  \begin{itemize}
+    \item If $u$ had $0$ nontrivial children, its subtree would be complete or edgeless, so by Lemma~\ref{lem:cotree_nabla} every ancestor along the path (having only $1$ nontrivial child) would also have $\nabla = 1$, contradicting $\nabla(G) = k \ge 2$.
+    \item Since $\mathcal{T}(G)$ is finite, this descent terminates at a unique first internal node $u^*$ having $r \ge 2$ nontrivial children.
+  \end{itemize}
+  At every strictly visited ancestor above $u^*$, there is exactly one nontrivial child and hence (since every internal node has $\ge 2$ children) at least one leaf child; we collect those leaf children into a clique layer $B_j$ at each $\vee$-node and an independent layer $A_j$ at each $\cup$-node. Crucially, at the terminating node $u^*$ itself, if $u^*$ also possesses leaf children (e.g., $G = K_b \vee (H_1 \vee H_2)$), we \emph{also} peel all leaf children of $u^*$ into the innermost shell layer ($B_1$ if $u^*$ is $\vee$, or $A_1$ if $u^*$ is $\cup$). Define $G^*$ as the induced subgraph on the $r \ge 2$ nontrivial children of $u^*$, and set $T := G - G^*$.
+
+  \textbf{(1)} At every peeled node (including $u^*$), deleting leaf children removes only universal vertices (at $\vee$-nodes) or isolated vertices (at $\cup$-nodes), which preserves $\nabla$ by Lemma~\ref{lem:cotree_nabla}(2)--(3). Hence $\nabla(G^*) = \nabla(G) = k$. Because all leaf children of $u^*$ were peeled into $T$, $G^*$ is purely the disjoint union of $r \ge 2$ nontrivial connected cographs (if $u^*$ is $\cup$, Core Type U) or the join of $r \ge 2$ nontrivial disconnected cographs (if $u^*$ is $\vee$, Core Type J). By Lemma~\ref{lem:cotree_nabla}, $\nabla(G^*) = \sum_{i=1}^r \nabla(G_i) = k$ (Type U) or $\sum_{i=1}^r \nabla(H_i) = k$ (Type J); since $r \ge 2$ and every nontrivial child has $\nabla \ge 1$, each child satisfies $1 \le \nabla \le k - 1$.
+
+  \textbf{(2)} Suppose $T \ne \emptyset$. Because the root $u_0$ is labeled $\vee$, the outermost peeled layer is a non-empty clique layer $B_s$ ($b_s \ge 1$) of universal vertices of $G$ (if $u^* \ne u_0$, then $u_0$ has only one nontrivial child and thus $\ge 1$ leaf child; if $u^* = u_0$, then $T \ne \emptyset$ means $u_0$ has $\ge 1$ leaf child). Indexing peeled layers from innermost ($1$) to outermost ($s$) gives alternating layers $A_1, B_1, \dots, A_s, B_s$ with $b_1,\dots,b_s \ge 1$, $a_2,\dots,a_s \ge 1$, and $a_1 \ge 0$ ($a_1 \ge 1$ iff the innermost non-empty peeled layer comes from a $\cup$-node, i.e., either $u^*$ is $\cup$ with leaf children, or $u^*$ is $\vee$ with $u^* \ne u_0$ and no leaf children). By the cotree adjacency rule, each $A_i$ is adjacent to $B_j$ iff $B_j$ lies strictly above $A_i$ (i.e., $i \le j$), every $B_j$ lies above $G^*$ (so $W_T$ is completely adjacent to $G^*$), and every $A_i$ lies at a $\cup$-node above or at $G^*$ (so $I_T$ is completely non-adjacent to $G^*$). Since $B_s \ne \emptyset$ is universal in $T$, $T$ is a connected threshold graph.
+\end{proof}
+
+\begin{lemma}[Weighted Twin and Local Eigenvalue Inheritance on Modules]\label{lem:inherit}
+  Let $G$ be a cograph with integer vicinal-monotone weight $w : V(G) \to \mathbb{Z}$, and let $H \subseteq G$ be a \emph{module} of $G$ (meaning every $u \in V(H)$ has the identical external neighborhood $E_H := N_G(u) \setminus V(H)$ of size $c := |E_H|$). Define $w_H : V(H) \to \mathbb{Z}$ by $w_H(u) := w(u) + c$. Then:
+  \begin{enumerate}
+    \item For all $u, v \in V(H)$, $u \preceq_H v \iff u \preceq_G v$, and $u, v$ are $(H, w_H)$-twins iff they are $(G, w)$-twins.
+    \item $w_H$ is integer-valued and vicinal-monotone on $H$, and $\mathcal{T}_{Q, w_H}(H) \subseteq \mathcal{T}_{Q, w}(G)$.
+  \end{enumerate}
+  In particular, under the decomposition of Lemma~\ref{lem:shell_core}, property~(2) holds for each of the following restrictions:
+  \begin{itemize}
+    \item $G \to G^*$ with $w^* := w|_{G^*} + |W_T|\mathbf{1}_{G^*}$;
+    \item $G^* \to G_i$ (Core Type U) with $w^*|_{G_i}$;
+    \item $G^* \to H_i$ (Core Type J) with $w_i := w^*|_{H_i} + (|G^*| - |H_i|)\mathbf{1}_{H_i}$, and $H_i \to C_j$ (for each connected component $C_j$ of $H_i$) with $w_i|_{C_j}$.
+  \end{itemize}
+\end{lemma}
+
+\begin{proof}
+  \textbf{(1)} For any $u, v \in V(H)$, since $N_G(u) = N_H(u) \sqcup E_H$ and $N_G[v] = N_H[v] \sqcup E_H$, we have $N_G(u) \subseteq N_G[v] \iff N_H(u) \subseteq N_H[v]$, and $N_G(u)\setminus\{v\} = N_G(v)\setminus\{u\} \iff N_H(u)\setminus\{v\} = N_H(v)\setminus\{u\}$. Because $w_H(u) - w_H(v) = w(u) - w(v)$, $(H, w_H)$-twins coincide with $(G, w)$-twins inside $V(H)$.
+
+  \textbf{(2)} Vicinal monotonicity of $w_H$ on $H$ is immediate from~(1). Every maximal $(H, w_H)$-twin class $C \subseteq V(H)$ of size $|C| \ge 2$ is contained in a maximal $(G, w)$-twin class of size $\ge 2$ of the same type (clique or independent). For any $u \in C$, $d_G(u) = d_H(u) + c$, so $d_H(u) + w_H(u) = d_G(u) + w(u)$ and $d_H(u) - 1 + w_H(u) = d_G(u) - 1 + w(u)$. Thus every local eigenvalue of $(H, w_H)$ lies in $\mathcal{T}_{Q,w}(G)$.
+
+  The three concrete applications follow directly because $G^*$ is a module in $G$ with $E_{G^*} = W_T$; each $G_i$ is a module in $G^*$ with $E_{G_i} = \emptyset$; each $H_i$ is a module in $G^*$ with $E_{H_i} = G^* \setminus H_i$; and each connected component $C_j$ of $H_i$ is a module in $H_i$ with $E_{C_j} = \emptyset$.
+\end{proof}
+
+Because the shell $T$ is \emph{not} a module in $G$ (when $I_T \ne \emptyset$ and $W_T \ne \emptyset$), its restriction requires a separate lemma.
+
+\begin{lemma}[Shell Restriction Lemma]\label{lem:shell_restrict}
+  In the setting of Lemma~\ref{lem:shell_core}, let $w : V(G) \to \mathbb{Z}$ be an integer vicinal-monotone weight on $G$, suppose $T \ne \emptyset$, and define $w_T : V(T) \to \mathbb{Z}$ by
+  \[
+    w_T := w|_T + |G^*|\,\mathbf{1}_{W_T}.
+  \]
+  Then:
+  \begin{enumerate}
+    \item $T$ is a connected threshold graph with layers $A_1, B_1, \dots, A_s, B_s$ ($a_1 \ge 0$, all other $a_i, b_i \ge 1$), and $w_T$ is constant on each layer and non-decreasing along $A_s \preceq_T \dots \preceq_T A_{i_0} \preceq_T B_1 \preceq_T \dots \preceq_T B_s$.
+    \item If $a_1 = 1$, then $w_T(B_1) - w_T(A_1) \ge |G^*| \ge 2$, so $A_1$ and $B_1$ are \emph{not} $(T, w_T)$-twins (placing $(T, w_T)$ in case~(III) of Lemma~\ref{lem:thresh_canon}). Similarly, if $a_1 = 0$, $b_1 = 1$, and $s \ge 2$, then $w_T(B_1) - w_T(A_2) \ge |G^*| \ge 2$, so $B_1$ and $A_2$ are \emph{not} $(T, w_T)$-twins (placing $(T, w_T)$ in case~(IV) of Lemma~\ref{lem:thresh_canon}).
+    \item $\mathcal{T}_{Q, w_T}(T) \subseteq \mathcal{T}_{Q, w}(G)$.
+    \item Consequently, for every $\mu \notin \mathcal{T}_{Q, w}(G)$, $\dim\ker(Q_{w_T}(T) - \mu I) \le 1$.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  \textbf{(1)} Connectivity and the block structure of $T$ are given by Lemma~\ref{lem:shell_core}(2). In $G$, all vertices within a single layer $A_i$ or $B_j$ are twins, so $w$ (and hence $w_T$) is constant on each layer. Moreover, in $G$ we have $A_s \preceq_G \dots \preceq_G A_{i_0} \preceq_G B_1 \preceq_G \dots \preceq_G B_s$ (every $A_i$ is non-adjacent to $G^*$ and adjacent only to $B_i \cup \dots \cup B_s$, while every $B_j$ is adjacent to $G^*$ and to $A_1 \cup \dots \cup A_j$ and all other $B_{j'}$). Hence $w(A_s) \le \dots \le w(A_{i_0}) \le w(B_1) \le \dots \le w(B_s)$. Adding $0$ on $I_T$ and $+|G^*| \ge 2$ on $W_T$ strictly preserves this chain:
+  \[
+    w_T(A_s) \le \dots \le w_T(A_{i_0}) < w_T(B_1) \le \dots \le w_T(B_s) \qquad (\text{with the } A\text{-terms vacuous when } I_T = \emptyset).
+  \]
+
+  \textbf{(2)} If $a_1 = 1$, then $A_1 \preceq_G B_1$ implies $w(A_1) \le w(B_1)$, so $w_T(B_1) - w_T(A_1) = (w(B_1) - w(A_1)) + |G^*| \ge |G^*| \ge 2 \ge 1$; even though $A_1$ and $B_1$ become unweighted clique twins in $T$ upon deleting $G^*$, their distinct weights prevent them from being $(T, w_T)$-twins. Likewise, if $a_1 = 0$, $b_1 = 1$, and $s \ge 2$, then $A_2 \preceq_G B_1$ implies $w(A_2) \le w(B_1)$, so $w_T(B_1) - w_T(A_2) = (w(B_1) - w(A_2)) + |G^*| \ge |G^*| \ge 2 \ge 1$; even though $B_1$ and $A_2$ become unweighted independent twins in $T$, their distinct weights prevent them from being $(T, w_T)$-twins.
+
+  \textbf{(3)} Let $C$ be any maximal $(T, w_T)$-twin class of size $|C| \ge 2$. No two distinct layers $A_i, A_{i'}$ ($i < i'$) can be twins in $T$ (since $B_i$ is adjacent to $A_i$ and not to $A_{i'}$), and no two distinct layers $B_j, B_{j'}$ ($j < j'$) can be twins in $T$ (since $A_{j'}$ is adjacent to $B_{j'}$ and not to $B_j$, as $a_{j'} \ge 1$ for $j' \ge 2$). Furthermore, no $A_i$ and $B_j$ can be $(T, w_T)$-twins: by~(1), $w_T(A_i) < w_T(B_j)$ holds for \emph{every} $i \in \{i_0,\dots,s\}$ and $j \in \{1,\dots,s\}$ (since $w_T(B_j) - w_T(A_i) \ge |G^*| \ge 2 > 0$), ruling out both unweighted twin pairs $(A_1, B_1)$ (when $a_1 = 1$) and $(A_2, B_1)$ (when $a_1 = 0, b_1 = 1, s \ge 2$) as well as all other $(A_i, B_j)$ pairs. Hence $C$ must be a single layer $A_i$ or $B_j$ (of size $\ge 2$), which is already contained in a maximal $(G, w)$-twin class of size $\ge 2$ of the same type. For $u \in A_i$, $d_T(u) = d_G(u)$ and $w_T(u) = w(u)$, so $d_T(u) + w_T(u) = d_G(u) + w(u)$; for $u \in B_j$, $d_T(u) = d_G(u) - |G^*|$ and $w_T(u) = w(u) + |G^*|$, so $d_T(u) - 1 + w_T(u) = d_G(u) - 1 + w(u)$. Thus $\mathcal{T}_{Q,w_T}(T) \subseteq \mathcal{T}_{Q,w}(G)$.
+
+  \textbf{(4)} By~(3), $\mu \notin \mathcal{T}_{Q,w}(G)$ implies $\mu \notin \mathcal{T}_{Q,w_T}(T)$. If $|T| = 1$ ($T = K_1$), then $\dim\ker(Q_{w_T}(T) - \mu I) \le 1$ trivially; if $|T| \ge 2$, then~(1)--(2) and Theorem~\ref{thm:Qsimple} give $\dim\ker(Q_{w_T}(T) - \mu I) \le 1$.
+\end{proof}
+
 \begin{theorem}[Universal Linear Upper Bounds for All Connected Cographs]\label{thm:cograph_upper}
   Let $G$ be any connected cograph on $n \ge 2$ vertices. Then:
   \begin{enumerate}
-    \item for every $\mu \notin \mathcal{T}_{Q,\max}(G)$, $\mult_{Q(G)}(\mu) \le 2\nabla(G) - 1$;
-    \item for every $\theta \notin \mathcal{T}^Q_{\max}(G)$, $\mult_{D^Q(G)}(\theta) \le 2\nabla(G)$.
+    \item for every $\mu \notin \mathcal{T}_{Q,\max}(G)$, $\mult_{Q(G)}(\mu) \le 5\nabla(G) - 4$;
+    \item for every $\theta \notin \mathcal{T}^Q_{\max}(G)$, $\mult_{D^Q(G)}(\theta) \le 5\nabla(G) - 3$.
   \end{enumerate}
 \end{theorem}
 
 \begin{proof}
-  We prove the stronger weighted statement: for every cograph $G$ (connected or disconnected) and every vicinal-monotone weight $w : V(G) \to \mathbb{R}$ (constant on maximal twin classes of $G$), every $\mu \notin \mathcal{T}_{Q,w}(G)$ satisfies $\mult_{Q_w(G)}(\mu) \le 2\nabla(G) - 1$ when $G$ is connected, and $\mult_{Q_w(G)}(\mu) \le 2\nabla(G)$ in general (with $\le 1$ when $G$ is a connected or edgeless threshold graph). We induct on $k = \nabla(G)$.
+  We prove by strong induction on $k = \nabla(G)$ the stronger weighted statement: for every connected cograph $G$ on $n \ge 2$ vertices with $\nabla(G) = k$ and every integer vicinal-monotone vertex weight $w : V(G) \to \mathbb{Z}$, every $\mu \notin \mathcal{T}_{Q,w}(G)$ satisfies $\mult_{Q_w(G)}(\mu) \le 5k - 4$.
 
-  \emph{Base case $k = 1$.} If $G$ is connected or edgeless, Theorem~\ref{thm:Qsimple} gives $\mult_{Q_w(G)}(\mu) \le 1 = 2(1)-1$. If $G = G_0 \cup \overline{K_a}$ is a disconnected threshold graph, $\mult_{Q_w(G)}(\mu) = \mult_{Q_w(G_0)}(\mu) + \mult_{Q_w(\overline{K_a})}(\mu) \le 1 + 1 = 2 = 2(1)$.
+  \emph{Base case $k = 1$.} Then $G$ is a connected threshold graph, and Theorem~\ref{thm:Qsimple} (via Lemma~\ref{lem:thresh_canon}) gives $\mult_{Q_w(G)}(\mu) \le 1 = 5(1) - 4$.
 
-  \emph{Inductive step ($k \ge 2$).} If $G$ is disconnected, write $G = G_1 \cup \dots \cup G_c$ ($c \ge 2$). Every component $G_i$ with edges is incomparable to every other component with edges, while all isolated vertices form a single block $\overline{K_a}$ comparable to every vertex with edges. Thus $\sum_{G_i\text{ nontrivial}} \nabla(G_i) = \nabla(G) = k$, and
+  \emph{Inductive step ($k \ge 2$).} Apply Lemma~\ref{lem:shell_core} to obtain the shell--core decomposition $V(G) = V(T) \sqcup V(G^*)$ with $\nabla(G^*) = k$. Let $U := \ker(Q_w(G) - \mu I)$ and set
   \[
-    \mult_{Q_w(G)}(\mu) \le \mathbf{1}_{a=1} + \sum_{G_i\text{ nontrivial}} \bigl(2\nabla(G_i) - 1\bigr) \le 1 + 2k - 2 = 2k - 1 \le 2k
+    U_1 := \Bigl\{\mathbf{x} \in U : \sum_{u \in G^*} x_u = 0\Bigr\},
   \]
-  (if at least two components are nontrivial; if only one component $G_1$ is nontrivial, then $\nabla(G_1) = k$ and $\mult \le (2k-1) + 1 = 2k$).
+  so $\dim U_1 \ge \dim U - 1$.
 
-  Now suppose $G$ is \emph{connected} with $\nabla(G) = k \ge 2$. Since $G$ is a connected cograph, $G = H_1 \vee H_2$ is a join; more specifically, by Ghorbani's threshold-module lemma~\cite[Lemma~3]{Ghorbani2019} (applied to the cotree of $G$), $G$ contains a non-empty induced subgraph $\Gamma$ which is a \emph{connected or edgeless} threshold module of $G$ (every vertex of $\Gamma$ shares the same outside neighborhood $W \subseteq V(H)$, where $H = G - \Gamma$) such that $\nabla(H) = k - 1$ (if $\Gamma$ is a disconnected threshold module $\Gamma_0 \cup \overline{K_a}$, we simply replace $\Gamma$ by its connected component $\Gamma_0$, which is still a connected threshold module of $G$ with outside neighborhood $W$ and $\nabla(G - \Gamma_0) \le k - 1$, or if $\nabla(G - \Gamma_0) = k$ we induct on $|V(G)|$). Let $U = \ker(Q_w(G) - \mu I)$ and define $\phi : U \to \mathbb{R}$ by $\phi(\mathbf{x}) = \sum_{v \in W} x_v$. Then $\dim\ker(\phi) \ge \dim U - 1$. For every $\mathbf{x} \in \ker(\phi)$, the cross-term from $W$ to $\Gamma$ vanishes, so $\mathbf{x}|_\Gamma \in \ker(M_\Gamma)$, where $M_\Gamma = Q(\Gamma) + \mathrm{diag}(w|_\Gamma + |W|\mathbf{1}) - \mu I$. Since $\Gamma$ is a connected or edgeless threshold graph and $\mu \notin \mathcal{T}_{Q,w}(G)$, Theorem~\ref{thm:Qsimple} gives $\dim\ker(M_\Gamma) \le 1$. Hence the subspace $U_0 = \{\mathbf{x} \in \ker(\phi) : \mathbf{x}|_\Gamma = \mathbf{0}\}$ satisfies $\dim U_0 \ge \dim U - 2$. For every $\mathbf{x} \in U_0$, the restriction $\mathbf{x}|_H$ lies in $\ker(Q_{w'}(H) - \mu I)$, where $w' = w|_H + |\Gamma|\mathbf{1}_W$. Because $W$ is an upset in the vicinal preorder of $H$, $w'$ is vicinal-monotone on $H$, and any $(H, w')$-twin pair has the same adjacency to $\Gamma$ and hence was already a $(G,w)$-twin pair, so $\mu \notin \mathcal{T}_{Q,w'}(H)$. By the induction hypothesis on $(H, w')$ (where $\nabla(H) = k-1$), $\dim\ker(Q_{w'}(H) - \mu I) \le 2(k-1) - 1 = 2k - 3$ whenever $H$ is connected or has at least two nontrivial components. In the only remaining case, $H = H_0 \cup \{v_0\}$ has a single isolated vertex $v_0$ together with a connected component $H_0$ ($\nabla(H_0) = k - 1$); since $G$ is connected, $v_0 \in W$, so every $\mathbf{x} \in U_0 \subseteq \ker(\phi)$ satisfies $x_{v_0} = -\sum_{v \in W \setminus \{v_0\}} x_v$, whence $\mathbf{x}|_H$ is uniquely determined by $\mathbf{x}|_{H_0} \in \ker(Q_{w'}(H_0) - \mu I)$, again yielding $\dim U_0 \le 2k - 3$. Consequently, in all cases, $\dim U \le \dim U_0 + 2 \le 2k - 1 = 2\nabla(G) - 1$.
+  \emph{Step 1: Peeling the shell $T$.}
+  \begin{itemize}
+    \item If $T = \emptyset$, set $U_0 := U_1$; then $\dim U_0 = \dim U_1 \ge \dim U - 1 \ge \dim U - 2$.
+    \item If $T \ne \emptyset$, then for every $\mathbf{x} \in U_1$, the cross-term from $G^*$ to $W_T$ vanishes because $\sum_{u \in G^*} x_u = 0$, while $I_T$ has no edges to $G^*$; thus $\mathbf{x}|_T \in \ker(Q_{w_T}(T) - \mu I)$, where $w_T = w|_T + |G^*|\mathbf{1}_{W_T}$. By Lemma~\ref{lem:shell_restrict}(4), $\dim\ker(Q_{w_T}(T) - \mu I) \le 1$. Defining the restriction map $\rho_T : U_1 \to \ker(Q_{w_T}(T) - \mu I)$ by $\rho_T(\mathbf{x}) = \mathbf{x}|_T$ and setting $U_0 := \ker \rho_T = \{\mathbf{x} \in U_1 : \mathbf{x}|_T = \mathbf{0}\}$, rank-nullity gives $\dim U_0 \ge \dim U_1 - 1 \ge \dim U - 2$.
+  \end{itemize}
+  In both cases, for every $\mathbf{x} \in U_0$, we have $\mathbf{x}|_T = \mathbf{0}$ and $\sum_{u \in G^*} x_u = 0$, so $\mathbf{x} \mapsto \mathbf{x}|_{G^*}$ embeds $U_0$ injectively into $\ker(Q_{w^*}(G^*) - \mu I)$, where $w^* := w|_{G^*} + |W_T|\mathbf{1}_{G^*}$. By Lemma~\ref{lem:inherit}, $w^*$ is integer vicinal-monotone on $G^*$ and $\mu \notin \mathcal{T}_{Q,w^*}(G^*)$.
 
-  Finally, (2) follows immediately from (1) and~\eqref{eq:rank1} by rank subadditivity.
+  \emph{Step 2: Bounding $\dim U_0$ on the branching core $G^*$.}
+  \begin{itemize}
+    \item \emph{Core Type U} ($G^* = G_1 \cup \dots \cup G_r$, $r \ge 2$, $\sum_{i=1}^r \nabla(G_i) = k$, $1 \le \nabla(G_i) \le k-1$): here $Q_{w^*}(G^*) = \bigoplus_{i=1}^r Q_{w^*|_{G_i}}(G_i)$. By Lemma~\ref{lem:inherit}, each $(G_i, w^*|_{G_i})$ is integer vicinal-monotone with $\mu \notin \mathcal{T}_{Q,w^*|_{G_i}}(G_i)$. Applying the induction hypothesis to each $G_i$ yields
+    \[
+      \dim U \le 2 + \dim U_0 \le 2 + \sum_{i=1}^r \bigl(5\nabla(G_i) - 4\bigr) = 5k + 2 - 4r \le 5k - 6 < 5k - 4.
+    \]
+    \item \emph{Core Type J} ($G^* = H_1 \vee \dots \vee H_r$, $r \ge 2$, $\sum_{i=1}^r \nabla(H_i) = k$, $1 \le \nabla(H_i) \le k-1$): for every $\mathbf{x} \in U_0$, $\sum_{u \in G^*} x_u = 0$ implies $\sum_{v \in G^* \setminus H_i} x_v = -\sum_{v \in H_i} x_v$, decoupling the parts $H_1,\dots,H_r$:
+    \[
+      \mathbf{x}|_{H_i} \in \ker\bigl(Q_{w_i}(H_i) - J_{|H_i|} - \mu I\bigr), \qquad w_i := w^*|_{H_i} + (|G^*| - |H_i|)\mathbf{1}_{H_i}.
+    \]
+    By Lemma~\ref{lem:inherit}, each $(H_i, w_i)$ is integer vicinal-monotone with $\mu \notin \mathcal{T}_{Q,w_i}(H_i)$. Write $H_i = C_1 \cup \dots \cup C_{t_i} \cup \overline{K_{a_i}}$ ($t_i \ge 0$ nontrivial connected components, $a_i \ge 0$ isolated vertices), and set $d_i := \dim\ker(Q_{w_i}(H_i) - J_{|H_i|} - \mu I)$. We prove $d_i \le 5\nabla(H_i) - 3$:
+    \begin{itemize}
+      \item \emph{Subcase $t_i = 0$ ($H_i = \overline{K_{a_i}}$, $a_i \ge 2$, $\nabla(H_i) = 1$):} all vertices of $H_i$ are $(H_i, w_i)$-twins with local eigenvalue $w_i(H_i) \ne \mu$, so $Q_{w_i}(H_i) - \mu I = (w_i(H_i) - \mu)I$ is invertible ($\nullity = 0$). By Lemma~\ref{lem:rank1}(1) applied to the rank-one perturbation $-J_{|H_i|}$, $d_i \le 0 + 1 = 1 < 5(1) - 3 = 2$.
+      \item \emph{Subcase $t_i \ge 2$:} by Lemma~\ref{lem:cotree_nabla}(2), $\sum_{j=1}^{t_i} \nabla(C_j) = \nabla(H_i) \le k - 1$. By Lemma~\ref{lem:inherit}, each $(C_j, w_i|_{C_j})$ satisfies the induction hypothesis, giving $\nullity(Q_{w_i}(C_j) - \mu I) \le 5\nabla(C_j) - 4$. On $\overline{K_{a_i}}$, $\nullity(Q_{w_i}(\overline{K_{a_i}}) - \mu I)$ is $0$ if $a_i \ge 2$ (since $w_i(\overline{K_{a_i}}) \in \mathcal{T}_{Q,w_i}(H_i)$) and at most $1$ if $a_i = 1$. By Lemma~\ref{lem:rank1}(1) applied to $-J_{|H_i|}$,
+      \[
+        d_i \le 1 + \mathbf{1}_{a_i = 1} + \sum_{j=1}^{t_i} \bigl(5\nabla(C_j) - 4\bigr) \le 2 + 5\nabla(H_i) - 4t_i \le 5\nabla(H_i) - 6 < 5\nabla(H_i) - 3.
+      \]
+      \item \emph{Subcase $t_i = 1$ ($H_i = C_1 \cup \overline{K_{a_i}}$, $a_i \ge 1$, $\nabla(C_1) = \nabla(H_i) \le k-1$):} by Lemma~\ref{lem:inherit} and the induction hypothesis, $\nullity(M) \le 5\nabla(H_i) - 4$ where $M := Q_{w_i}(C_1) - \mu I$. If $a_i \ge 2$, then $\nullity(Q_{w_i}(\overline{K_{a_i}}) - \mu I) = 0$ and Lemma~\ref{lem:rank1}(1) directly gives $d_i \le \nullity(M) + 1 \le 5\nabla(H_i) - 3$. If $a_i = 1$ (a single isolated vertex $v_0$), set $\beta := w_i(v_0) - \mu - 1$ and write $Q_{w_i}(H_i) - J_{|H_i|} - \mu I$ in block form over $V(C_1) \sqcup \{v_0\}$:
+      \[
+        N := \begin{pmatrix} M - J & -\mathbf{1} \\ -\mathbf{1}^T & \beta \end{pmatrix}.
+      \]
+      \begin{itemize}
+        \item If $\beta \ne 0$, eliminating the last row/column via the Schur complement yields
+        \[
+          d_i = \nullity(N) = \nullity\Bigl(M - \Bigl(1 + \frac{1}{\beta}\Bigr)J\Bigr) \le \nullity(M) + 1 \le 5\nabla(H_i) - 3
+        \]
+        by Lemma~\ref{lem:rank1}(1).
+        \item If $\beta = 0$, then $(\mathbf{x}, y)^T \in \ker N$ ($\mathbf{x} \in \mathbb{R}^{|C_1|}, y \in \mathbb{R}$) satisfies $-\mathbf{1}^T \mathbf{x} = 0$ and $(M - J)\mathbf{x} - y\mathbf{1} = \mathbf{0}$, i.e., $\mathbf{1}^T \mathbf{x} = 0$ and $M\mathbf{x} = y\mathbf{1}$. Define the linear functional $L : \ker N \to \mathbb{R}$ by $L(\mathbf{x}, y) := y$. Then $\dim\im L \le 1$, and every $(\mathbf{x}, 0) \in \ker L$ satisfies $M\mathbf{x} = \mathbf{0}$, so $\dim\ker L \le \nullity(M)$. By rank-nullity, $d_i = \dim\ker N = \dim\ker L + \dim\im L \le \nullity(M) + 1 \le 5\nabla(H_i) - 3$.
+      \end{itemize}
+    \end{itemize}
+    Summing $d_i \le 5\nabla(H_i) - 3$ over all $r \ge 2$ parts yields
+    \[
+      \dim U \le 2 + \dim U_0 \le 2 + \sum_{i=1}^r \bigl(5\nabla(H_i) - 3\bigr) = 5k + 2 - 3r \le 5k - 4.
+    \]
+  \end{itemize}
+  This completes the induction and proves~(1) (setting $w \equiv 0$). Part~(2) follows immediately from~(1) and Lemma~\ref{lem:rank1}(2)--(3).
 \end{proof}
 
 \subsection{Linear Violation of $\nabla(G)$ and $\nabla(G)+C$ on General Connected Cographs}
@@ -417,38 +765,47 @@ For a general cograph $G$ with vertex weight $w : V(G) \to \mathbb{R}$, write $Q
 \end{theorem}
 
 \begin{proof}
-  \textbf{(1)} In $B = K_{36} \vee (3 H_8)$, the vertices of $K_{36}$ are universal, and the three copies of $H_8$ are disjoint threshold graphs with edges, so $\nabla(B) = 3$. The maximal twin classes of size $\ge 2$ in $B$ are $K_{36}$ (degree $59$, local $Q$-eigenvalue $58$) and the $K_2$ twin class $\{v_1, v_2\}$ in each $H_8$ (degree $4 + 36 = 40$, local $Q$-eigenvalue $39$), so $40 \notin \mathcal{T}_{Q,\max}(B)$.
+  \textbf{(1)} By Lemma~\ref{lem:cotree_nabla}, $\nabla(B) = 3\nabla(H_8) = 3$. The maximal twin classes of size $\ge 2$ in $B$ are $K_{36}$ (degree $59$, local $Q$-eigenvalue $58$) and the $K_2$ twin class $\{v_1, v_2\}$ in each $H_8$ (degree $4 + 36 = 40$, local $Q$-eigenvalue $39$), so $\mathcal{T}_{Q,\max}(B) = \{58, 39\}$ and $40 \notin \mathcal{T}_{Q,\max}(B)$.
 
   From Theorem~\ref{thm:disproof} ($k=1$), $H_8$ has $\mathbf{x}^{(1)} = (-1,-1,1,1,0,0,0,0)^T$ with $\mathbf{1}_8^T \mathbf{x}^{(1)} = 0$ and $Q(H_8)\mathbf{x}^{(1)} = 4\mathbf{x}^{(1)}$, and $\mathbf{x}^{(2)} = (2,2,-2,0,-1,1,-1,1)^T$ with $\mathbf{1}_8^T \mathbf{x}^{(2)} = 2$ and $D^Q(H_8)\mathbf{x}^{(2)} = 8\mathbf{x}^{(2)}$. By~\eqref{eq:rank1} on $H_8$ ($2(8)-4 = 12$),
   \[
     \bigl(12I - Q(H_8) + 2J\bigr)\mathbf{x}^{(2)} = 8\mathbf{x}^{(2)} \;\implies\; \bigl(Q(H_8) - 4I\bigr)\mathbf{x}^{(2)} = 2J\mathbf{x}^{(2)} = 4\mathbf{1}_8.
   \]
-  In $B = K_{36} \vee (3H_8)$, placing $\mathbf{x}^{(1)}$ on each of the three copies of $H_8$ (and $0$ elsewhere) gives three linearly independent $Q(B)$-eigenvectors $\mathbf{u}^{(1)}, \mathbf{u}^{(2)}, \mathbf{u}^{(3)}$ for $\mu = 4 + 36 = 40$, each orthogonal to $\mathbf{1}_{60}$. Define a fourth vector $\mathbf{u}^{(4)} \in \mathbb{R}^{60}$ equal to $-1$ on $K_{36}$ and $9\mathbf{x}^{(2)}$ on each copy of $H_8$. Then:
+  In $B = K_{36} \vee (3H_8)$, placing $\mathbf{x}^{(1)}$ on each of the three copies of $H_8$ (and $0$ elsewhere) gives three pairwise disjointly supported $Q(B)$-eigenvectors $\mathbf{u}^{(1)}, \mathbf{u}^{(2)}, \mathbf{u}^{(3)}$ for $\mu = 4 + 36 = 40$, each orthogonal to $\mathbf{1}_{60}$. Define a fourth vector $\mathbf{u}^{(4)} \in \mathbb{R}^{60}$ equal to $-1$ on $K_{36}$ and $9\mathbf{x}^{(2)}$ on each copy of $H_8$. Then:
   \begin{itemize}
     \item on each copy of $H_8$: $(Q(H_8) + 36I)(9\mathbf{x}^{(2)}) + 36(-1)\mathbf{1}_8 = 9(4\mathbf{x}^{(2)} + 4\mathbf{1}_8) + 36(9\mathbf{x}^{(2)}) - 36\mathbf{1}_8 = 40(9\mathbf{x}^{(2)})$;
     \item on $K_{36}$ (degree $59$): $(59 + 35)(-1) + 3 \cdot 9(\mathbf{1}_8^T \mathbf{x}^{(2)}) = -94 + 54 = -40 = 40(-1)$.
   \end{itemize}
-  Thus $\mathbf{u}^{(1)},\dots,\mathbf{u}^{(4)}$ are four linearly independent $Q(B)$-eigenvectors for $\mu = 40$ (since $\mathbf{u}^{(4)} \ne 0$ on $K_{36}$), proving $\mult_{Q(B)}(40) \ge 4$ (and equality holds by direct verification).
+  Since $\mathbf{u}^{(4)} \equiv -1 \ne 0$ on $K_{36}$ while $\mathbf{u}^{(1)}, \mathbf{u}^{(2)}, \mathbf{u}^{(3)}$ vanish on $K_{36}$ and have pairwise disjoint supports on the three $H_8$ copies, $\mathbf{u}^{(1)},\dots,\mathbf{u}^{(4)}$ are linearly independent, so $\mult_{Q(B)}(40) \ge 4$.
 
-  \textbf{(2)} In $F_s = K_1 \vee (s \cdot B)$, the universal vertex $K_1$ shifts every vertex degree in $s \cdot B$ by $+1$, so $\nabla(F_s) = s\nabla(B) = 3s$, and the maximal twin classes of size $\ge 2$ have local $Q$-eigenvalues $59$ and $40$, so $41 \notin \mathcal{T}_{Q,\max}(F_s)$ and $\theta_s = 2(60s+1) - 4 - 41 = 120s - 43 \notin \mathcal{T}^Q_{\max}(F_s)$. We exhibit $4s - 1$ linearly independent vectors in $\mathbb{R}^{60s+1}$, all vanishing on $K_1$ and orthogonal to $\mathbf{1}_{60s+1}$:
+  To prove the exact equality $\mult_{Q(B)}(40) = 4$ purely analytically, let $E_{40} := \ker(Q(B) - 40 I_{60})$. Because $K_{36}$ is a clique twin class of local $Q$-eigenvalue $58 \ne 40$, every $\mathbf{x} \in E_{40}$ is constant on $K_{36}$, taking a common value $\lambda(\mathbf{x}) \in \mathbb{R}$. Define the linear functional $L : E_{40} \to \mathbb{R}$ by $L(\mathbf{x}) := \lambda(\mathbf{x})$, so $\dim\im L \le 1$. If $\mathbf{x} \in \ker L$, then $\mathbf{x}|_{K_{36}} = \mathbf{0}$, so on each copy of $H_8$ the eigenvector equation reduces to $(Q(H_8) + 36I)\mathbf{x}|_{H_8} = 40\mathbf{x}|_{H_8}$, i.e., $\mathbf{x}|_{H_8} \in \ker(Q(H_8) - 4I)$. Since $H_8$ is a connected threshold graph and $4 \notin \mathcal{T}_{Q,\max}(H_8) = \{3\}$, Theorem~\ref{thm:Qsimple} (or Theorem~\ref{thm:CgraphQ}) gives $\dim\ker(Q(H_8) - 4I) = 1$, whence $\dim\ker L \le 3$. By rank-nullity,
+  \[
+    \mult_{Q(B)}(40) = \dim E_{40} = \dim\ker L + \dim\im L \le 3 + 1 = 4,
+  \]
+  proving $\mult_{Q(B)}(40) = 4$.
+
+  \textbf{(2)} In $F_s = K_1 \vee (s \cdot B)$, Lemma~\ref{lem:cotree_nabla} gives $\nabla(F_s) = s\nabla(B) = 3s$, and the maximal twin classes of size $\ge 2$ have local $Q$-eigenvalues $59$ and $40$ (noting that for $s = 1$, $F_1 = K_{37} \vee (3H_8)$ merges $K_1$ with $K_{36}$ into a single $K_{37}$ class of degree $60$ and the same local $Q$-eigenvalue $59$), so $41 \notin \mathcal{T}_{Q,\max}(F_s)$ and $\theta_s = 2(60s+1) - 4 - 41 = 120s - 43 \notin \mathcal{T}^Q_{\max}(F_s)$ by Lemma~\ref{lem:rank1}(3). Consider the following $4s - 1$ vectors in $\mathbb{R}^{60s+1}$, all vanishing on $K_1$ and orthogonal to $\mathbf{1}_{60s+1}$:
   \begin{itemize}
-    \item the $3s$ lifts of $\mathbf{u}^{(1)}, \mathbf{u}^{(2)}, \mathbf{u}^{(3)}$ supported on each individual copy of $B$;
-    \item the $s - 1$ difference vectors equal to $+\mathbf{u}^{(4)}$ on copy~$1$ of $B$, $-\mathbf{u}^{(4)}$ on copy~$j$ of $B$ ($j = 2,\dots,s$), and $0$ elsewhere.
+    \item for $j \in \{1,\dots,s\}$ and $t \in \{1,2,3\}$, the vector $\mathbf{v}^{(j,t)}$ equal to $\mathbf{u}^{(t)}$ on copy~$j$ of $B$ and $0$ elsewhere ($3s$ vectors);
+    \item for $j \in \{2,\dots,s\}$, the difference vector $\mathbf{w}^{(j)}$ equal to $+\mathbf{u}^{(4)}$ on copy~$1$ of $B$, $-\mathbf{u}^{(4)}$ on copy~$j$ of $B$, and $0$ elsewhere ($s - 1$ vectors).
   \end{itemize}
-  Since every such vector $\mathbf{v}$ vanishes on $K_1$ and satisfies $\mathbf{1}_{60s+1}^T \mathbf{v} = 0$, the cross-terms between $K_1$ and $s \cdot B$ vanish, so $Q(F_s)\mathbf{v} = (40 + 1)\mathbf{v} = 41\mathbf{v}$. Because $J\mathbf{v} = \mathbf{0}$, identity~\eqref{eq:rank1} immediately gives $D^Q(F_s)\mathbf{v} = (2n_s - 4 - 41)\mathbf{v} = \theta_s \mathbf{v}$. Hence both $Q(F_s)$ and $D^Q(F_s)$ have non-local multiplicity at least $4s - 1 = \frac{4}{3}\nabla(F_s) - 1$.
+  To verify linear independence, suppose $\sum_{j=1}^s \sum_{t=1}^3 \alpha_{j,t} \mathbf{v}^{(j,t)} + \sum_{j=2}^s \beta_j \mathbf{w}^{(j)} = \mathbf{0}$. Restricting to the $K_{36}$ block of copy~$j$ ($j \in \{2,\dots,s\}$), every $\mathbf{v}^{(j',t)}$ vanishes on $K_{36}$ and the only vector non-zero there is $\mathbf{w}^{(j)}$ (taking value $+1$ on $K_{36}$ of copy~$j$), forcing $\beta_j = 0$ for all $j = 2,\dots,s$. What remains is $\sum_{j,t} \alpha_{j,t} \mathbf{v}^{(j,t)} = \mathbf{0}$; since the $3s$ vectors $\mathbf{v}^{(j,t)}$ have pairwise disjoint supports (each supported on a distinct copy of $H_8$), $\alpha_{j,t} = 0$ for all $j, t$.
+
+  Because every $\mathbf{v} \in \{\mathbf{v}^{(j,t)}, \mathbf{w}^{(j)}\}$ vanishes on $K_1$ and satisfies $\mathbf{1}_{60s+1}^T \mathbf{v} = 0$, the cross-terms between $K_1$ and $s \cdot B$ vanish, giving $Q(F_s)\mathbf{v} = (40 + 1)\mathbf{v} = 41\mathbf{v}$. Since $J\mathbf{v} = \mathbf{0}$, identity~\eqref{eq:rank1} immediately yields $D^Q(F_s)\mathbf{v} = (2n_s - 4 - 41)\mathbf{v} = \theta_s \mathbf{v}$. Hence both $Q(F_s)$ and $D^Q(F_s)$ attain non-local multiplicity at least $4s - 1 = \frac{4}{3}\nabla(F_s) - 1$.
 \end{proof}
 
-\begin{remark}[Exact symbolic verification on all $1{,}170$ connected cographs of order $n \le 9$]\label{rem:enum}
-  Remarkably, the violation in Theorem~\ref{thm:cograph_lower} is completely invisible at small orders: exhaustive exact symbolic verification (via canonical cotrees and exact polynomial $\gcd(p(x), p'(x))$ in SymPy) over all $1{,}170$ non-isomorphic connected cographs of order $2 \le n \le 9$ yields \emph{zero} violations of $\mult_Q \le \nabla$ and \emph{zero} violations of $\mult_{D^Q} \le \nabla + 1$ (Table~\ref{tab:cographs}).
+\begin{remark}[Exact symbolic verification on small orders and reproducibility]\label{rem:enum}
+  Remarkably, the linear separation in Theorem~\ref{thm:cograph_lower} is invisible at small orders: using our companion script \texttt{verify\_all.py} (verified under Python~3.11.2, NumPy~2.1.3 for integer arrays, and SymPy~1.13.3 for exact integer matrices and irreducible-factor decomposition \texttt{factor\_list} over $\mathbb{Q}[x]$, with zero floating-point arithmetic), we exhaustively checked all $1{,}170$ non-isomorphic connected cographs of order $2 \le n \le 9$ via canonical cotrees. Table~\ref{tab:cographs} reports the \emph{number of graphs} exhibiting at least one maximal-twin-non-local eigenvalue violating each bound: \emph{zero} graphs violate $\mult_Q \le \nabla$ or $\mult_{D^Q} \le \nabla + 1$, and exactly $4$ graphs (all at $n = 8$, each at a single non-local eigenvalue) violate $\mult_{D^Q} \le \nabla$. As noted in Section~\ref{sec:intro}, these finite-order symbolic checks confirm exact small-order counts and independently cross-check our explicit constructions, while all universal bounds in Sections~\ref{sec:Cgraph_bound}--\ref{sec:cographs} are proved purely analytically.
 \end{remark}
 
 \begin{table}[!htbp]
   \centering
-  \caption{Exact symbolic verification across all $1{,}170$ connected cographs of order $2 \le n \le 9$.}
+  \caption{Exact symbolic verification across all $1{,}170$ non-isomorphic connected cographs of order $2 \le n \le 9$ (counts denote \emph{number of graphs} with at least one maximal-twin-non-local eigenvalue violating the stated inequality).}
   \label{tab:cographs}
+  {\small\setlength{\tabcolsep}{5pt}
   \begin{tabular}{ccccc}
     \toprule
-    Order $n$ & Connected cographs & $\mult_{Q} > \nabla$ & $\mult_{D^Q} > \nabla$ & $\mult_{D^Q} > \nabla + 1$ \\
+    Order $n$ & Cographs & \#\,Graphs ($\mult_{Q} > \nabla$) & \#\,Graphs ($\mult_{D^Q} > \nabla$) & \#\,Graphs ($\mult_{D^Q} > \nabla + 1$) \\
     \midrule
     $2$ & $1$   & $0$ & $0$ & $0$ \\
     $3$ & $2$   & $0$ & $0$ & $0$ \\
@@ -461,15 +818,25 @@ For a general cograph $G$ with vertex weight $w : V(G) \to \mathbb{R}$, write $Q
     \midrule
     Total & $1{,}170$ & $0$ & $4$ & $0$ \\
     \bottomrule
-  \end{tabular}
+  \end{tabular}}
 \end{table}
 
-\begin{problem}
-  Determine the exact optimal asymptotic constant
+\begin{problem}\label{prob:cstar}
+  For each integer $k \ge 1$, define the extremal maximal-twin-non-local multiplicities over connected cographs of Dilworth number $k$:
+  \begin{align*}
+    M_Q(k) &:= \sup_{\substack{G\text{ connected cograph} \\ \nabla(G) = k}} \max_{\mu \notin \mathcal{T}_{Q,\max}(G)} \mult_{Q(G)}(\mu), \\
+    M_{D^Q}(k) &:= \sup_{\substack{G\text{ connected cograph} \\ \nabla(G) = k}} \max_{\theta \notin \mathcal{T}^Q_{\max}(G)} \mult_{D^Q(G)}(\theta),
+  \end{align*}
+  and define the asymptotic growth constants
   \[
-    c^* := \sup\left\{\frac{\mult_{Q(G)}(\mu)}{\nabla(G)} : G\text{ a connected cograph},\, \mu \notin \mathcal{T}_{Q,\max}(G)\right\} \in \left[\frac{4}{3},\, 2\right].
+    c_Q^* := \limsup_{k \to \infty} \frac{M_Q(k)}{k}, \qquad
+    c_{D^Q}^* := \limsup_{k \to \infty} \frac{M_{D^Q}(k)}{k}.
   \]
-  (By~\eqref{eq:rank1}, the corresponding asymptotic constant for $D^Q(G)$ equals $c^*$ as well.)
+  By Lemma~\ref{lem:rank1}(2)--(3), $|M_Q(k) - M_{D^Q}(k)| \le 1$ for every $k \ge 1$, whence $c_Q^* = c_{D^Q}^*$. Theorems~\ref{thm:cograph_upper} and~\ref{thm:cograph_lower} establish
+  \[
+    \frac{4}{3} \le c_Q^* = c_{D^Q}^* \le 5.
+  \]
+  Determine the exact value of $c_Q^* = c_{D^Q}^*$.
 \end{problem}
 
 \begin{thebibliography}{9}

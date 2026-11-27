@@ -1,31 +1,78 @@
 #!/usr/bin/env python3
 """
-Exact symbolic verification script accompanying:
+100% Pure Exact Symbolic Verification Script (Zero Floating-Point Arithmetic)
+accompanying the final manuscript:
   "A Spectral Dichotomy for Dilworth Multiplicity Bounds of the Signless Laplacian
    and Distance Signless Laplacian on C-Graphs and Cographs"
 
-Verifies:
-  1. Theorem 3.1: Infinite counterexample family G_k = C(k, 1, ..., 1) for k = 1..5
-     directly on the full n x n integer matrix D^Q(G_k).
-  2. Proposition 3.2: Exhaustive exact polynomial gcd(p, p') check of all 127
-     connected C-graphs of order 2 <= n <= 8, proving H_8 = C(1^8) is the unique
-     smallest counterexample to Mandal-Manna Conjecture 5.5.
-  3. Theorem 5.4: Full n x n exact integer verification of B = K_36 V (3 * H_8)
-     (n=60, nabla=3, mult_Q(40)=4) and F_s = K_1 V (s * B) for s = 2, 3
-     (n=121, 181; mult_Q(41) >= 4s-1 and mult_{D^Q}(120s-43) >= 4s-1 = (4/3)nabla - 1).
-  4. Table 2: Exhaustive exact symbolic verification of mult_Q <= nabla and
-     mult_{D^Q} <= nabla + 1 across all 1,170 connected cographs of order 2 <= n <= 9.
+Scope & Reproducibility Note:
+  All universal upper-bound theorems in the manuscript (Theorems 2.1, 4.4, 4.5, 5.3,
+  and 5.8) are proved purely analytically; finite-order symbolic computations below
+  confirm exact small-order enumerations and independently cross-check our explicit
+  constructions, and do NOT substitute for analytical proofs of universal bounds.
 
-Requirements: numpy, sympy (Python 3.8+)
+What this script verifies using pure integer / rational / polynomial arithmetic (SymPy):
+  1. Theorem 3.1: Infinite counterexample family G_k = C(k, 1, ..., 1) for k = 1..5
+     on the full n x n integer matrix D^Q(G_k) using exact SymPy Matrix.rank().
+  2. Proposition 3.2: Exhaustive pure symbolic irreducible-factor decomposition
+     (sympy.factor_list over Q[x], zero root approximation) across all 127 even-length
+     C-graph creation sequences of order 2 <= n <= 8, confirming H_8 = C(1^8) is the
+     unique smallest counterexample to Mandal-Manna Conjecture 5.5 up to isomorphism.
+  3. Theorem 5.9: Full n x n exact SymPy verification of B = K_36 V (3 * H_8)
+     (n=60, nabla=3, exact 60x60 nullspace dimension of Q(B) - 40*I_60 equals 4) and
+     F_s = K_1 V (s * B) for s = 2, 3 (exact integer eigenvector equations + exact SymPy rank).
+  4. Table 2 (Remark 5.10): Exhaustive pure symbolic irreducible-factor decomposition
+     (sympy.factor_list over Q[x], zero floating-point prefiltering, zero root solving)
+     across ALL 1,170 non-isomorphic connected cographs of order 2 <= n <= 9, reporting
+     exact counts of violating GRAPHS.
+
+Usage:
+  python3 verify_all.py
+Requirements:
+  Python 3.8+, numpy (integer array construction only), sympy
 """
 
 from itertools import combinations_with_replacement, product
+import platform
+import random
+import sys
+import time
 import numpy as np
 import sympy as sp
 
 
+def has_nonlocal_multiplicity_gt(poly, local_int_set, threshold):
+    """
+    Pure algebraic check over Q[x] via irreducible factorization (factor_list):
+    Returns (True, witness_list) iff `poly` has at least one root not in `local_int_set`
+    with algebraic multiplicity strictly greater than `threshold`.
+    Because irreducible factors over Q are separable, each root of an irreducible factor
+    `fac` has exact multiplicity equal to its exponent `exp`, with zero numerical root solving.
+    """
+    witnesses = []
+    if sp.gcd(poly, poly.diff()).degree() == 0:
+        # Square-free polynomial: every root has multiplicity 1
+        if threshold >= 1:
+            return False, witnesses
+    _, factors = sp.factor_list(poly)
+    for fac_poly, exp in factors:
+        if exp <= threshold:
+            continue
+        fac = sp.Poly(fac_poly, poly.gen)
+        if fac.degree() == 1:
+            a, b = fac.all_coeffs()
+            root = sp.Rational(-b, a)
+            if root.is_integer and int(root) in local_int_set:
+                continue
+            witnesses.append((root, exp))
+        else:
+            # Irreducible of degree >= 2 over Q: all roots are irrational, hence not in local_int_set
+            witnesses.append((fac.as_expr(), exp))
+    return (len(witnesses) > 0), witnesses
+
+
 def build_cgraph_recursive(alphas):
-    """Build adjacency matrix of C(alpha_1, ..., alpha_m) from the recursive definition."""
+    """Build exact integer adjacency matrix of C(alpha_1, ..., alpha_m) from the recursive definition."""
     n_cur = alphas[0]
     A = np.zeros((n_cur, n_cur), dtype=int)
     for a in alphas[1:]:
@@ -41,7 +88,7 @@ def build_cgraph_recursive(alphas):
 
 
 def verify_theorem_3_1():
-    print("[1/4] Verifying Theorem 3.1 (infinite family G_k, k = 1..5)...")
+    print("[1/5] Verifying Theorem 3.1 (infinite family G_k, k = 1..5, exact integer & SymPy rank)...")
     for k in range(1, 6):
         m = 2 * k + 6
         alphas = [k] + [1] * (m - 1)
@@ -58,8 +105,9 @@ def verify_theorem_3_1():
         )
         assert np.array_equal(DQ @ x1, theta * x1)
         assert np.array_equal(DQ @ x2, theta * x2)
-        assert np.linalg.matrix_rank(np.column_stack([x1, x2]).astype(float)) == 2
-    print("      PASSED: Exact integer eigenvector verification for k = 1..5.")
+        V_exact = sp.Matrix(np.column_stack([x1, x2]).tolist())
+        assert V_exact.rank() == 2
+    print("      PASSED: Exact integer eigenvectors and exact SymPy rank = 2 for k = 1..5.")
 
 
 def compositions_even(n):
@@ -76,7 +124,7 @@ def compositions_even(n):
 
 
 def verify_proposition_3_2():
-    print("[2/4] Verifying Proposition 3.2 (all 127 connected C-graphs, 2 <= n <= 8)...")
+    print("[2/5] Verifying Proposition 3.2 (all 127 even-length C-graph sequences, 2 <= n <= 8, factor_list)...")
     x = sp.Symbol("x")
     total = 0
     violations = []
@@ -103,17 +151,16 @@ def verify_proposition_3_2():
                     if j != i:
                         Q[i, j] = alphas[j] * (1 if max(idx, j + 1) % 2 == 0 else 2)
             p = sp.Poly(Q.charpoly(x).as_expr(), x)
-            if sp.gcd(p, p.diff()).degree() > 0:
-                for e, mult in Q.eigenvals().items():
-                    if e not in TQ and mult > nabla:
-                        violations.append((alphas, nabla, mult, e))
+            viol, wits = has_nonlocal_multiplicity_gt(p, TQ, nabla)
+            if viol:
+                violations.append((alphas, nabla, wits))
     assert total == 127
-    assert violations == [((1, 1, 1, 1, 1, 1, 1, 1), 1, 2, 8)]
-    print(f"      PASSED: {total} C-graphs checked; unique violation is C(1^8) = H_8 (theta=8, mult=2 > nabla=1).")
+    assert violations == [((1, 1, 1, 1, 1, 1, 1, 1), 1, [(sp.Rational(8), 2)])]
+    print(f"      PASSED: {total} creation sequences checked via factor_list; unique violation is C(1^8) = H_8 (theta=8, mult=2 > nabla=1).")
 
 
-def verify_theorem_5_4():
-    print("[3/4] Verifying Theorem 5.4 (linear separation B = K_36 V 3*H_8 and F_s = K_1 V s*B)...")
+def verify_theorem_5_9():
+    print("[3/5] Verifying Theorem 5.9 (exact 60x60 nullspace of B & exact SymPy rank on F_2, F_3)...")
     H8 = build_cgraph_recursive([1] * 8)
     w = 36
     nB = w + 24
@@ -139,7 +186,11 @@ def verify_theorem_5_4():
         v4[w + 8 * t : w + 8 * (t + 1)] = 9 * x2
     assert np.array_equal(QB @ v4, 40 * v4)
     vecsB.append(v4)
-    assert np.linalg.matrix_rank(np.column_stack(vecsB).astype(float)) == 4
+    assert sp.Matrix(np.column_stack(vecsB).tolist()).rank() == 4
+
+    # Independent exact 60x60 SymPy nullspace confirming mult_{Q(B)}(40) == 4 EXACTLY
+    QB_sp = sp.Matrix(QB.tolist())
+    assert len((QB_sp - 40 * sp.eye(nB)).nullspace()) == 4
 
     for s in [2, 3]:
         nF = 1 + s * nB
@@ -170,8 +221,8 @@ def verify_theorem_5_4():
             assert np.array_equal(QF @ v, 41 * v)
             assert np.array_equal(DQF @ v, thetaF * v)
             vecsF.append(v)
-        assert np.linalg.matrix_rank(np.column_stack(vecsF).astype(float)) == 4 * s - 1
-    print("      PASSED: B (n=60, nabla=3, mult_Q=4) and F_2, F_3 (mult_Q, mult_DQ >= (4/3)nabla - 1) verified.")
+        assert sp.Matrix(np.column_stack(vecsF).tolist()).rank() == 4 * s - 1
+    print("      PASSED: Exact 60x60 nullity(Q(B)-40I) = 4 and exact SymPy ranks on F_2 (7), F_3 (11).")
 
 
 def partitions(n, max_part):
@@ -240,7 +291,8 @@ def compute_nabla(incomp):
 
 
 def verify_table_2():
-    print("[4/4] Verifying Table 2 (all 1,170 connected cographs, 2 <= n <= 9)...")
+    print("[4/5] Verifying Table 2 / Remark 5.10 (ALL 1,170 connected cographs, 2 <= n <= 9, pure factor_list)...")
+    t0 = time.time()
     connected = {1: [("L",)]}
     disconnected = {1: []}
     for n in range(2, 10):
@@ -249,9 +301,10 @@ def verify_table_2():
         connected[n] = [("J", ch) for part in partitions(n, n - 1) for ch in gen_from_parts(co_conn, part)]
 
     x = sp.Symbol("x")
+    expected_graphs = {2: 1, 3: 2, 4: 5, 5: 12, 6: 33, 7: 90, 8: 261, 9: 766}
     total_graphs = 0
     for n in range(2, 10):
-        q_viols, dq_orig, dq_rep = 0, 0, 0
+        q_viol_graphs, dq_orig_graphs, dq_rep_graphs = 0, 0, 0
         for tree in connected[n]:
             total_graphs += 1
             A = cotree_to_adj(tree)
@@ -285,47 +338,117 @@ def verify_table_2():
             T_Q = {deg[i] - (1 if is_clique[i] else 0) for i in range(k) if sizes[i] >= 2}
             T_DQ = {2 * (n - 1) - deg[i] - (1 if is_clique[i] else 2) for i in range(k) if sizes[i] >= 2}
 
-            Qq = np.zeros((k, k), dtype=float)
-            DQq = np.zeros((k, k), dtype=float)
+            Mq = sp.zeros(k, k)
+            Mdq = sp.zeros(k, k)
             for i in range(k):
                 Tr_i = 2 * (n - 1) - deg[i]
-                Qq[i, i] = deg[i] + ((sizes[i] - 1) if is_clique[i] else 0)
-                DQq[i, i] = Tr_i + (sizes[i] - 1) * (1 if is_clique[i] else 2)
+                Mq[i, i] = deg[i] + ((sizes[i] - 1) if is_clique[i] else 0)
+                Mdq[i, i] = Tr_i + (sizes[i] - 1) * (1 if is_clique[i] else 2)
                 for j in range(k):
                     if i != j:
                         adj = int(A[reps[i], reps[j]])
-                        Qq[i, j] = sizes[j] * adj
-                        DQq[i, j] = sizes[j] * (1 if adj == 1 else 2)
-            sq = np.sqrt(sizes)
-            eQ = np.sort(np.linalg.eigvalsh((sq[:, None] * Qq) / sq[None, :]))
-            eDQ = np.sort(np.linalg.eigvalsh((sq[:, None] * DQq) / sq[None, :]))
-            if k >= 2 and np.min(np.diff(eQ)) < 1e-3:
-                Mq = sp.Matrix([[int(round(Qq[i, j])) for j in range(k)] for i in range(k)])
-                p = sp.Poly(Mq.charpoly(x).as_expr(), x)
-                if sp.gcd(p, p.diff()).degree() > 0:
-                    for e, mult in Mq.eigenvals().items():
-                        if e not in T_Q and mult > nabla:
-                            q_viols += 1
-                            break
-            if k >= 2 and np.min(np.diff(eDQ)) < 1e-3:
-                Mdq = sp.Matrix([[int(round(DQq[i, j])) for j in range(k)] for i in range(k)])
-                p = sp.Poly(Mdq.charpoly(x).as_expr(), x)
-                if sp.gcd(p, p.diff()).degree() > 0:
-                    for e, mult in Mdq.eigenvals().items():
-                        if e not in T_DQ:
-                            if mult > nabla:
-                                dq_orig += 1
-                            if mult > nabla + 1:
-                                dq_rep += 1
-        assert q_viols == 0 and dq_rep == 0
-        print(f"      n={n}: {len(connected[n]):3d} graphs | Q>nabla: {q_viols} | DQ>nabla: {dq_orig} | DQ>nabla+1: {dq_rep}")
+                        Mq[i, j] = sizes[j] * adj
+                        Mdq[i, j] = sizes[j] * (1 if adj == 1 else 2)
+
+            pQ = sp.Poly(Mq.charpoly(x).as_expr(), x)
+            if has_nonlocal_multiplicity_gt(pQ, T_Q, nabla)[0]:
+                q_viol_graphs += 1
+
+            pDQ = sp.Poly(Mdq.charpoly(x).as_expr(), x)
+            violates, witnesses = has_nonlocal_multiplicity_gt(pDQ, T_DQ, nabla)
+            if violates:
+                # One rational witness represents one eigenvalue; a nonlinear
+                # irreducible factor would represent multiple distinct roots.
+                assert len(witnesses) == 1 and witnesses[0][0].is_Rational, (tree, witnesses)
+                dq_orig_graphs += 1
+            if has_nonlocal_multiplicity_gt(pDQ, T_DQ, nabla + 1)[0]:
+                dq_rep_graphs += 1
+
+        observed = (len(connected[n]), q_viol_graphs, dq_orig_graphs, dq_rep_graphs)
+        expected = (expected_graphs[n], 0, 4 if n == 8 else 0, 0)
+        assert observed == expected, f"Table 2, n={n}: expected {expected}, got {observed}"
+        print(
+            f"      n={n}: {len(connected[n]):3d} graphs | "
+            f"Graphs(Q>nabla): {q_viol_graphs} | Graphs(DQ>nabla): {dq_orig_graphs} | Graphs(DQ>nabla+1): {dq_rep_graphs}"
+        )
     assert total_graphs == 1170
-    print(f"      PASSED: All {total_graphs} connected cographs verified.")
+    print(f"      PASSED: All {total_graphs} connected cographs verified via factor_list in {time.time()-t0:.2f}s.")
+
+
+
+
+def verify_theorem_5_3_case_IV():
+    print("[5/5] Verifying Theorem 5.3 Case (IV) (102 weighted threshold graphs via pure factor_list)...")
+    x = sp.Symbol("x")
+
+    def check_case_IV(b_sizes, a_sizes, wB, wA):
+        s = len(b_sizes)
+        assert s >= 2 and b_sizes[0] == 1 and len(a_sizes) == s - 1
+        blocks = [("B", 1, b_sizes[0], wB[0])]
+        for k in range(2, s + 1):
+            blocks.append(("A", k, a_sizes[k - 2], wA[k - 2]))
+            blocks.append(("B", k, b_sizes[k - 1], wB[k - 1]))
+        verts = []
+        for typ, idx, sz, wt in blocks:
+            for _ in range(sz):
+                verts.append((typ, idx, wt))
+        n = len(verts)
+        A = sp.zeros(n, n)
+        for u in range(n):
+            tu, iu, _ = verts[u]
+            for v in range(u + 1, n):
+                tv, iv, _ = verts[v]
+                adj = (
+                    (tu == "B" and tv == "B")
+                    or (tu == "A" and tv == "B" and iu <= iv)
+                    or (tu == "B" and tv == "A" and iv <= iu)
+                )
+                if adj:
+                    A[u, v] = 1
+                    A[v, u] = 1
+        deg = [sum(A.row(u)) for u in range(n)]
+        Qw = sp.diag(*[deg[u] + verts[u][2] for u in range(n)]) + A
+        T_local = set()
+        off = 0
+        for typ, idx, sz, wt in blocks:
+            if sz >= 2:
+                d = deg[off]
+                T_local.add(int(d - 1 + wt) if typ == "B" else int(d + wt))
+            off += sz
+        p = sp.Poly(Qw.charpoly(x).as_expr(), x)
+        viol, wits = has_nonlocal_multiplicity_gt(p, T_local, 1)
+        assert not viol, f"Unexpected Case (IV) violation: {wits}"
+
+    # Explicit star boundary examples: K_1 V (K_1 U K_1), a1=0, b1=1, a2=b2=1
+    check_case_IV([1, 1], [1], [1, 2], [0])
+    check_case_IV([1, 1], [1], [2, 2], [0])
+
+    # 100 deterministic random Case (IV) instances (40 with wB1 - wA2 == 1, 60 with jump >= 1)
+    rng = random.Random(42)
+    for trial in range(100):
+        s = rng.choice([2, 3, 4])
+        b_sizes = [1] + [rng.randint(1, 2) for _ in range(s - 1)]
+        a_sizes = [rng.randint(1, 2) for _ in range(s - 1)]
+        wA_rev = [rng.randint(-2, 2)]
+        for _ in range(s - 2):
+            wA_rev.append(wA_rev[-1] + rng.randint(0, 2))
+        wA = list(reversed(wA_rev))
+        jump = 1 if trial < 40 else rng.randint(1, 4)
+        wB = [wA[0] + jump]
+        for _ in range(s - 1):
+            wB.append(wB[-1] + rng.randint(0, 2))
+        check_case_IV(b_sizes, a_sizes, wB, wA)
+    print("      PASSED: 102/102 Case (IV) weighted threshold graphs have zero non-local repeated roots.")
 
 
 if __name__ == "__main__":
+    if not __debug__:
+        sys.exit("Run without -O or -OO to enable verification assertions.")
+    print(f"Environment: Python {platform.python_version()} | NumPy {np.__version__} | SymPy {sp.__version__}")
+    print("-" * 78)
     verify_theorem_3_1()
     verify_proposition_3_2()
-    verify_theorem_5_4()
+    verify_theorem_5_9()
     verify_table_2()
-    print("\nALL VERIFICATIONS PASSED.")
+    verify_theorem_5_3_case_IV()
+    print("\nALL 100% PURE SYMBOLIC VERIFICATIONS PASSED.")
