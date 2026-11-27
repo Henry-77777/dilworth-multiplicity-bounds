@@ -1,13 +1,13 @@
 {
   "upload_type": "publication",
   "publication_type": "preprint",
-  "title": "Dilworth Multiplicity Bounds for the Signless Laplacian and Distance Signless Laplacian of C-Graphs and Threshold Graphs",
+  "title": "Dilworth Multiplicity Bounds for the Signless Laplacian and Distance Signless Laplacian of C-Graphs, Threshold Graphs, and Cographs",
   "creators": [
     {
       "name": "Gao, Henry"
     }
   ],
-  "description": "The second manuscript version extends the repaired multiplicity bound to all connected C-graphs. It identifies the unique smallest counterexample to the Mandal–Manna conjecture and reports exact computations on all 404 connected cographs of orders two through eight.",
+  "description": "This version studies weighted signless Laplacians on threshold graphs, constructs connected cographs with non-local distance signless Laplacian eigenvalue multiplicity at least one greater than arbitrarily large Dilworth numbers, and enumerates all 1,170 connected cographs of orders two through nine.",
   "license": "cc-by-4.0",
-  "version": "2.0.0"
+  "version": "3.0.0"
 }
