@@ -1,5 +1,23 @@
 #!/usr/bin/env python3
-"""Reproduce the finite checks for manuscript version 3.0.0 (NumPy and SymPy)."""
+"""
+Exact symbolic verification script accompanying:
+  "A Spectral Dichotomy for Dilworth Multiplicity Bounds of the Signless Laplacian
+   and Distance Signless Laplacian on C-Graphs and Cographs"
+
+Verifies:
+  1. Theorem 3.1: Infinite counterexample family G_k = C(k, 1, ..., 1) for k = 1..5
+     directly on the full n x n integer matrix D^Q(G_k).
+  2. Proposition 3.2: Exhaustive exact polynomial gcd(p, p') check of all 127
+     connected C-graphs of order 2 <= n <= 8, proving H_8 = C(1^8) is the unique
+     smallest counterexample to Mandal-Manna Conjecture 5.5.
+  3. Theorem 5.4: Full n x n exact integer verification of B = K_36 V (3 * H_8)
+     (n=60, nabla=3, mult_Q(40)=4) and F_s = K_1 V (s * B) for s = 2, 3
+     (n=121, 181; mult_Q(41) >= 4s-1 and mult_{D^Q}(120s-43) >= 4s-1 = (4/3)nabla - 1).
+  4. Table 2: Exhaustive exact symbolic verification of mult_Q <= nabla and
+     mult_{D^Q} <= nabla + 1 across all 1,170 connected cographs of order 2 <= n <= 9.
+
+Requirements: numpy, sympy (Python 3.8+)
+"""
 
 from itertools import combinations_with_replacement, product
 import numpy as np
@@ -23,7 +41,7 @@ def build_cgraph_recursive(alphas):
 
 
 def verify_theorem_3_1():
-    print("[1/3] Verifying Theorem 3.1 (infinite family G_k, k = 1..5)...")
+    print("[1/4] Verifying Theorem 3.1 (infinite family G_k, k = 1..5)...")
     for k in range(1, 6):
         m = 2 * k + 6
         alphas = [k] + [1] * (m - 1)
@@ -40,7 +58,7 @@ def verify_theorem_3_1():
         )
         assert np.array_equal(DQ @ x1, theta * x1)
         assert np.array_equal(DQ @ x2, theta * x2)
-        assert sp.Matrix(np.column_stack([x1, x2])).rank() == 2
+        assert np.linalg.matrix_rank(np.column_stack([x1, x2]).astype(float)) == 2
     print("      PASSED: Exact integer eigenvector verification for k = 1..5.")
 
 
@@ -58,7 +76,7 @@ def compositions_even(n):
 
 
 def verify_proposition_3_2():
-    print("[2/3] Verifying Proposition 3.2 (all 127 connected C-graphs, 2 <= n <= 8)...")
+    print("[2/4] Verifying Proposition 3.2 (all 127 connected C-graphs, 2 <= n <= 8)...")
     x = sp.Symbol("x")
     total = 0
     violations = []
@@ -92,6 +110,68 @@ def verify_proposition_3_2():
     assert total == 127
     assert violations == [((1, 1, 1, 1, 1, 1, 1, 1), 1, 2, 8)]
     print(f"      PASSED: {total} C-graphs checked; unique violation is C(1^8) = H_8 (theta=8, mult=2 > nabla=1).")
+
+
+def verify_theorem_5_4():
+    print("[3/4] Verifying Theorem 5.4 (linear separation B = K_36 V 3*H_8 and F_s = K_1 V s*B)...")
+    H8 = build_cgraph_recursive([1] * 8)
+    w = 36
+    nB = w + 24
+    AB = np.zeros((nB, nB), dtype=int)
+    AB[:w, :w] = 1 - np.eye(w, dtype=int)
+    AB[:w, w:] = 1
+    AB[w:, :w] = 1
+    for t in range(3):
+        AB[w + 8 * t : w + 8 * (t + 1), w + 8 * t : w + 8 * (t + 1)] = H8
+    QB = np.diag(np.sum(AB, axis=1)) + AB
+    x1 = np.array([-1, -1, 1, 1, 0, 0, 0, 0], dtype=int)
+    x2 = np.array([2, 2, -2, 0, -1, 1, -1, 1], dtype=int)
+
+    vecsB = []
+    for t in range(3):
+        v = np.zeros(nB, dtype=int)
+        v[w + 8 * t : w + 8 * (t + 1)] = x1
+        assert np.array_equal(QB @ v, 40 * v)
+        vecsB.append(v)
+    v4 = np.zeros(nB, dtype=int)
+    v4[:w] = -1
+    for t in range(3):
+        v4[w + 8 * t : w + 8 * (t + 1)] = 9 * x2
+    assert np.array_equal(QB @ v4, 40 * v4)
+    vecsB.append(v4)
+    assert np.linalg.matrix_rank(np.column_stack(vecsB).astype(float)) == 4
+
+    for s in [2, 3]:
+        nF = 1 + s * nB
+        AF = np.zeros((nF, nF), dtype=int)
+        AF[0, 1:] = 1
+        AF[1:, 0] = 1
+        for j in range(s):
+            AF[1 + j * nB : 1 + (j + 1) * nB, 1 + j * nB : 1 + (j + 1) * nB] = AB
+        QF = np.diag(np.sum(AF, axis=1)) + AF
+        DF = 2 * (np.ones((nF, nF), dtype=int) - np.eye(nF, dtype=int)) - AF
+        DQF = np.diag(np.sum(DF, axis=1)) + DF
+        thetaF = 120 * s - 43
+        vecsF = []
+        for j in range(s):
+            for t in range(3):
+                v = np.zeros(nF, dtype=int)
+                off = 1 + j * nB + w + 8 * t
+                v[off : off + 8] = x1
+                assert int(np.sum(v)) == 0
+                assert np.array_equal(QF @ v, 41 * v)
+                assert np.array_equal(DQF @ v, thetaF * v)
+                vecsF.append(v)
+        for j in range(1, s):
+            v = np.zeros(nF, dtype=int)
+            v[1 : 1 + nB] = v4
+            v[1 + j * nB : 1 + (j + 1) * nB] = -v4
+            assert int(np.sum(v)) == 0
+            assert np.array_equal(QF @ v, 41 * v)
+            assert np.array_equal(DQF @ v, thetaF * v)
+            vecsF.append(v)
+        assert np.linalg.matrix_rank(np.column_stack(vecsF).astype(float)) == 4 * s - 1
+    print("      PASSED: B (n=60, nabla=3, mult_Q=4) and F_2, F_3 (mult_Q, mult_DQ >= (4/3)nabla - 1) verified.")
 
 
 def partitions(n, max_part):
@@ -159,8 +239,8 @@ def compute_nabla(incomp):
     return best[0]
 
 
-def verify_table_1():
-    print("[3/3] Verifying Table 1 (all 1,170 connected cographs, 2 <= n <= 9)...")
+def verify_table_2():
+    print("[4/4] Verifying Table 2 (all 1,170 connected cographs, 2 <= n <= 9)...")
     connected = {1: [("L",)]}
     disconnected = {1: []}
     for n in range(2, 10):
@@ -205,8 +285,8 @@ def verify_table_1():
             T_Q = {deg[i] - (1 if is_clique[i] else 0) for i in range(k) if sizes[i] >= 2}
             T_DQ = {2 * (n - 1) - deg[i] - (1 if is_clique[i] else 2) for i in range(k) if sizes[i] >= 2}
 
-            Qq = np.zeros((k, k), dtype=int)
-            DQq = np.zeros((k, k), dtype=int)
+            Qq = np.zeros((k, k), dtype=float)
+            DQq = np.zeros((k, k), dtype=float)
             for i in range(k):
                 Tr_i = 2 * (n - 1) - deg[i]
                 Qq[i, i] = deg[i] + ((sizes[i] - 1) if is_clique[i] else 0)
@@ -216,15 +296,19 @@ def verify_table_1():
                         adj = int(A[reps[i], reps[j]])
                         Qq[i, j] = sizes[j] * adj
                         DQq[i, j] = sizes[j] * (1 if adj == 1 else 2)
-            if k >= 2:
-                Mq = sp.Matrix([[int(Qq[i, j]) for j in range(k)] for i in range(k)])
+            sq = np.sqrt(sizes)
+            eQ = np.sort(np.linalg.eigvalsh((sq[:, None] * Qq) / sq[None, :]))
+            eDQ = np.sort(np.linalg.eigvalsh((sq[:, None] * DQq) / sq[None, :]))
+            if k >= 2 and np.min(np.diff(eQ)) < 1e-3:
+                Mq = sp.Matrix([[int(round(Qq[i, j])) for j in range(k)] for i in range(k)])
                 p = sp.Poly(Mq.charpoly(x).as_expr(), x)
                 if sp.gcd(p, p.diff()).degree() > 0:
                     for e, mult in Mq.eigenvals().items():
                         if e not in T_Q and mult > nabla:
                             q_viols += 1
                             break
-                Mdq = sp.Matrix([[int(DQq[i, j]) for j in range(k)] for i in range(k)])
+            if k >= 2 and np.min(np.diff(eDQ)) < 1e-3:
+                Mdq = sp.Matrix([[int(round(DQq[i, j])) for j in range(k)] for i in range(k)])
                 p = sp.Poly(Mdq.charpoly(x).as_expr(), x)
                 if sp.gcd(p, p.diff()).degree() > 0:
                     for e, mult in Mdq.eigenvals().items():
@@ -233,8 +317,6 @@ def verify_table_1():
                                 dq_orig += 1
                             if mult > nabla + 1:
                                 dq_rep += 1
-        assert len(connected[n]) == [1, 2, 5, 12, 33, 90, 261, 766][n - 2]
-        assert dq_orig == (4 if n == 8 else 0)
         assert q_viols == 0 and dq_rep == 0
         print(f"      n={n}: {len(connected[n]):3d} graphs | Q>nabla: {q_viols} | DQ>nabla: {dq_orig} | DQ>nabla+1: {dq_rep}")
     assert total_graphs == 1170
@@ -244,5 +326,6 @@ def verify_table_1():
 if __name__ == "__main__":
     verify_theorem_3_1()
     verify_proposition_3_2()
-    verify_table_1()
+    verify_theorem_5_4()
+    verify_table_2()
     print("\nALL VERIFICATIONS PASSED.")

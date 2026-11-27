@@ -1,35 +1,32 @@
-# Dilworth multiplicity bounds for C-graphs, threshold graphs, and cographs
+# A Spectral Dichotomy for Dilworth Multiplicity Bounds of the Signless Laplacian and Distance Signless Laplacian on C-Graphs and Cographs
 
-**Henry Gao** · Third manuscript version · November 27, 2026
+**Henry Gao** · Final manuscript version · November 27, 2026
 
 [Read the paper (PDF)](paper.pdf) · [LaTeX source](paper.tex) · [Third version on Zenodo](https://doi.org/10.5281/zenodo.24574744) · [Second version on Zenodo](https://doi.org/10.5281/zenodo.24566746) · [First version on Zenodo](https://doi.org/10.5281/zenodo.24566434)
 
-How large can the multiplicity of a non-local eigenvalue be? For a connected $\mathcal C$-graph $G$ with Dilworth number $\nabla(G)$, Theorem 4.4 bounds this multiplicity by $\nabla(G)$ for the signless Laplacian $Q(G)$. A rank-one perturbation then gives the bound $\nabla(G)+1$ for the distance signless Laplacian $D^Q(G)$ (Theorem 4.5). An infinite family with Dilworth number one attains the latter bound.
-
-This version studies weighted signless Laplacians on threshold graphs, constructs connected cographs with non-local distance signless Laplacian eigenvalue multiplicity at least one greater than arbitrarily large Dilworth numbers, and enumerates all 1,170 connected cographs of orders two through nine. Theorem 5.3 supplies the large-width examples. Conjecture 5.4 states the proposed bounds for general connected cographs.
+The manuscript gives non-local eigenvalue multiplicity bounds for connected C-graphs and shows that the same bounds fail for general connected cographs. Theorem 5.3 gives linear upper bounds for cographs. Theorem 5.4 constructs a family in which the excess over the Dilworth number grows linearly. The first example has 60 vertices and Dilworth number three. Its signless Laplacian has a non-local eigenvalue of 40 with multiplicity four.
 
 ## Reproduce the computations
 
-Install NumPy and SymPy in a Python environment, then run the script with assertions enabled.
+Install NumPy and SymPy in a Python environment, then run the supplied script with assertions enabled.
 
 ```sh
 python -m pip install numpy sympy
 python verify_all.py
 ```
 
-The script checks the eigenvector identities in Theorem 3.1 for the first five parameter values, checks Proposition 3.2 on 127 C-graphs, and reproduces Table 1 with integer quotient matrices and exact characteristic polynomials.
+The script checks Theorem 3.1 for the first five parameter values, enumerates the 127 C-graphs in Proposition 3.2, and tests the base graph and the cases s = 2 and 3 of Theorem 5.4. It reproduces every row of Table 2 across 1,170 connected cographs. The eigenvector identities use integer arithmetic. The independence checks use numerical ranks, and Table 2 uses a floating-point filter before symbolic checks of candidate repeated eigenvalues.
 
 ## Citation
 
 ```bibtex
 @misc{gao2026dilworth,
   author  = {Gao, Henry},
-  title   = {Dilworth Multiplicity Bounds for the Signless Laplacian and Distance Signless Laplacian of {$\mathcal{C}$}-Graphs, Threshold Graphs, and Cographs},
+  title   = {A Spectral Dichotomy for Dilworth Multiplicity Bounds of the Signless Laplacian and Distance Signless Laplacian on {$\mathcal{C}$}-Graphs and Cographs},
   year    = {2026},
   month   = nov,
-  version = {3.0.0},
-  doi     = {10.5281/zenodo.24574744},
-  url     = {https://github.com/Henry-77777/mandal-manna-conjecture-5-5/releases/tag/v3.0.0}
+  version = {4.0.0},
+  url     = {https://github.com/Henry-77777/mandal-manna-conjecture-5-5/releases/tag/v4.0.0}
 }
 ```
 
